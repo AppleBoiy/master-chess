@@ -1,18 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
+
+    #region params
+
+    [SerializeField] private Color baseColor, offsetColor;
+    [SerializeField] private new SpriteRenderer renderer;
+    [SerializeField] private GameObject highlight;
+
+    private Vector2 _pos;
+
+
+    #endregion
+
+
+    public void Init(Vector2 pos, bool isOffset)
     {
-        
+        this._pos = pos;
+
+        renderer.color = isOffset? baseColor : offsetColor; 
+    }
+    
+
+    #region Mouse action
+
+    private void OnMouseEnter()
+    {
+        highlight.SetActive(true);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseExit()
     {
-        
+        highlight.SetActive(false);
+    }
+    
+    #endregion
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Mouse click at");
     }
 }
