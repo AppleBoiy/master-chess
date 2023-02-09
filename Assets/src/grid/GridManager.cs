@@ -14,6 +14,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private new Transform camera;
 
     private Dictionary<Vector2, Tile> _tiles;
+    
+    private Dictionary<string, Vector2> _whiteInitPos;
+    private Dictionary<string, Vector2> _blackInitPos;
 
     #endregion
 
@@ -25,17 +28,18 @@ public class GridManager : MonoBehaviour
     private void GenerateGrid()
     {
         _tiles = new Dictionary<Vector2, Tile>();
+        string rank = "ABCDEFGH";
         
-        for (var x = 0; x < width; x++)
+        for (var column = 0; column < width; column++)
         {
-            for (var y = 0; y < hight; y++)
+            for (var row = 0; row < hight; row++)
             {
-                var tile = Instantiate(tilePrefabs, new Vector3(x, y), identity);
-                tile.name = $"Tile {x} {y}";
-                var isOffset = (x % 2 == 0 && y % 2 != 0 ) || (x % 2 != 0 && y % 2 == 0);
-                Vector2 pos = new Vector2(x, y);
+                var tile = Instantiate(tilePrefabs, new Vector3(column, row), identity);
+                tile.name = $"{column + 1}{rank[row]}";
+                var isOffset = (column % 2 == 0 && row % 2 != 0 ) || (column % 2 != 0 && row % 2 == 0);
+                Vector2 pos = new Vector2(column, row);
                 
-                tile.Init(pos, isOffset);
+                tile.Init(isOffset);
 
                 _tiles[pos] = tile;
             }
@@ -52,5 +56,10 @@ public class GridManager : MonoBehaviour
     public Dictionary<Vector2, Tile> GetTiles()
     {
         return _tiles;
+    }
+
+    public Dictionary<string, Vector2>[] InitPosPieces()
+    {
+        return new[] { _whiteInitPos, _blackInitPos };
     }
 }

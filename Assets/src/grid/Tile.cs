@@ -8,15 +8,10 @@ public class Tile : MonoBehaviour
     [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private GameObject highlight;
 
-    private Vector2 _pos;
-
-
     #endregion
     
-    public void Init(Vector2 pos, bool isOffset)
+    public void Init(bool isOffset)
     {
-        _pos = pos;
-
         renderer.color = isOffset? baseColor : offsetColor; 
     }
 
