@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,9 +18,4 @@ public class BoardManager : MonoBehaviour
         _tiles = gridManager.GetTiles();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

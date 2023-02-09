@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IPointerClickHandler
+public class Tile : MonoBehaviour
 {
-
     #region params
 
     [SerializeField] private Color baseColor, offsetColor;
@@ -14,15 +12,13 @@ public class Tile : MonoBehaviour, IPointerClickHandler
 
 
     #endregion
-
-
+    
     public void Init(Vector2 pos, bool isOffset)
     {
-        this._pos = pos;
+        _pos = pos;
 
         renderer.color = isOffset? baseColor : offsetColor; 
     }
-    
 
     #region Mouse action
 
@@ -38,10 +34,5 @@ public class Tile : MonoBehaviour, IPointerClickHandler
     }
     
     #endregion
-
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Mouse click at");
-    }
+    
 }
