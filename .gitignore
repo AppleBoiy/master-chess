@@ -72,5 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Custom ignore files
-.DS_Store
+*.DS_Store
 *.idea
