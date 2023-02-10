@@ -86,81 +86,13 @@ Chess simulation. Click on the piece to move, and the location to move it to. If
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-### Pieces
-There are six different pieces:
-* Pawn
-* Bishop
-* Rook
-* Knight
-* Queen
-* King
-
-### Pawn
->The pawn may move one square forward, or two squares forward on its first action, given that it does not move over any other pieces. The pawn may capture by moving one square diagonally forward.
-
-### Bishop
-> The bishop may move or capture in any amount of squares diagonally, given that it does not move over any other pieces.
-
-### Rook
->The rook may move or capture in any amount of squares horizontally or vertically, given that it does not move over any other pieces.
-
-### Knight
->The knight may move one square vertically and two squares horizontally, or vice-versa. The knight may move over other pieces.
-
-### Queen
->The queen may move or capture in any amount of squares horizontally or vertically or diagonally, given that it does not move over any other pieces.
-
-### King
->The king may move to any square which is adjacent to it, given that it does not move into check.
-
-## Special Actions
->There are three special actions:
-* Pawn Promotion
-* Castling
-* En Passant
-
-### Pawn Promotion
->If a pawn reaches the other end of the board, the user may pick whether to promote it to a queen, rook, knight, or bishop.
-
-### Castling
->If the rook and king have not yet moved, and there are no pieces between them, the king may move two squares towards the rook, and the rook may move to the adjacent square in which the king moved from, given that the king was not in check, will not move into check, and the path between where the king moved from and is moving to do not have any squares which are in check.
-
-### En Passant
->Immediately after a pawn moves two squares, a pawn may capture it as if it had only moved one square.
-
-## Special States
-There are three special states:
-* Check
-* Checkmate
-* Draw
-
-### Check
->The king is said to be in check when the next move by the opponent would capture it.
-
-### Checkmate
->A checkmate occurs when the king is in check, and any action taken results in the king still being in check.
-
-### Draw
-There are four ways for a draw to occur:
-1. Stalemate: occurs when the king is not in check, but any action taken results in the king being in check.
-2. 50 move rule: 50 moves from both white and black occur without any pawns moving or any pieces being captured.
-3. Threefold repetition: the same board repeats three times in a row, meaning the pieces are on the same squares, and the castling and en passant opportunities are the same.
-4. Insufficient mating material: not enough pieces to cause a checkmate, which can occur from a lone king against lone king, or king and knight, or king and bishop, or king and two knights
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Unity][Unity]][Unity-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -264,19 +196,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com
+[Unity]: https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white
+[Unity-url]: https://unity.com/
