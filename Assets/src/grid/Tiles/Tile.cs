@@ -10,20 +10,27 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject highlight;
 
     private string _type;
+    private Vector2 _pos;
     
     #endregion
     
-    public void Init(bool isOffset, string type)
+    public void Init(bool isOffset, string type, Vector2 pos)
     {
         renderer.color = isOffset? baseColor : offsetColor;
         _type = type;
+        _pos = pos;
     }
 
     public string TileType()
     {
         return _type;
     }
-    
+
+    public Vector2 GetPos()
+    {
+        return _pos;
+    }
+
     #region Mouse action
 
     private void OnMouseEnter()

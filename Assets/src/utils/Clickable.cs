@@ -5,10 +5,15 @@ public class Clickable : MonoBehaviour
     
     [SerializeField] private Tile self;
     
+    
+    
     private void OnMouseDown()
     {
-        Debug.Log(name);
-        
-        Debug.Log(self.TileType());
+        if (self.TileType() == "HOLE") 
+            Debug.Log($"<color=red>{self.TileType()}</color> at pos <color=yellow>{self.GetPos()}</color>");
+        else
+            Debug.Log($"<color=green>{self.TileType()}</color> at pos <color=yellow>{self.GetPos()}</color>");
     }
+    
+    
 }

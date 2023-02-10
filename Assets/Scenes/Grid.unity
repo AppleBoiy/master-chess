@@ -362,7 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 61013919}
   boardManager: {fileID: 2139907114}
-  piecesHandler: {fileID: 0}
+  piecesHandler: {fileID: 609225665}
 --- !u!1 &1409232113
 GameObject:
   m_ObjectHideFlags: 0

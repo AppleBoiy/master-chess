@@ -33,13 +33,13 @@ public class GridManager : MonoBehaviour
                 var randomPath = Random.Range(0, 6) == 3? hole : path ;
                 
                 var tile = Instantiate(randomPath, new Vector3(column, row), identity);
-                tile.name = $"({column}, {row})";
-                string tileType =  (randomPath == hole)? "hole" : "path";
+                tile.name = $"Tile at ({column}, {row})";
+                string tileType =  (randomPath == hole)? "HOLE" : "PATH";
 
                 var isOffset = (column % 2 == 0 && row % 2 != 0 ) || (column % 2 != 0 && row % 2 == 0);
                 Vector2 pos = new Vector2(column, row);
                 
-                tile.Init(isOffset, tileType);
+                tile.Init(isOffset, tileType, pos);
 
                 _tiles[pos] = tile;
             }
