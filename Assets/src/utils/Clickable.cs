@@ -9,10 +9,9 @@ public class Clickable : MonoBehaviour
     
     private void OnMouseDown()
     {
-        if (self.TileType() == "HOLE") 
-            Debug.Log($"<color=red>{self.TileType()}</color> at pos <color=yellow>{self.GetPos()}</color>");
-        else
-            Debug.Log($"<color=green>{self.TileType()}</color> at pos <color=yellow>{self.GetPos()}</color>");
+        Debug.Log(self.TileType() == "HOLE"
+            ? $"<color=red>{self.TileType()}</color> at pos <color=yellow>{self.GetPos()}</color>"
+            : $"<color=green>{self.TileType()}</color> at pos <color=yellow>{self.GetPos()}</color>");
     }
     
     

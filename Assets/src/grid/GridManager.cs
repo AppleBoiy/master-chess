@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
     
     [SerializeField] private int width, hight;
     [SerializeField] private new Transform camera;
-
+    [SerializeField] private GameObject parentTiles;
     [SerializeField] private Tile path, hole;
     
     private Dictionary<Vector2, Tile> _tiles;
@@ -33,6 +33,10 @@ public class GridManager : MonoBehaviour
                 var randomPath = Random.Range(0, 6) == 3? hole : path ;
                 
                 var tile = Instantiate(randomPath, new Vector3(column, row), identity);
+                
+                //set parent of tile
+                tile.transform.parent = parentTiles.transform;
+                
                 tile.name = $"Tile at ({column}, {row})";
                 string tileType =  (randomPath == hole)? "HOLE" : "PATH";
 
