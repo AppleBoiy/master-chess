@@ -7,11 +7,20 @@ public class GridManager : MonoBehaviour
 {
 
     #region params
-    
-    [SerializeField] private int width, hight;
+
+    [Header("Initial game setting")] 
+    [SerializeField] private int width;
+    [SerializeField] private int hight;
     [SerializeField] private new Transform camera;
+    
+    [Space(3)]
+    [Header("Game object parents")]
     [SerializeField] private GameObject parentTiles;
-    [SerializeField] private Tile path, hole;
+
+    [Space(3)] 
+    [Header("Path types")] 
+    [SerializeField] private Tile path;
+    [SerializeField] private Tile hole;
     
     private Dictionary<Vector2, Tile> _tiles;
 
