@@ -30,12 +30,6 @@ public class PiecesHandler : MonoBehaviour
     void Start()
     {
         
-        _whiteInitPos = gridManager.InitPosPieces()[0];
-        _blackInitPos = gridManager.InitPosPieces()[1];
-
-        _piecesArray = new []{ pawn1 };
-        
-        InitPieces();
     }
 
     // Update is called once per frame

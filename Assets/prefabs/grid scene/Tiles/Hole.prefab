@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5439601430630050197
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -311162087541249534, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: self
+      value: 
+      objectReference: {fileID: 7310886252725755340}
+    - target: {fileID: 1435537672305708852, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_Name
+      value: Hole
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+--- !u!1 &5665892250132781146 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 422232622029386191, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+  m_PrefabInstance: {fileID: 5439601430630050197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6381975907892995745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1435537672305708852, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+  m_PrefabInstance: {fileID: 5439601430630050197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7310886252725755340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6381975907892995745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62ed4d1c22b84bed8dada9ec9597c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseColor: {r: 0.4056604, g: 0.2238786, b: 0.2238786, a: 1}
+  offsetColor: {r: 0.6698113, g: 0.31278923, b: 0.31278923, a: 1}
+  renderer: {fileID: 6381975907892995758}
+  highlight: {fileID: 5665892250132781146}
+--- !u!212 &6381975907892995758 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1435537672305708859, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+  m_PrefabInstance: {fileID: 5439601430630050197}
+  m_PrefabAsset: {fileID: 0}

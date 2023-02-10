@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -8,13 +9,21 @@ public class Tile : MonoBehaviour
     [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private GameObject highlight;
 
+    private string _type;
+    
     #endregion
     
-    public void Init(bool isOffset)
+    public void Init(bool isOffset, string type)
     {
-        renderer.color = isOffset? baseColor : offsetColor; 
+        renderer.color = isOffset? baseColor : offsetColor;
+        _type = type;
     }
 
+    public string TileType()
+    {
+        return _type;
+    }
+    
     #region Mouse action
 
     private void OnMouseEnter()
