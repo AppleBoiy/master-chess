@@ -103,7 +103,7 @@ Chess simulation. Click on the piece to move, and the location to move it to. If
 
 ### Prerequisites
 
-* The Java version for this project is Java 19, which can be downloaded [here](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html)
+* This project develop on `Unity` which can be downloaded [here](https://unity.com/download)
 
 
 ### Installation
