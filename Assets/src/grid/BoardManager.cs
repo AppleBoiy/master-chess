@@ -17,5 +17,4 @@ public class BoardManager : MonoBehaviour
     {
         _tiles = gridManager.GetTiles();
     }
-
 }
