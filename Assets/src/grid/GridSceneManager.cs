@@ -1,15 +1,14 @@
 
+using UnityEngine;
+
 public class GridSceneManager : GameManager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region params
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Initialize field")]
+    [SerializeField] private GridManager gridManager;
+    [SerializeField] private BoardManager boardManager;
+    [SerializeField] private PiecesHandler piecesHandler;
+
+    #endregion
 }
