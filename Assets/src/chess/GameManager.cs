@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static event Action<GameState> OnGameStateChanged;
 
     private int _round = 0;
+    private GameState _turn;
 
     #endregion
 
@@ -32,6 +33,8 @@ public class GameManager : MonoBehaviour
     {
         state = newState;
 
+        if (_round > 5) return;
+
         switch (state)
         {
             case GameState.SelectColor:
@@ -40,7 +43,6 @@ public class GameManager : MonoBehaviour
                 
             case GameState.WhitePlayerTurn:
                 HandleWhitePlayerTurn();
-                UpdateGameState(GameState.CalculatePieces);
                 break;
             
             case GameState.BlackPlayerTurn:
@@ -49,7 +51,6 @@ public class GameManager : MonoBehaviour
             
             case GameState.CalculatePieces:
                 HandleCalculatePieces();
-                UpdateGameState(GameState.CalculatePieces);
                 break;
             
             case GameState.Victory:
@@ -68,39 +69,47 @@ public class GameManager : MonoBehaviour
 
     private void HandleCalculatePieces()
     {
-        if (_round >= 5)
-            return;
-            
+        if (_round <= 5) return;
+        UpdateGameState(GameState.Victory);
         Debug.Log("There is no pieces left");
-        UpdateGameState(GameState.WhitePlayerTurn);
     }
 
     private async void HandleBackPlayerTurn()
     {
-        Debug.Log("Black Player turn!");
+        Debug.Log("<color=black>Black</color> Player turn!");
         await Task.Delay(2000);
 
-        _round += 1;
-        
-        PiecesHandler.Instance.CurrentPlayer(GameState.BlackPlayerTurn);
-        
-        UpdateGameState(GameState.WhitePlayerTurn);
+        _round++;
+
     }
 
     private async void HandleWhitePlayerTurn()
     {
-        Debug.Log("White Player turn!");
+        Debug.Log("<color=white>White</color> Player turn!");
         await Task.Delay(2000);
 
-        _round += 1;
-        
-        PiecesHandler.Instance.CurrentPlayer(GameState.WhitePlayerTurn);
-        UpdateGameState(GameState.BlackPlayerTurn);
+        _round++;
+
     }
 
     private void HandleSelectColor()
     {
-        UpdateGameState(GameState.WhitePlayerTurn);
+        _turn = GameState.WhitePlayerTurn;
+
+    }
+
+    public void ChangeTurn()
+    {
+        _turn = SwitchTurn();
+        
+        UpdateGameState(_turn);
+    }
+
+    private GameState SwitchTurn()
+    {
+        return _turn == GameState.BlackPlayerTurn
+            ? GameState.WhitePlayerTurn
+            : GameState.BlackPlayerTurn;
     }
     
 }

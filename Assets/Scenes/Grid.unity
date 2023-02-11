@@ -284,6 +284,7 @@ MonoBehaviour:
   colorSelectPanel: {fileID: 0}
   testButton: {fileID: 1883760062}
   stateText: {fileID: 0}
+  GameManager: {fileID: 1301395948}
 --- !u!1 &440616394
 GameObject:
   m_ObjectHideFlags: 0
