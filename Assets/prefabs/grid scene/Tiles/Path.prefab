@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689d6416a493246128c44719a0fb2d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 0.32753295, g: 0.6792453, b: 0.1954432, a: 1}
-  offsetColor: {r: 0.9150943, g: 0.8839972, b: 0.19424175, a: 1}
+  baseColor: {r: 0.4108223, g: 0.754717, b: 0.28123888, a: 1}
+  offsetColor: {r: 0.47617683, g: 0.9137255, b: 0.19607843, a: 1}
   renderer: {fileID: 7961327605053759326}
   highlight: {fileID: 8668390225080230314}
 --- !u!212 &7961327605053759326 stripped
