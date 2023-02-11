@@ -14,22 +14,23 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button testButton;
     [SerializeField] private TextMeshPro stateText;
 
+    [SerializeField] private GameManager GameManager;
     #endregion
 
     void Start()
     {
     }
     
-    private void Awake()
-    {
-        GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
-    }
-
-    
-    private void OnDestroy()
-    {
-        GameManager.OnGameStateChanged -= GameManagerOnOnGameStateChanged;
-    }
+    // private void Awake()
+    // {
+    //     GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
+    // }
+    //
+    //
+    // private void OnDestroy()
+    // {
+    //     GameManager.OnGameStateChanged -= GameManagerOnOnGameStateChanged;
+    // }
 
     public void GameManagerOnOnGameStateChanged(GameState state)
     {
@@ -41,11 +42,11 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log ("Change turn!!");
         
-        GameManager.Instance.UpdateGameState(GameState.BlackPlayerTurn);
-        
         testButton.interactable = false;
 
         await Task.Delay(2000);
+        
+        GameManager.ChangeTurn();
 
         testButton.interactable = true;
     }
