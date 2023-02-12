@@ -37,7 +37,7 @@ public class GridSceneManager : MonoBehaviour
 
     #endregion
     
-    private void UpdateGameState(GridState newState)
+    public void UpdateGameState(GridState newState)
     {
         stateText.text = newState.ToString();
 
@@ -49,6 +49,8 @@ public class GridSceneManager : MonoBehaviour
                 break;
             
             case GridState.SpawnWhitePieces:
+                Debug.Log("Spawn White Pieces");
+                PieceManager.Instance.SpawnWhitePiece();
                 break;
             
             case GridState.SpawnBlackPieces:
@@ -77,6 +79,7 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
+    
     private Task<GridState> CalculatePieces()
     {
         if (_round <= 5) return Task.FromResult(_turn);

@@ -82,6 +82,8 @@ MonoBehaviour:
   offsetColor: {r: 0.47617683, g: 0.9137255, b: 0.19607843, a: 1}
   renderer: {fileID: 7961327605053759326}
   highlight: {fileID: 8668390225080230314}
+  isWalkable: 1
+  OccupiedPiece: {fileID: 0}
 --- !u!212 &7961327605053759326 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1435537672305708859, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}

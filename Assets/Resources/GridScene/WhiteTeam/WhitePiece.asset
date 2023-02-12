@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43f967f8546243c0b01cd5439f4df55, type: 3}
   m_Name: WhitePiece
   m_EditorClassIdentifier: 
-  Faction: 0
+  faction: 0
+  piecePrefab: {fileID: 1337500938135139304, guid: 260bbcb30025f48549d4b32e10c8f909, type: 3}

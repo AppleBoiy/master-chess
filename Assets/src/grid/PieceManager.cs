@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PieceManager : MonoBehaviour
 {
 
     #region params
+
+    [Header("Player unit")]
+    [SerializeField] private int whiteTeamPieces;
+    [SerializeField] private int blackTeamPieces;
 
     public static PieceManager Instance;
 
@@ -28,4 +33,28 @@ public class PieceManager : MonoBehaviour
         }
     }
 
+    public void SpawnWhitePiece()
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            var randomPrefab = GetRandomUnit<Piece>(Faction.White);
+            var spawnWhiteTeam = Instantiate(randomPrefab);
+            var randomSpawnTile = GridManager.Instance.GetWhiteTeamSpawnTile();
+
+            randomSpawnTile.SetPiece(spawnWhiteTeam);
+            
+        }
+    }
+
+    private T GetRandomUnit<T>(Faction faction) where T : Piece
+    {
+        return (T) _pieces.Where(
+            u => u.faction == faction
+            )
+            .OrderBy(
+                o => Random.value
+                )
+            .First()
+            .piecePrefab;
+    }
 }
