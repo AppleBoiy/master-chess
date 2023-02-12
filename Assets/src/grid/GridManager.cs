@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 using static Unity.Mathematics.quaternion;
+using Random = UnityEngine.Random;
 
 public class GridManager : MonoBehaviour
 {
@@ -24,14 +26,17 @@ public class GridManager : MonoBehaviour
     
     private Dictionary<Vector2, Tile> _tiles;
 
+    public static GridManager Instance;
+    
     #endregion
 
-    private void Start()
+    private void Awake()
     {
-        GenerateGrid();
+        Instance = this;
     }
+    
 
-    private void GenerateGrid()
+    public void GenerateGrid()
     {
         _tiles = new Dictionary<Vector2, Tile>();
 
