@@ -22,6 +22,8 @@ public class GridSceneManager : MonoBehaviour
     
     #endregion
 
+    #region events
+
     private void Awake()
     {
         Instance = this;
@@ -33,6 +35,8 @@ public class GridSceneManager : MonoBehaviour
         UpdateGameState(GridState.GenerateGrid);
     }
 
+    #endregion
+    
     private void UpdateGameState(GridState newState)
     {
         stateText.text = newState.ToString();
@@ -73,14 +77,15 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
-    private async Task<GridState> CalculatePieces()
+    private Task<GridState> CalculatePieces()
     {
-        await Task.Delay(2000);
-        if (_round <= 5) return _turn;
+        if (_round <= 5) return Task.FromResult(_turn);
         
         Debug.Log("There is no pieces left");
-        return GridState.Exit;
+        return Task.FromResult(GridState.Exit);
     }
+
+    #region state Handler
 
     private async void HandleBackPlayerTurn()
     {
@@ -110,6 +115,9 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
+    #endregion
+    
+    #region change state
     public async void ChangeTurn()
     {
         _turn = await SwitchTurn();
@@ -129,7 +137,8 @@ public class GridSceneManager : MonoBehaviour
             ? GridState.WhitePlayerTurn
             : GridState.BlackPlayerTurn;
     }
-    
+    #endregion
+
 }
 
 public enum GridState
