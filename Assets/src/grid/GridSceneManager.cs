@@ -19,7 +19,7 @@ public class GridSceneManager : MonoBehaviour
 
     private int _round = 0;
     private GridState _turn;
-
+    
     #endregion
 
     private void Awake()
@@ -35,18 +35,21 @@ public class GridSceneManager : MonoBehaviour
 
     private void UpdateGameState(GridState newState)
     {
-
         stateText.text = newState.ToString();
-        
+
         switch (newState)
         {
             case GridState.GenerateGrid:
+                Debug.Log("Generate grid");
                 GridManager.Instance.GenerateGrid();
                 break;
+            
             case GridState.SpawnWhitePieces:
                 break;
+            
             case GridState.SpawnBlackPieces:
                 break;
+            
             case GridState.WhitePlayerTurn:
                 HandleWhitePlayerTurn();
                 break;
@@ -70,12 +73,13 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
-    private bool CalculatePieces()
+    private async Task<GridState> CalculatePieces()
     {
-        if (_round <= 5) return true;
-        UpdateGameState(GridState.Exit);
+        await Task.Delay(2000);
+        if (_round <= 5) return _turn;
+        
         Debug.Log("There is no pieces left");
-        return false;
+        return GridState.Exit;
     }
 
     private async void HandleBackPlayerTurn()
@@ -106,19 +110,21 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
-    public void ChangeTurn()
+    public async void ChangeTurn()
     {
-        if (!CalculatePieces())
-        {
+        _turn = await SwitchTurn();
+        if (_turn == GridState.Exit)
             return;
-        }
-        
-        _turn = SwitchTurn();
         UpdateGameState(_turn);
     }
 
-    private GridState SwitchTurn()
+    private async Task<GridState> SwitchTurn()
     {
+        Task<GridState> task = CalculatePieces();
+        _turn = await task;
+        if (_turn == GridState.Exit)
+            return GridState.Exit;
+        
         return _turn == GridState.BlackPlayerTurn
             ? GridState.WhitePlayerTurn
             : GridState.BlackPlayerTurn;
