@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ff018236aae4e4ebee625c409dfb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 16
+  width: 8
   hight: 8
   camera: {fileID: 1901018213}
   parentTiles: {fileID: 1174784905}
@@ -610,12 +610,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 609225663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22842e214f3e84bf19498e554f3162ca, type: 3}
+  m_Script: {fileID: 11500000, guid: c724c7e8ca1da4363b20459e9d18f202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieces: []
-  whitePlayer: {fileID: 0}
-  blackPlayer: {fileID: 0}
 --- !u!1 &659465326
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateText: {fileID: 340210812}
-  round: {fileID: 0}
+  round: {fileID: 2026865047}
   state: 0
 --- !u!1 &1409232113
 GameObject:
@@ -1081,8 +1078,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 361.5161, y: 228.88055}
-  m_SizeDelta: {x: 261.0321, y: 78.2388}
+  m_AnchoredPosition: {x: 387.19, y: 234.81}
+  m_SizeDelta: {x: 243.6231, y: 66.387}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1766573382
 GameObject:

@@ -19,8 +19,10 @@ public class GridSceneManager : MonoBehaviour
 
     private int _round = 0;
     private GridState _turn;
-
+    
     #endregion
+
+    #region events
 
     private void Awake()
     {
@@ -33,20 +35,25 @@ public class GridSceneManager : MonoBehaviour
         UpdateGameState(GridState.GenerateGrid);
     }
 
+    #endregion
+    
     private void UpdateGameState(GridState newState)
     {
-
         stateText.text = newState.ToString();
-        
+
         switch (newState)
         {
             case GridState.GenerateGrid:
+                Debug.Log("Generate grid");
                 GridManager.Instance.GenerateGrid();
                 break;
+            
             case GridState.SpawnWhitePieces:
                 break;
+            
             case GridState.SpawnBlackPieces:
                 break;
+            
             case GridState.WhitePlayerTurn:
                 HandleWhitePlayerTurn();
                 break;
@@ -70,13 +77,15 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
-    private bool CalculatePieces()
+    private Task<GridState> CalculatePieces()
     {
-        if (_round <= 5) return true;
-        UpdateGameState(GridState.Exit);
+        if (_round <= 5) return Task.FromResult(_turn);
+        
         Debug.Log("There is no pieces left");
-        return false;
+        return Task.FromResult(GridState.Exit);
     }
+
+    #region state Handler
 
     private async void HandleBackPlayerTurn()
     {
@@ -106,24 +115,30 @@ public class GridSceneManager : MonoBehaviour
 
     }
 
-    public void ChangeTurn()
+    #endregion
+    
+    #region change state
+    public async void ChangeTurn()
     {
-        if (!CalculatePieces())
-        {
+        _turn = await SwitchTurn();
+        if (_turn == GridState.Exit)
             return;
-        }
-        
-        _turn = SwitchTurn();
         UpdateGameState(_turn);
     }
 
-    private GridState SwitchTurn()
+    private async Task<GridState> SwitchTurn()
     {
+        Task<GridState> task = CalculatePieces();
+        _turn = await task;
+        if (_turn == GridState.Exit)
+            return GridState.Exit;
+        
         return _turn == GridState.BlackPlayerTurn
             ? GridState.WhitePlayerTurn
             : GridState.BlackPlayerTurn;
     }
-    
+    #endregion
+
 }
 
 public enum GridState
