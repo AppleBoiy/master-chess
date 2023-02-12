@@ -5,12 +5,20 @@ public class Tile : MonoBehaviour
 {
     #region params
 
+    [Header("Tile Uniqe")]
     [SerializeField] private Color baseColor, offsetColor;
     [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private GameObject highlight;
 
+    [Space(3)] 
+    [Header("Tile attribute")] 
+    [SerializeField] private bool isWalkable;
+    
     private string _type;
     private Vector2 _pos;
+
+    public Piece OccupiedPiece;
+    public bool Walkable => isWalkable && !OccupiedPiece;
     
     #endregion
     
@@ -21,6 +29,7 @@ public class Tile : MonoBehaviour
         _pos = pos;
     }
 
+    #region Getter
     public string TileType()
     {
         return _type;
@@ -30,7 +39,8 @@ public class Tile : MonoBehaviour
     {
         return _pos;
     }
-
+    #endregion
+    
     #region Mouse action
 
     private void OnMouseEnter()
@@ -45,5 +55,17 @@ public class Tile : MonoBehaviour
     }
     
     #endregion
+
+    public void SetPiece(Piece piece)
+    {
+        if (piece.OccupiedTile)
+        {
+            piece.OccupiedTile.OccupiedPiece = null;
+        }
+        
+        piece.transform.position = transform.position;
+        OccupiedPiece = piece;
+        piece.OccupiedTile = this;
+    }
     
 }

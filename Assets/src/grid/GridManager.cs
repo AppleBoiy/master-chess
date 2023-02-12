@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 using static Unity.Mathematics.quaternion;
@@ -64,8 +65,30 @@ public class GridManager : MonoBehaviour
         }
 
         camera.transform.position = new Vector3((float)width / 2 - 0.5f,(float)hight/2 - 0.5f, -10 );
+        
+        GridSceneManager.Instance.UpdateGameState(GridState.SpawnWhitePieces);
     }
 
+    public Tile GetWhiteTeamSpawnTile() 
+    {
+        return _tiles.Where(t 
+                => t.Key.x < (float) width / 2
+                && t.Value.Walkable
+            ).OrderBy(t
+                => Random.value
+            ).First().Value;
+    }
+    
+    public Tile GetBlackTeamSpawnTile() 
+    {
+        return _tiles.Where(t 
+            => t.Key.x > (float) width / 2
+               && t.Value.Walkable
+        ).OrderBy(t
+            => Random.value
+        ).First().Value;
+    }
+    
     public Tile GetTileAtPosition(Vector2 pos)
     {
         return _tiles.TryGetValue(pos, out var tile) ? tile : null;
