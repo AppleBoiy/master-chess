@@ -11,10 +11,11 @@ public class MenuManager : MonoBehaviour
     [Header("Menu Manager")] 
     [SerializeField] private GameObject colorSelectPanel;
     
-    [SerializeField] private Button testButton;
+    [SerializeField] public Button testButton;
     [SerializeField] private TextMeshPro stateText;
 
-    [SerializeField] private GameManager GameManager;
+    [SerializeField] public GameManager GameManager;
+    
     #endregion
 
     void Start()
@@ -43,11 +44,11 @@ public class MenuManager : MonoBehaviour
         Debug.Log ("Change turn!!");
         
         testButton.interactable = false;
-
+    
         await Task.Delay(2000);
         
         GameManager.ChangeTurn();
-
+    
         testButton.interactable = true;
     }
 
