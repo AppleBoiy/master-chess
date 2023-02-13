@@ -14,6 +14,10 @@ public class PieceManager : MonoBehaviour
     [SerializeField] private int whiteTeamPieces;
     [SerializeField] private int blackTeamPieces;
 
+    [Space(3)] 
+    [Header("Piece container")] 
+    [SerializeField] private GameObject whiteParentPrefabs;
+    
     public static PieceManager Instance;
 
     private List<ScriptablePiece> _pieces;
@@ -35,10 +39,10 @@ public class PieceManager : MonoBehaviour
 
     public void SpawnWhitePiece()
     {
-        for (int i = 0; i < 1; i++)
+        for (var i = 0; i < whiteTeamPieces; i++)
         {
             var randomPrefab = GetRandomUnit<Piece>(Faction.White);
-            var spawnWhiteTeam = Instantiate(randomPrefab);
+            var spawnWhiteTeam = Instantiate(randomPrefab, whiteParentPrefabs.transform, true);
             var randomSpawnTile = GridManager.Instance.GetWhiteTeamSpawnTile();
 
             randomSpawnTile.SetPiece(spawnWhiteTeam);
