@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -10,47 +11,35 @@ public class MenuManager : MonoBehaviour
 
     [Header("Menu Manager")] 
     [SerializeField] private GameObject colorSelectPanel;
-    
     [SerializeField] public Button testButton;
-    [SerializeField] private TextMeshPro stateText;
 
-    [SerializeField] public GameManager GameManager;
+    [Space(3)] 
+    [Header("Panel")] 
+    [SerializeField] private GameObject selectedPiece;
     
+    public static MenuManager Instance;
+
     #endregion
 
-    void Start()
-    {
-    }
-    
-    // private void Awake()
-    // {
-    //     GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
-    // }
-    //
-    //
-    // private void OnDestroy()
-    // {
-    //     GameManager.OnGameStateChanged -= GameManagerOnOnGameStateChanged;
-    // }
 
-    public void GameManagerOnOnGameStateChanged(GameState state)
+    private void Awake()
     {
-        colorSelectPanel.SetActive(state == GameState.SelectColor);
+        Instance = this;
     }
-    
 
-    public async void ChangeTurn()
+
+    public void ShowSelectedPiece(Piece piece)
     {
-        Debug.Log ("Change turn!!");
-        
-        testButton.interactable = false;
-    
-        await Task.Delay(2000);
-        
-        GameManager.ChangeTurn();
-    
-        testButton.interactable = true;
+        if (piece == null)
+        {
+            selectedPiece.SetActive(false);
+            return;
+        }
+
+        selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.Roll ;
+        selectedPiece.SetActive(true);
     }
+
 
     
 }

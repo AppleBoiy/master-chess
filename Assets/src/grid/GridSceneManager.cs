@@ -13,7 +13,7 @@ public class GridSceneManager : MonoBehaviour
     [SerializeField] private TMP_Text round;
     
     public static GridSceneManager Instance;
-    public GridState state;
+    public GridState State;
 
     public static event Action<GridState> OnGameStateChanged;
 
@@ -40,6 +40,7 @@ public class GridSceneManager : MonoBehaviour
     public void UpdateGameState(GridState newState)
     {
         stateText.text = newState.ToString();
+        State = newState;
 
         switch (newState)
         {
@@ -50,10 +51,12 @@ public class GridSceneManager : MonoBehaviour
             
             case GridState.SpawnWhitePieces:
                 Debug.Log("Spawn White Pieces");
-                PieceManager.Instance.SpawnWhitePiece();
+                PieceManager.Instance.SpawnWhitePieces();
                 break;
             
             case GridState.SpawnBlackPieces:
+                Debug.Log("Spawn Black Pieces");
+                PieceManager.Instance.SpawnBlackPieces();
                 break;
             
             case GridState.WhitePlayerTurn:

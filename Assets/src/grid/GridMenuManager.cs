@@ -6,28 +6,13 @@ using UnityEngine;
 
 public class GridMenuManager : MenuManager
 {
-    
-    [SerializeField] private GridSceneManager gridManager;
-
-    public static GridMenuManager Instance;
+    public new static GridMenuManager Instance;
 
     private void Awake()
     {
         Instance = this;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public new async void ChangeTurn()
+    public async void ChangeTurn()
     {
         Debug.Log ("Change turn!! in GrindMenuManager");
         

@@ -24,6 +24,9 @@ public class GridManager : MonoBehaviour
     [Header("Path types")] 
     [SerializeField] private Tile path;
     [SerializeField] private Tile hole;
+
+    [SerializeField] private int pathFaction;
+    [SerializeField] private int holeFaction;
     
     private Dictionary<Vector2, Tile> _tiles;
 
@@ -45,7 +48,7 @@ public class GridManager : MonoBehaviour
         {
             for (var row = 0; row < hight; row++)
             {
-                var randomPath = Random.Range(0, 6) == 3? hole : path ;
+                var randomPath = Random.Range(0, pathFaction + holeFaction) < holeFaction? hole : path ;
                 
                 var tile = Instantiate(randomPath, new Vector3(column, row), identity);
                 

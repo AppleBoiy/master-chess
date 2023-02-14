@@ -17,10 +17,12 @@ public class PieceManager : MonoBehaviour
     [Space(3)] 
     [Header("Piece container")] 
     [SerializeField] private GameObject whiteParentPrefabs;
+    [SerializeField] private GameObject blackParentPrefabs;
     
     public static PieceManager Instance;
 
     private List<ScriptablePiece> _pieces;
+    public Piece SelectedPiece;
     
     #endregion
 
@@ -37,18 +39,48 @@ public class PieceManager : MonoBehaviour
         }
     }
 
-    public void SpawnWhitePiece()
+    #region Spawn Pieces
+
+    public void SpawnWhitePieces()
     {
         for (var i = 0; i < whiteTeamPieces; i++)
         {
-            var randomPrefab = GetRandomUnit<Piece>(Faction.White);
+            var randomPrefab = GetRandomUnit<WhitePieces>(Faction.White);
             var spawnWhiteTeam = Instantiate(randomPrefab, whiteParentPrefabs.transform, true);
             var randomSpawnTile = GridManager.Instance.GetWhiteTeamSpawnTile();
 
+            spawnWhiteTeam.pos = randomSpawnTile.GetPos();
+            
             randomSpawnTile.SetPiece(spawnWhiteTeam);
             
+            Debug.Log($"<color=white>White</color> at {spawnWhiteTeam.pos}");
+            
         }
+        
+        GridSceneManager.Instance.UpdateGameState(GridState.SpawnBlackPieces);
     }
+    
+    public void SpawnBlackPieces()
+    {
+        for (var i = 0; i < blackTeamPieces; i++)
+        {
+            var randomPrefab = GetRandomUnit<BlackPieces>(Faction.Black);
+            var spawnBlackTeam = Instantiate(randomPrefab, blackParentPrefabs.transform, true);
+            var randomSpawnTile = GridManager.Instance.GetBlackTeamSpawnTile();
+
+            spawnBlackTeam.pos = randomSpawnTile.GetPos();
+            
+            randomSpawnTile.SetPiece(spawnBlackTeam);
+            
+            Debug.Log($"<color=black>Black</color> at {spawnBlackTeam.pos}");
+        }
+        
+        GridSceneManager.Instance.UpdateGameState(GridState.WhitePlayerTurn);
+    }
+
+    #endregion
+    
+    
 
     private T GetRandomUnit<T>(Faction faction) where T : Piece
     {
@@ -60,5 +92,12 @@ public class PieceManager : MonoBehaviour
                 )
             .First()
             .piecePrefab;
+    }
+
+    public void SetSelectedPiece(Piece piece)
+    {
+        SelectedPiece = piece;
+        
+        MenuManager.Instance.ShowSelectedPiece(piece);
     }
 }

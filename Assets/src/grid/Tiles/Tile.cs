@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
 
     [Header("Tile Uniqe")]
     [SerializeField] private Color baseColor, offsetColor;
-    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private GameObject highlight;
 
     [Space(3)] 
@@ -53,7 +53,41 @@ public class Tile : MonoBehaviour
     {
         highlight.SetActive(false);
     }
-    
+
+    private void OnMouseDown()
+    {
+        if (GridSceneManager.Instance.State != GridState.WhitePlayerTurn)
+        {
+            Debug.Log("<color=black>Black</color> Player Turn!");
+            return;
+        }
+
+        if (OccupiedPiece != null)
+        {
+            if (OccupiedPiece.Faction == Faction.White)
+            {  
+                PieceManager.Instance.SetSelectedPiece(OccupiedPiece);
+            }
+            else
+            {
+                if (PieceManager.Instance.SelectedPiece == null) return;
+                var blackPiece = (BlackPieces) OccupiedPiece;
+                Destroy(blackPiece.gameObject);
+
+                PieceManager.Instance.SetSelectedPiece(null);
+            }
+        }
+        else
+        {
+            if (PieceManager.Instance.SelectedPiece != null)
+            {
+                SetPiece(PieceManager.Instance.SelectedPiece);
+                PieceManager.Instance.SetSelectedPiece(null);
+ 
+            }
+        }
+    }
+
     #endregion
 
     public void SetPiece(Piece piece)
