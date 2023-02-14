@@ -1,9 +1,0 @@
-@startuml
-
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
-
-@enduml
