@@ -46,16 +46,20 @@ public class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
+        GridMenuManager.Instance.ShowTileInfo(this);
 
     }
 
     private void OnMouseExit()
     {
         highlight.SetActive(false);
+        GridMenuManager.Instance.ShowTileInfo(null );
     }
 
     private void OnMouseDown()
     {
+        Debug.Log($"On Mouse Down at {GetPos()}");
+        
         if (GridSceneManager.Instance.State != GridState.WhitePlayerTurn)
         {
             Debug.Log("<color=black>Black</color> Player Turn!");
@@ -64,12 +68,18 @@ public class Tile : MonoBehaviour
 
         if (OccupiedPiece != null)
         {
+            Debug.Log("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
+            
             if (OccupiedPiece.Faction == Faction.White)
             {  
+                Debug.Log("<color=white>White Piece</color> is on tile");
+                
                 PieceManager.Instance.SetSelectedPiece(OccupiedPiece);
             }
             else
             {
+                Debug.Log("there is something on tile");
+
                 if (PieceManager.Instance.SelectedPiece == null) return;
                 var blackPiece = (BlackPieces) OccupiedPiece;
                 Destroy(blackPiece.gameObject);
@@ -79,12 +89,16 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            if (PieceManager.Instance.SelectedPiece != null)
-            {
-                SetPiece(PieceManager.Instance.SelectedPiece);
-                PieceManager.Instance.SetSelectedPiece(null);
- 
-            }
+            Debug.Log("Empty <color=green>Tile</color> is clicked!!");
+
+            if (PieceManager.Instance.SelectedPiece == null) return;
+            Debug.Log("Piece is prepare to move out!");
+                
+            SetPiece(PieceManager.Instance.SelectedPiece);
+                
+            Debug.Log("Set new tile to piece completed!!");
+                
+            PieceManager.Instance.SetSelectedPiece(null);
         }
     }
 

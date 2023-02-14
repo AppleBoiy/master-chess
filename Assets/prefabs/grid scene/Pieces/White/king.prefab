@@ -98,3 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
+  Faction: 0
+  pos: {x: 0, y: 0}
+  Roll: White King

@@ -100,3 +100,4 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 1
   pos: {x: 0, y: 0}
+  Roll: Black Queen

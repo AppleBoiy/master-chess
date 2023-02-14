@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -96,8 +97,14 @@ public class PieceManager : MonoBehaviour
 
     public void SetSelectedPiece(Piece piece)
     {
-        SelectedPiece = piece;
+        if (piece == null) return;
         
-        MenuManager.Instance.ShowSelectedPiece(piece);
+        SelectedPiece = piece;
+
+        Debug.Log($"{piece.name} is Selected");
+        GridMenuManager.Instance.ShowSelectedPiece(piece);
+        Debug.Log("Show Selected Piece complete.");
+        
     }
+    
 }
