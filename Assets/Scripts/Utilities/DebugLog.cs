@@ -26,7 +26,7 @@ public class DebugLog : MonoBehaviour
     }
 
     private void OnGUI() {
-        GUILayout.BeginArea(new Rect(Screen.width - 230, 0, 400, Screen.height));
+        GUILayout.BeginArea(new Rect(Screen.width - 230, 0, 600, Screen.height));
         GUILayout.Label("\n" + string.Join("\n", _myLogQueue.ToArray()));
         GUILayout.EndArea();
     }

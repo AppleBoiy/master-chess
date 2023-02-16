@@ -99,7 +99,7 @@ public class PieceManager : MonoBehaviour
         SelectedPiece = piece;
 
         Debug.Log($"{piece.name} is Selected");
-        MenuManager.Instance.ShowSelectedPiece(piece);
+        ChessMenuManager.Instance.ShowSelectedPiece(piece);
         Debug.Log("Show Selected Piece complete.");
         
     }
