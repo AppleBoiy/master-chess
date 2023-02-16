@@ -180,10 +180,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1435537672305708852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e02a3a7bb1f4b29979ca99958c93f3, type: 3}
+  m_Script: {fileID: 11500000, guid: cf59359e2908b4a4689652d4b66ff2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  self: {fileID: 1435537672305708852}
+  baseColor: {r: 0.18444741, g: 1, b: 0, a: 1}
+  offsetColor: {r: 0.27293608, g: 0.6981132, b: 0.20087217, a: 1}
+  renderer: {fileID: 1435537672305708859}
+  highlight: {fileID: 422232622029386191}
+  isWalkable: 1
+  OccupiedPiece: {fileID: 0}
 --- !u!61 &1725957338365861980
 BoxCollider2D:
   m_ObjectHideFlags: 0

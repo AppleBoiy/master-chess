@@ -28,19 +28,21 @@ public class PieceManager : MonoBehaviour
     {
         Instance = this;
 
-        //found But not found WHAT!!!
-        _pieces = Resources.LoadAll<ScriptablePiece>("GridScene").ToList();
+        // found But not found WHAT!!!
+         _pieces = Resources.LoadAll<ScriptablePiece>("Pieces").ToList();
 
-        foreach (var piece in _pieces)
-        {
-            Debug.Log(piece);
-        }
+         foreach (var piece in _pieces)
+         {
+             Debug.Log(piece);
+         }
     }
 
     #region Spawn Pieces
 
     public void SpawnWhitePieces()
     {
+        
+        
         for (var i = 0; i < whiteTeamPieces; i++)
         {
             var randomPrefab = GetRandomUnit<WhitePieces>(Faction.WHITE);

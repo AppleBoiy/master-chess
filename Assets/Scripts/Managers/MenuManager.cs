@@ -9,13 +9,14 @@ public class MenuManager : MonoBehaviour
 
     #region params
 
-    [Header("Menu Manager")] 
-    [SerializeField] private GameObject colorSelectPanel;
-    [SerializeField] public Button testButton;
+    // [Header("Menu Manager")] 
+    // [SerializeField] private GameObject colorSelectPanel;
 
     [Space(3)] 
     [Header("Panel")] 
-    [SerializeField] private GameObject selectedPiece, tileInfo, pieceOnTile;
+    [SerializeField] private GameObject selectedPiece;
+    [SerializeField] private GameObject tileInfo;
+    [SerializeField] private GameObject pieceOnTile;
     
     
     public static MenuManager Instance;

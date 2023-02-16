@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         TileManager.Instance.GenerateTile();
+        PieceManager.Instance.SpawnWhitePieces();
+        PieceManager.Instance.SpawnBlackPieces();
+        
     }
 
     public void UpdateGameState(GameState newState)

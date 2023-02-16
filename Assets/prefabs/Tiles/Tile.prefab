@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9047833556545736805
+--- !u!1001 &4977888351922420625
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,12 +8,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -311162087541249534, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
-      propertyPath: self
-      value: 
-      objectReference: {fileID: 7491266383925396590}
+      propertyPath: baseColor.b
+      value: 0.39101994
+      objectReference: {fileID: 0}
+    - target: {fileID: -311162087541249534, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: baseColor.g
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: -311162087541249534, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
+      propertyPath: baseColor.r
+      value: 0.470226
+      objectReference: {fileID: 0}
     - target: {fileID: 1435537672305708852, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
       propertyPath: m_Name
-      value: Path
+      value: Tile
       objectReference: {fileID: 0}
     - target: {fileID: 1435537672305708858, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
       propertyPath: m_RootOrder
@@ -61,36 +69,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
---- !u!1 &7961327605053759313 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1435537672305708852, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
-  m_PrefabInstance: {fileID: 9047833556545736805}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7491266383925396590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7961327605053759313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689d6416a493246128c44719a0fb2d9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseColor: {r: 0.4108223, g: 0.754717, b: 0.28123888, a: 1}
-  offsetColor: {r: 0.47617683, g: 0.9137255, b: 0.19607843, a: 1}
-  renderer: {fileID: 7961327605053759326}
-  highlight: {fileID: 8668390225080230314}
-  isWalkable: 1
-  OccupiedPiece: {fileID: 0}
---- !u!212 &7961327605053759326 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1435537672305708859, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
-  m_PrefabInstance: {fileID: 9047833556545736805}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8668390225080230314 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 422232622029386191, guid: 54fd16e2d64644daeb8404dac2a36383, type: 3}
-  m_PrefabInstance: {fileID: 9047833556545736805}
-  m_PrefabAsset: {fileID: 0}
