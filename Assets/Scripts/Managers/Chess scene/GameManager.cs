@@ -19,11 +19,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {
-        TileManager.Instance.GenerateTile();
-        PieceManager.Instance.SpawnWhitePieces();
-        PieceManager.Instance.SpawnBlackPieces();
-        
+    { 
+        UpdateGameState(GameState.StartGame);
     }
 
     public void UpdateGameState(GameState newState)
@@ -34,6 +31,12 @@ public class GameManager : MonoBehaviour
 
         switch (State)
         {
+            case GameState.StartGame:
+                TileManager.Instance.GenerateTile();
+                PieceManager.Instance.SpawnWhitePieces();
+                PieceManager.Instance.SpawnBlackPieces();
+                break;
+            
             case GameState.BlackTurn:
                 HandleBackTurn();
                 break;

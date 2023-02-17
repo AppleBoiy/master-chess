@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2992355466187713906}
   - component: {fileID: 1337500938135139304}
   m_Layer: 0
-  m_Name: king
+  m_Name: Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 52024b913a2714b09b90a29d3a1f0f13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eba39f805d89c417fb555514fdf066a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,5 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
   Faction: 0
+  Roll: 6
   pos: {x: 0, y: 0}
-  Roll: White King

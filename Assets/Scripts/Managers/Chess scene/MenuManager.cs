@@ -8,13 +8,15 @@ public class MenuManager : MonoBehaviour
     
     #region params
 
+    [Header("Start Scene")] 
+    [SerializeField] private GameObject startGameHolder;
+    
 
     [Space(3)] 
     [Header("Panel")] 
     [SerializeField] private GameObject selectedPiece;
     [SerializeField] private GameObject tileInfo;
     [SerializeField] private GameObject pieceOnTile;
-    
     public static MenuManager Instance;
     
     #endregion
@@ -39,7 +41,7 @@ public class MenuManager : MonoBehaviour
 
         Debug.Log("Something on this tile..");
         
-        selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.Roll ;
+        selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.Roll.ToString() ;
         selectedPiece.SetActive(true);
     }
 
@@ -57,7 +59,20 @@ public class MenuManager : MonoBehaviour
         tileInfo.SetActive(true);
 
         if (!tile.OccupiedPiece) return;
-        pieceOnTile.GetComponentInChildren<TMP_Text>().text = tile.OccupiedPiece.Roll;
+        pieceOnTile.GetComponentInChildren<TMP_Text>().text = tile.OccupiedPiece.Roll.ToString();
         pieceOnTile.SetActive(true);
+    }
+
+
+    public void SelectWhitePlayer()
+    {
+        GameManager.Instance.UpdateGameState(GameState.WhiteTurn);
+        startGameHolder.SetActive(false);
+    }
+
+    public void SelectBlackPlayer()
+    {
+        GameManager.Instance.UpdateGameState(GameState.BlackTurn);
+        startGameHolder.SetActive(false);
     }
 }

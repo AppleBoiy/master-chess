@@ -10,8 +10,10 @@ public class Piece : MonoBehaviour
     public Tile OccupiedTile;
     
     public Faction Faction;
+    public Roll Roll;
+    
     public Vector2 pos;
-    public string Roll;
+    
 
     #endregion
 

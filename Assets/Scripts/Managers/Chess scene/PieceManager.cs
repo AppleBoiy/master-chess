@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static IPieceStartingPos;
 using Random = UnityEngine.Random;
 
 public class PieceManager : MonoBehaviour
@@ -9,7 +10,10 @@ public class PieceManager : MonoBehaviour
     #region params
 
     [Header("Player unit")]
-    [SerializeField] private int whiteTeamPieces;
+    [Space(3)] 
+    [Header("White Team Pieces")] 
+    [SerializeField] private Piece pawn;
+    
     [SerializeField] private int blackTeamPieces;
 
     [Space(3)] 
@@ -41,21 +45,34 @@ public class PieceManager : MonoBehaviour
 
     public void SpawnWhitePieces()
     {
-        
-        
-        for (var i = 0; i < whiteTeamPieces; i++)
-        {
-            var randomPrefab = GetRandomUnit<WhitePieces>(Faction.WHITE);
-            var spawnWhiteTeam = Instantiate(randomPrefab, whiteParentPrefabs.transform, true);
-            var randomSpawnTile = TileManager.Instance.GetWhiteTeamSpawnTile();
 
-            spawnWhiteTeam.pos = randomSpawnTile.GetPos();
-            
-            randomSpawnTile.SetPiece(spawnWhiteTeam);
-            
-            Debug.Log($"<color=white>White</color> at {spawnWhiteTeam.pos}");
-            
-        }
+        var currentPos = IWhite.FirstPawn;
+
+        do
+        {
+            var spawnWhitePiece = Instantiate(pawn, whiteParentPrefabs.transform, true);
+            var spawnTileAtPos = TileManager.Instance.GetTile(currentPos);
+
+            spawnWhitePiece.pos = spawnTileAtPos.GetPos();
+            spawnTileAtPos.SetPiece(spawnWhitePiece);
+            currentPos = new Vector2(currentPos.x, currentPos.y + 1);
+
+        } while (currentPos != IWhite.LastPawn);
+        
+        
+        // for (var i = 0; i < 1; i++)
+        // {
+        //     var randomPrefab = GetRandomUnit<WhitePieces>(Faction.WHITE);
+        //     var spawnWhiteTeam = Instantiate(randomPrefab, whiteParentPrefabs.transform, true);
+        //     var randomSpawnTile = TileManager.Instance.GetWhiteTeamSpawnTile();
+        //
+        //     spawnWhiteTeam.pos = randomSpawnTile.GetPos();
+        //     
+        //     randomSpawnTile.SetPiece(spawnWhiteTeam);
+        //     
+        //     Debug.Log($"<color=white>White</color> at {spawnWhiteTeam.pos}");
+        //     
+        // }
         
     }
     

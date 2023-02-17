@@ -1,8 +1,11 @@
 public enum GameState
 {
-    BlackTurn,
-    WhiteTurn,
     
-    Win,
-    Lose 
+    StartGame = 0,
+    
+    BlackTurn = 1,
+    WhiteTurn = 2,
+    
+    Win = 3,
+    Lose = 4 
 }
