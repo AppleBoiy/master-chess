@@ -1,5 +1,5 @@
 using UnityEngine;
-using static ChessGameManager;
+using static GameManager;
 
 
 public class Tile : MonoBehaviour
@@ -40,13 +40,13 @@ public class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
-        ChessMenuManager.Instance.ShowTileInfo(this);
+        MenuManager.Instance.ShowTileInfo(this);
     }
 
     private void OnMouseExit()
     {
         highlight.SetActive(false);
-        ChessMenuManager.Instance.ShowTileInfo(null);
+        MenuManager.Instance.ShowTileInfo(null);
     }
 
     private void OnMouseDown()
