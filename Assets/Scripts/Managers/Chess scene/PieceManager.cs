@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static IPieceStartingPos;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,11 @@ public class PieceManager : MonoBehaviour
     [Space(3)] 
     [Header("White Team Pieces")] 
     [SerializeField] private Piece pawn;
+    [SerializeField] private Piece rook;
+    [SerializeField] private Piece knight;
+    [SerializeField] private Piece bishop;
+    [SerializeField] private Piece queen;
+    [SerializeField] private Piece king;
     
     [SerializeField] private int blackTeamPieces;
 
@@ -24,7 +30,9 @@ public class PieceManager : MonoBehaviour
     public static PieceManager Instance;
 
     private List<ScriptablePiece> _pieces;
-    public Piece SelectedPiece;
+    
+    [FormerlySerializedAs("SelectedPiece")]
+    public Piece selectedPiece;
     
     #endregion
 
@@ -50,29 +58,14 @@ public class PieceManager : MonoBehaviour
 
         do
         {
-            var spawnWhitePiece = Instantiate(pawn, whiteParentPrefabs.transform, true);
-            var spawnTileAtPos = TileManager.Instance.GetTile(currentPos);
-
-            spawnWhitePiece.pos = spawnTileAtPos.GetPos();
-            spawnTileAtPos.SetPiece(spawnWhitePiece);
+            SpawnPiece(currentPos, pawn, whiteParentPrefabs);
+            
             currentPos = new Vector2(currentPos.x, currentPos.y + 1);
 
         } while (currentPos != IWhite.LastPawn);
         
         
-        // for (var i = 0; i < 1; i++)
-        // {
-        //     var randomPrefab = GetRandomUnit<WhitePieces>(Faction.WHITE);
-        //     var spawnWhiteTeam = Instantiate(randomPrefab, whiteParentPrefabs.transform, true);
-        //     var randomSpawnTile = TileManager.Instance.GetWhiteTeamSpawnTile();
-        //
-        //     spawnWhiteTeam.pos = randomSpawnTile.GetPos();
-        //     
-        //     randomSpawnTile.SetPiece(spawnWhiteTeam);
-        //     
-        //     Debug.Log($"<color=white>White</color> at {spawnWhiteTeam.pos}");
-        //     
-        // }
+        
         
     }
     
@@ -113,11 +106,21 @@ public class PieceManager : MonoBehaviour
     {
         if (piece == null) return;
         
-        SelectedPiece = piece;
+        selectedPiece = piece;
 
         Debug.Log($"{piece.name} is Selected");
         MenuManager.Instance.ShowSelectedPiece(piece);
         Debug.Log("Show Selected Piece complete.");
+        
+    }
+
+    private static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
+    {
+        var spawnPiece = Instantiate(piece, parentPiece.transform, true);
+        var spawnAtTile = TileManager.Instance.GetTile(pos);
+
+        spawnPiece.pos = spawnAtTile.GetPos();
+        spawnAtTile.SetPiece(spawnPiece);
         
     }
     

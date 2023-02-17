@@ -649,7 +649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &571986339
 RectTransform:
   m_ObjectHideFlags: 0
@@ -705,7 +705,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1240,7 +1240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &818663417
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2174,6 +2174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 2078904059668419578, guid: e4e586398624c4198b03a295d1ccf28f, type: 3}
+  rook: {fileID: 0}
+  knight: {fileID: 0}
+  bishop: {fileID: 0}
+  queen: {fileID: 0}
+  king: {fileID: 0}
   blackTeamPieces: 1
   whiteParentPrefabs: {fileID: 26527910}
   blackParentPrefabs: {fileID: 406818958}

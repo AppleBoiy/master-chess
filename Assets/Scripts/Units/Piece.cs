@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,14 +6,20 @@ public class Piece : MonoBehaviour
 {
     #region params
     
-    public Tile OccupiedTile;
+    [FormerlySerializedAs("OccupiedTile")] 
+    public Tile occupiedTile;
     
-    public Faction Faction;
-    public Roll Roll;
+    [FormerlySerializedAs("Faction")] 
+    public Faction faction;
+    
+    [FormerlySerializedAs("Roll")] 
+    public Roll roll;
     
     public Vector2 pos;
     
 
     #endregion
+    
+  
 
 }

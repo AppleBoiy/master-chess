@@ -64,7 +64,7 @@ public class Tile : MonoBehaviour
         {
             Debug.Log("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
             
-            if (OccupiedPiece.Faction == Faction.WHITE)
+            if (OccupiedPiece.faction == Faction.WHITE)
             {  
                 Debug.Log("<color=white>White Piece</color> is on tile");
                 
@@ -74,7 +74,7 @@ public class Tile : MonoBehaviour
             {
                 Debug.Log("there is something on tile");
 
-                if (PieceManager.Instance.SelectedPiece == null) return;
+                if (PieceManager.Instance.selectedPiece == null) return;
                 var blackPiece = (BlackPieces) OccupiedPiece;
                 Destroy(blackPiece.gameObject);
 
@@ -85,10 +85,10 @@ public class Tile : MonoBehaviour
         {
             Debug.Log("Empty <color=green>Tile</color> is clicked!!");
 
-            if (PieceManager.Instance.SelectedPiece == null) return;
+            if (PieceManager.Instance.selectedPiece == null) return;
             Debug.Log("Piece is prepare to move out!");
                 
-            SetPiece(PieceManager.Instance.SelectedPiece);
+            SetPiece(PieceManager.Instance.selectedPiece);
                 
             Debug.Log("Set new tile to piece completed!!");
                 
@@ -102,14 +102,14 @@ public class Tile : MonoBehaviour
 
     public void SetPiece(Piece piece)
     {
-        if (piece.OccupiedTile)
+        if (piece.occupiedTile)
         {
-            piece.OccupiedTile.OccupiedPiece = null;
+            piece.occupiedTile.OccupiedPiece = null;
         }
         
         piece.transform.position = transform.position;
         OccupiedPiece = piece;
-        piece.OccupiedTile = this;
+        piece.occupiedTile = this;
     }
     
 }
