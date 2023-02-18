@@ -2173,16 +2173,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c724c7e8ca1da4363b20459e9d18f202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 2078904059668419578, guid: e4e586398624c4198b03a295d1ccf28f, type: 3}
-  rook: {fileID: 0}
-  knight: {fileID: 0}
-  bishop: {fileID: 0}
-  queen: {fileID: 0}
-  king: {fileID: 0}
+  pawn: {fileID: 3383358449504329113, guid: e4e586398624c4198b03a295d1ccf28f, type: 3}
+  rook: {fileID: 137167164717689794, guid: 6b0d4fa0899094714bbec7a2578afb73, type: 3}
+  knight: {fileID: 3634938300052608081, guid: 84bae34fd26dd46e4bf8fcbd2e941ca4, type: 3}
+  bishop: {fileID: 8193709881472519432, guid: 0d9eb7b7cb17f49db865dc98396cb43b, type: 3}
+  queen: {fileID: 5813572247167569370, guid: 44b76609bd4674bc3978419930cd5c84, type: 3}
+  king: {fileID: 4528852379020803591, guid: 810511136acb74b37b03068ddbce52c3, type: 3}
   blackTeamPieces: 1
   whiteParentPrefabs: {fileID: 26527910}
   blackParentPrefabs: {fileID: 406818958}
-  SelectedPiece: {fileID: 0}
+  selectedPiece: {fileID: 0}
 --- !u!1 &1704691811
 GameObject:
   m_ObjectHideFlags: 0

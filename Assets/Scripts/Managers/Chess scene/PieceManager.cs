@@ -64,6 +64,15 @@ public class PieceManager : MonoBehaviour
 
         } while (currentPos != IWhite.LastPawn);
         
+        SpawnPiece(IWhite.King, king, whiteParentPrefabs);
+        SpawnPiece(IWhite.Queen, queen, whiteParentPrefabs);
+        
+        SpawnPiece(IWhite.Bishop1, bishop, whiteParentPrefabs);
+        SpawnPiece(IWhite.Bishop2, bishop, whiteParentPrefabs);
+        SpawnPiece(IWhite.Rook1, rook, whiteParentPrefabs);
+        SpawnPiece(IWhite.Rook2, rook, whiteParentPrefabs);
+        SpawnPiece(IWhite.Knight1, knight, whiteParentPrefabs);
+        SpawnPiece(IWhite.Knight2, knight, whiteParentPrefabs);
         
         
         
@@ -123,5 +132,5 @@ public class PieceManager : MonoBehaviour
         spawnAtTile.SetPiece(spawnPiece);
         
     }
-    
+
 }
