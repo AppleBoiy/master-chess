@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,15 +18,27 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject selectedPiece;
     [SerializeField] private GameObject tileInfo;
     [SerializeField] private GameObject pieceOnTile;
+    [SerializeField] private GameObject playerTurn;
+    
     public static MenuManager Instance;
-    
+    private TMP_Text _turnDialog;
+
     #endregion
-    
+
+    private void Start()
+    {
+        _turnDialog = playerTurn.GetComponentInChildren<TMP_Text>();
+    }
+
     private void Awake()
     {
         Instance = this;
     }
-    
+
+    private void Update()
+    {
+        _turnDialog.text = GameManager.Instance.State.ToString();
+    }
 
     public void ShowSelectedPiece(Piece piece)
     {
@@ -41,7 +54,7 @@ public class MenuManager : MonoBehaviour
 
         Debug.Log("Something on this tile..");
         
-        selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.Roll.ToString() ;
+        selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
         selectedPiece.SetActive(true);
     }
 
@@ -59,7 +72,7 @@ public class MenuManager : MonoBehaviour
         tileInfo.SetActive(true);
 
         if (!tile.OccupiedPiece) return;
-        pieceOnTile.GetComponentInChildren<TMP_Text>().text = tile.OccupiedPiece.Roll.ToString();
+        pieceOnTile.GetComponentInChildren<TMP_Text>().text = tile.OccupiedPiece.roll.ToString();
         pieceOnTile.SetActive(true);
     }
 

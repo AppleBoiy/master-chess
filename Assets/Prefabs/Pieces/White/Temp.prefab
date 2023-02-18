@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6011951785309102593}
   - component: {fileID: 8535710230913295387}
-  - component: {fileID: 4466266663679016842}
+  - component: {fileID: 175543480438028960}
   m_Layer: 0
-  m_Name: queen
+  m_Name: Temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4239fa4d42edc48c786dd94fc2aef4a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e9ed19526a194e008745f5e31f67d34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4466266663679016842
+--- !u!114 &175543480438028960
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,10 +94,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5246292494684460515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b3ebe276715475282e8e01994c8eb7, type: 3}
+  m_Script: {fileID: 11500000, guid: 341dd3feea49e404e908a0d9fd4521c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OccupiedTile: {fileID: 0}
-  Faction: 1
+  occupiedTile: {fileID: 0}
+  faction: 0
+  roll: 6
   pos: {x: 0, y: 0}
-  Roll: Black Queen
