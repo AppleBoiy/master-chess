@@ -113,7 +113,11 @@ public class PieceManager : MonoBehaviour
 
     public void SetSelectedPiece(Piece piece)
     {
-        if (piece == null) return;
+        if (piece == null)
+        {
+            selectedPiece = null;
+            return;
+        }
         
         selectedPiece = piece;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,15 +18,27 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject selectedPiece;
     [SerializeField] private GameObject tileInfo;
     [SerializeField] private GameObject pieceOnTile;
+    [SerializeField] private GameObject playerTurn;
+    
     public static MenuManager Instance;
-    
+    private TMP_Text _turnDialog;
+
     #endregion
-    
+
+    private void Start()
+    {
+        _turnDialog = playerTurn.GetComponentInChildren<TMP_Text>();
+    }
+
     private void Awake()
     {
         Instance = this;
     }
-    
+
+    private void Update()
+    {
+        _turnDialog.text = GameManager.Instance.State.ToString();
+    }
 
     public void ShowSelectedPiece(Piece piece)
     {
