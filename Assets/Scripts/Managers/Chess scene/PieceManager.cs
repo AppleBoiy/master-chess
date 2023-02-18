@@ -59,24 +59,24 @@ public class PieceManager : MonoBehaviour
         do
         {
             SpawnPiece(currentPos, pawn, whiteParentPrefabs);
-            
+
             currentPos = new Vector2(currentPos.x, currentPos.y + 1);
 
         } while (currentPos != IWhite.LastPawn);
-        
+
         SpawnPiece(IWhite.King, king, whiteParentPrefabs);
         SpawnPiece(IWhite.Queen, queen, whiteParentPrefabs);
-        
+
         SpawnPiece(IWhite.Bishop1, bishop, whiteParentPrefabs);
         SpawnPiece(IWhite.Bishop2, bishop, whiteParentPrefabs);
         SpawnPiece(IWhite.Rook1, rook, whiteParentPrefabs);
         SpawnPiece(IWhite.Rook2, rook, whiteParentPrefabs);
         SpawnPiece(IWhite.Knight1, knight, whiteParentPrefabs);
         SpawnPiece(IWhite.Knight2, knight, whiteParentPrefabs);
-        
-        
-        
-    }
+
+
+        Debug.Log($"<color=white>WHITE TEAM PIECES</color> has {Piece.CalPiecesLeft(whiteParentPrefabs).Count} pieces");
+}
     
     public void SpawnBlackPieces()
     {
@@ -93,6 +93,7 @@ public class PieceManager : MonoBehaviour
             Debug.Log($"<color=black>Black</color> at {spawnBlackTeam.pos}");
         }
         
+        Debug.Log($"<color=black>BlACK TEAM PIECES</color> has {Piece.CalPiecesLeft(blackParentPrefabs).Count} pieces");
     }
 
     #endregion
