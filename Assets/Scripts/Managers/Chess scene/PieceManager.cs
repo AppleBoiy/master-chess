@@ -3,38 +3,46 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static IPieceStartingPos;
-using Random = UnityEngine.Random;
 
 public class PieceManager : MonoBehaviour
 {
 
     #region params
-
+    
     [Header("Player unit")]
     [Space(3)] 
     [Header("White Team Pieces")] 
-    [SerializeField] private Piece pawn;
-    [SerializeField] private Piece rook;
-    [SerializeField] private Piece knight;
-    [SerializeField] private Piece bishop;
-    [SerializeField] private Piece queen;
-    [SerializeField] private Piece king;
-    
-    [SerializeField] private int blackTeamPieces;
+    [SerializeField] private Piece whitePawn;
+    [SerializeField] private Piece whiteRook;
+    [SerializeField] private Piece whiteKnight;
+    [SerializeField] private Piece whiteBishop;
+    [SerializeField] private Piece whiteQueen;
+    [SerializeField] private Piece whiteKing;
+
+    [Space(3)] 
+    [Header("Black Team Pieces")] 
+    [SerializeField] private Piece blackPawn;
+    [SerializeField] private Piece blackRook;
+    [SerializeField] private Piece blackKnight;
+    [SerializeField] private Piece blackBishop;
+    [SerializeField] private Piece blackQueen;
+    [SerializeField] private Piece blackKing;
 
     [Space(3)] 
     [Header("Piece container")] 
-    [SerializeField] private GameObject whiteParentPrefabs;
-    [SerializeField] private GameObject blackParentPrefabs;
+    [SerializeField] public GameObject whiteParentPrefabs;
+    [SerializeField] public GameObject blackParentPrefabs;
     
     public static PieceManager Instance;
 
     private List<ScriptablePiece> _pieces;
     
-    [FormerlySerializedAs("SelectedPiece")]
-    public Piece selectedPiece;
+    public static Piece SelectedPiece;
     
+    private List<Piece> _list;
+
     #endregion
+
 
     private void Awake()
     {
@@ -48,6 +56,7 @@ public class PieceManager : MonoBehaviour
              Debug.Log(piece);
          }
     }
+    
 
     #region Spawn Pieces
 
@@ -58,69 +67,76 @@ public class PieceManager : MonoBehaviour
 
         do
         {
-            SpawnPiece(currentPos, pawn, whiteParentPrefabs);
+            SpawnPiece(currentPos, whitePawn, whiteParentPrefabs);
 
             currentPos = new Vector2(currentPos.x, currentPos.y + 1);
 
         } while (currentPos != IWhite.LastPawn);
 
-        SpawnPiece(IWhite.King, king, whiteParentPrefabs);
-        SpawnPiece(IWhite.Queen, queen, whiteParentPrefabs);
+        SpawnPiece(IWhite.King, whiteKing, whiteParentPrefabs);
+        SpawnPiece(IWhite.Queen, whiteQueen, whiteParentPrefabs);
 
-        SpawnPiece(IWhite.Bishop1, bishop, whiteParentPrefabs);
-        SpawnPiece(IWhite.Bishop2, bishop, whiteParentPrefabs);
-        SpawnPiece(IWhite.Rook1, rook, whiteParentPrefabs);
-        SpawnPiece(IWhite.Rook2, rook, whiteParentPrefabs);
-        SpawnPiece(IWhite.Knight1, knight, whiteParentPrefabs);
-        SpawnPiece(IWhite.Knight2, knight, whiteParentPrefabs);
+        SpawnPiece(IWhite.Bishop1, whiteBishop, whiteParentPrefabs);
+        SpawnPiece(IWhite.Bishop2, whiteBishop, whiteParentPrefabs);
+        SpawnPiece(IWhite.Rook1, whiteRook, whiteParentPrefabs);
+        SpawnPiece(IWhite.Rook2, whiteRook, whiteParentPrefabs);
+        SpawnPiece(IWhite.Knight1, whiteKnight, whiteParentPrefabs);
+        SpawnPiece(IWhite.Knight2, whiteKnight, whiteParentPrefabs);
 
 
-        Debug.Log($"<color=white>WHITE TEAM PIECES</color> has {Piece.CalPiecesLeft(whiteParentPrefabs).Count} pieces");
+        Debug.Log($"<color=white>WHITE TEAM PIECES</color> has {CalPiecesLeft(whiteParentPrefabs).Count} pieces");
 }
     
     public void SpawnBlackPieces()
     {
-        for (var i = 0; i < blackTeamPieces; i++)
-        {
-            var randomPrefab = GetRandomUnit<BlackPieces>(Faction.BLACK);
-            var spawnBlackTeam = Instantiate(randomPrefab, blackParentPrefabs.transform, true);
-            var randomSpawnTile = TileManager.Instance.GetBlackTeamSpawnTile();
+        var currentPos = IBlack.FirstPawn;
 
-            spawnBlackTeam.pos = randomSpawnTile.GetPos();
-            
-            randomSpawnTile.SetPiece(spawnBlackTeam);
-            
-            Debug.Log($"<color=black>Black</color> at {spawnBlackTeam.pos}");
-        }
-        
-        Debug.Log($"<color=black>BlACK TEAM PIECES</color> has {Piece.CalPiecesLeft(blackParentPrefabs).Count} pieces");
+        do
+        {
+            SpawnPiece(currentPos, blackPawn, blackParentPrefabs);
+
+            currentPos = new Vector2(currentPos.x, currentPos.y + 1);
+
+        } while (currentPos != IBlack.LastPawn);
+
+        SpawnPiece(IBlack.King, blackKing, blackParentPrefabs);
+        SpawnPiece(IBlack.Queen, blackQueen, blackParentPrefabs);
+
+        SpawnPiece(IBlack.Bishop1, blackBishop, blackParentPrefabs);
+        SpawnPiece(IBlack.Bishop2, blackBishop, blackParentPrefabs);
+        SpawnPiece(IBlack.Rook1, blackRook, blackParentPrefabs);
+        SpawnPiece(IBlack.Rook2, blackRook, blackParentPrefabs);
+        SpawnPiece(IBlack.Knight1, blackKnight, blackParentPrefabs);
+        SpawnPiece(IBlack.Knight2, blackKnight, blackParentPrefabs);
+
+
+        Debug.Log($"<color=white>WHITE TEAM PIECES</color> has {CalPiecesLeft(blackParentPrefabs).Count} pieces");
+
     }
 
     #endregion
-    
-    
 
-    private T GetRandomUnit<T>(Faction faction) where T : Piece
+
+    public List<Piece> CalWhitePiecesLeft()
     {
-        return (T) _pieces.Where(
-            u => u.Faction == faction
-            )
-            .OrderBy(
-                o => Random.value
-                )
-            .First()
-            .piecePrefab;
+        return CalPiecesLeft(whiteParentPrefabs);
     }
 
+    public List<Piece> CalBlackPiecesLeft()
+    {
+        return CalPiecesLeft(blackParentPrefabs);
+    }
+    
     public void SetSelectedPiece(Piece piece)
     {
         if (piece == null)
         {
-            selectedPiece = null;
+            SelectedPiece = null;
+            MenuManager.Instance.ShowSelectedPiece(null);
             return;
         }
         
-        selectedPiece = piece;
+        SelectedPiece = piece;
 
         Debug.Log($"{piece.name} is Selected");
         MenuManager.Instance.ShowSelectedPiece(piece);
@@ -137,5 +153,23 @@ public class PieceManager : MonoBehaviour
         spawnAtTile.SetPiece(spawnPiece);
         
     }
+
+    private static List<Piece> CalPiecesLeft(GameObject pieceHolder)
+    {
+        
+        
+        List<Piece> pieces = new();
+        
+        for (var i = 0; i < pieceHolder.transform.childCount; i++)
+        {
+            Piece piece = pieceHolder.transform.GetChild(i).GetComponentInChildren<Piece>();
+            
+            pieces.Add(piece);
+
+        }
+
+        return pieces;
+    }
+
 
 }

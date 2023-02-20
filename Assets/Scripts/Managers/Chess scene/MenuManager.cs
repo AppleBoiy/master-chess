@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
     
     public static MenuManager Instance;
     private TMP_Text _turnDialog;
-
+    
     #endregion
 
     private void Start()
@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
+        
         _turnDialog.text = GameManager.Instance.State.ToString();
     }
 

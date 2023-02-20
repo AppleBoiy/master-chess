@@ -22,21 +22,5 @@ public class Piece : MonoBehaviour
 
     #endregion
 
-    public static List<Piece> CalPiecesLeft(GameObject pieceHolder)
-    {
-        List<Piece> pieces = new();
-        
-        for (var i = 0; i < pieceHolder.transform.childCount; i++)
-        {
-            Piece piece = pieceHolder.transform.GetChild(i).GetComponentInChildren<Piece>();
-            
-            Debug.Log($"pieces {piece}");
-            
-            pieces.Add(piece);
-
-        }
-
-        return pieces;
-    }
-
+ 
 }

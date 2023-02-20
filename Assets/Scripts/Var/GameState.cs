@@ -7,5 +7,7 @@ public enum GameState
     WhiteTurn = 2,
     
     Win = 3,
-    Lose = 4 
+    Lose = 4,
+    
+    CalPieces = 5
 }

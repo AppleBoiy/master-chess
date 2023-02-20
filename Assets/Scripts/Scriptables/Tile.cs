@@ -1,5 +1,7 @@
 using UnityEngine;
-using static GameManager;
+using static Faction;
+using static GameState;
+using static PieceManager;
 
 
 public class Tile : MonoBehaviour
@@ -52,96 +54,106 @@ public class Tile : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"On Mouse Down at {_pos}");
-        
-        // Black Player Turn
-        if (Instance.State == GameState.BlackTurn)
+
+        switch (GameManager.Instance.State)
         {
-            Debug.Log("<color=black>Black</color> Player Turn!");
-            if (OccupiedPiece != null)
-            {
+            case BlackTurn when OccupiedPiece != null:
                 Debug.Log("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
             
-                if (OccupiedPiece.faction == Faction.BLACK)
+                if (OccupiedPiece.faction == BLACK)
                 {  
                     Debug.Log("<color=white>Black Piece</color> is on tile");
                 
-                    PieceManager.Instance.SetSelectedPiece(OccupiedPiece);
+                    Instance.SetSelectedPiece(OccupiedPiece);
                 }
                 else
                 {
                     Debug.Log("there is something on tile");
 
-                    if (PieceManager.Instance.selectedPiece == null) return;
+                    if (SelectedPiece == null) return;
                     var whitePiece = (WhitePieces) OccupiedPiece;
                     Destroy(whitePiece.gameObject);
-
-                    PieceManager.Instance.SetSelectedPiece(null);
+                    
+                    SetPiece(SelectedPiece);
+                    Instance.SetSelectedPiece(null);
+                    
+                    GameManager.Instance.ChangeTurn();
                 }
-            }
-            else
+                break;
+            
+            case BlackTurn:
             {
                 Debug.Log("Empty <color=green>Tile</color> is clicked!!");
 
-                if (PieceManager.Instance.selectedPiece == null) return;
+                if (SelectedPiece == null) return;
                 Debug.Log("Piece is prepare to move out!");
                 
-                SetPiece(PieceManager.Instance.selectedPiece);
+                SetPiece(SelectedPiece);
                 
                 Debug.Log("Set new tile to piece completed!!");
                 
-                PieceManager.Instance.SetSelectedPiece(null);
-            
-                Instance.ChangeTurn();
+                Instance.SetSelectedPiece(null);
+                
+                GameManager.Instance.ChangeTurn();
+                break;
             }
-        }
-
-        // White Player turn
-        else if (Instance.State == GameState.WhiteTurn)
-        {
-            if (OccupiedPiece != null)
+            
+            case WhiteTurn when OccupiedPiece != null:
             {
                 Debug.Log("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
             
-                if (OccupiedPiece.faction == Faction.WHITE)
+                if (OccupiedPiece.faction == WHITE)
                 {  
                     Debug.Log("<color=white>White Piece</color> is on tile");
                 
-                    PieceManager.Instance.SetSelectedPiece(OccupiedPiece);
+                    Instance.SetSelectedPiece(OccupiedPiece);
                 }
                 else
                 {
                     Debug.Log("there is something on tile");
 
-                    if (PieceManager.Instance.selectedPiece == null) return;
+                    if (SelectedPiece == null) return;
+                    
+                    Debug.Log("White piece move to black piece");
                     var blackPiece = (BlackPieces) OccupiedPiece;
                     Destroy(blackPiece.gameObject);
-
-                    PieceManager.Instance.SetSelectedPiece(null);
+                    
+                    Debug.Log($"set <color=white>{SelectedPiece}</color> to {_pos}");
+                    SetPiece(SelectedPiece);
+                    Instance.SetSelectedPiece(null);
+                    
+                    GameManager.Instance.ChangeTurn();
                 }
+
+                break;
             }
-            else
+            
+            case WhiteTurn:
             {
                 Debug.Log("Empty <color=green>Tile</color> is clicked!!");
 
-                if (PieceManager.Instance.selectedPiece == null) return;
+                if (SelectedPiece == null) return;
                 Debug.Log("Piece is prepare to move out!");
                 
-                SetPiece(PieceManager.Instance.selectedPiece);
+                SetPiece(SelectedPiece);
                 
                 Debug.Log("Set new tile to piece completed!!");
                 
                 PieceManager.Instance.SetSelectedPiece(null);
             
-                Instance.ChangeTurn();
+                GameManager.Instance.ChangeTurn();
+                break;
             }
         }
-        
     }
+
 
     #endregion
 
     public void SetPiece(Piece piece)
     {
+        
+        //Drop piece out when set pos
         if (piece.occupiedTile)
         {
             piece.occupiedTile.OccupiedPiece = null;
