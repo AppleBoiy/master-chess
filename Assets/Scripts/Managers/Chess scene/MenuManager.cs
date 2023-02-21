@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     
-    #region Serialize Field
+    #region params
 
     [Header("Start Scene")] 
     [SerializeField] private GameObject startGameHolder;
@@ -22,18 +25,11 @@ public class MenuManager : MonoBehaviour
     [Space(3)] [Header("Game Info")] 
     [SerializeField] private GameObject pieceInfo;
     
-    #endregion
-
-    #region params
-    
-    private static readonly GameManager GameManager = GameManager.Instance;
-    private static readonly Action<object> LOG = Debug.Log;
     public static MenuManager Instance;
-    
     private TMP_Text _turnDialog;
     
     #endregion
-    
+
     private void Start()
     {
         _turnDialog = playerTurn.GetComponentInChildren<TMP_Text>();
@@ -47,22 +43,22 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         
-        _turnDialog.text = GameManager.State.ToString();
+        _turnDialog.text = GameManager.Instance.State.ToString();
     }
 
     public void ShowSelectedPiece(Piece piece)
     {
-        LOG("Show piece is selected");
+        Debug.Log("Show piece is selected");
         
         if (piece == null)
         {
-            LOG("Don't have any piece on this tile");
+            Debug.Log("Don't have any piece on this tile");
             
             selectedPiece.SetActive(false);
             return;
         }
 
-        LOG("Something on this tile..");
+        Debug.Log("Something on this tile..");
         
         selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
         selectedPiece.SetActive(true);
@@ -83,7 +79,7 @@ public class MenuManager : MonoBehaviour
         tileInfo.SetActive(true);
         
         if (!tile.OccupiedPiece) return;
-        pieceOnTile.GetComponentInChildren<TMP_Text>().text = tile.OccupiedPiece.roll.ToString();
+        pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.OccupiedPiece.faction}  {tile.OccupiedPiece.roll}";
         pieceOnTile.SetActive(true);
 
         pieceInfo.SetActive(true);
@@ -94,13 +90,13 @@ public class MenuManager : MonoBehaviour
 
     public void SelectWhitePlayer()
     {
-        GameManager.UpdateGameState(GameState.WhiteTurn);
+        GameManager.Instance.UpdateGameState(GameState.WhiteTurn);
         startGameHolder.SetActive(false);
     }
 
     public void SelectBlackPlayer()
     {
-        GameManager.UpdateGameState(GameState.BlackTurn);
+        GameManager.Instance.UpdateGameState(GameState.BlackTurn);
         startGameHolder.SetActive(false);
     }
 }

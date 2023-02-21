@@ -7,7 +7,7 @@ using static IPieceStartingPos;
 public class PieceManager : MonoBehaviour
 {
 
-    #region Serialize Field
+    #region params
     
     [Header("Player unit")]
     [Space(3)] 
@@ -32,18 +32,17 @@ public class PieceManager : MonoBehaviour
     [Header("Piece container")] 
     [SerializeField] public GameObject whiteParentPrefabs;
     [SerializeField] public GameObject blackParentPrefabs;
-
-    #endregion
-
-    #region params
-
+    
     public static PieceManager Instance;
+
+    private List<ScriptablePiece> _pieces;
+    
     public static Piece SelectedPiece;
     
-    private List<ScriptablePiece> _pieces;
     private List<Piece> _list;
 
     #endregion
+
 
     private void Awake()
     {
@@ -150,7 +149,7 @@ public class PieceManager : MonoBehaviour
         var spawnPiece = Instantiate(piece, parentPiece.transform, true);
         var spawnAtTile = TileManager.Instance.GetTile(pos);
 
-        spawnPiece.pos = spawnAtTile.pos;
+        spawnPiece.pos = spawnAtTile.GetPos();
         spawnAtTile.SetPiece(spawnPiece);
         
     }

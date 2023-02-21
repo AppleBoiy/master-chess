@@ -22,10 +22,5 @@ public class Piece : MonoBehaviour
 
     #endregion
 
-
-    public bool CalculateLegalMove()
-    {
-
-        return true;
-    }
+ 
 }

@@ -1,12 +1,12 @@
-using System;
 using UnityEngine;
 using static Faction;
 using static GameState;
 using static PieceManager;
 
+
 public class Tile : MonoBehaviour
 {
-    #region Serialize Field
+    #region params
 
     [Header("Tile Uniqe")]
     [SerializeField] private Color baseColor, offsetColor;
@@ -17,122 +17,112 @@ public class Tile : MonoBehaviour
     [Header("Tile attribute")] 
     [SerializeField] private bool isWalkable;
     
-    #endregion
+    private Vector2 _pos;
 
-    #region params
-
-    private static readonly MenuManager MenuManager = MenuManager.Instance;
-    private static readonly GameManager GameManager = GameManager.Instance;
-    private static readonly WhiteTeam WhiteTeam = WhiteTeam.Instance;
-    private static readonly PieceManager PieceManager = Instance;
-    private static readonly Action<object> LOG = Debug.Log;
-    
     public Piece OccupiedPiece;
-    public Vector2 pos;
+    public bool Walkable => isWalkable && !OccupiedPiece;
     
     #endregion
     
     public void Init(bool isOffset, Vector2 pos)
     {
         renderer.color = isOffset? baseColor : offsetColor;
-        this.pos = pos;
+        _pos = pos;
     }
 
-  
+    #region Getter
+    public Vector2 GetPos()
+    {
+        return _pos;
+    }
+    #endregion
     
     #region Mouse action
 
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
-        MenuManager.ShowTileInfo(this);
+        MenuManager.Instance.ShowTileInfo(this);
     }
 
     private void OnMouseExit()
     {
         highlight.SetActive(false);
-        MenuManager.ShowTileInfo(null);
+        MenuManager.Instance.ShowTileInfo(null);
     }
 
     private void OnMouseDown()
     {
-        LOG($"On Mouse Down at {pos}");
+        Debug.Log($"On Mouse Down at {_pos}");
 
-        switch (GameManager.State)
+        switch (GameManager.Instance.State)
         {
             case BlackTurn when OccupiedPiece != null:
-                LOG("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
-
-                //Calculate legal move if not legal break
-                if (!BlackTeam.Instance.CalculateLegalMove()) return;
-                
+                Debug.Log("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
+            
                 if (OccupiedPiece.faction == BLACK)
                 {  
-                    LOG("<color=white>Black Piece</color> is on tile");
+                    Debug.Log("<color=white>Black Piece</color> is on tile");
                 
-                    PieceManager.SetSelectedPiece(OccupiedPiece);
+                    Instance.SetSelectedPiece(OccupiedPiece);
                 }
                 else
                 {
-                    LOG("there is something on tile");
+                    Debug.Log("there is something on tile");
 
                     if (SelectedPiece == null) return;
                     var whitePiece = (WhitePieces) OccupiedPiece;
                     Destroy(whitePiece.gameObject);
                     
                     SetPiece(SelectedPiece);
-                    PieceManager.SetSelectedPiece(null);
+                    Instance.SetSelectedPiece(null);
                     
-                    GameManager.ChangeTurn();
+                    GameManager.Instance.ChangeTurn();
                 }
                 break;
             
             case BlackTurn:
             {
-                LOG("Empty <color=green>Tile</color> is clicked!!");
+                Debug.Log("Empty <color=green>Tile</color> is clicked!!");
 
                 if (SelectedPiece == null) return;
-                LOG("Piece is prepare to move out!");
+                Debug.Log("Piece is prepare to move out!");
                 
                 SetPiece(SelectedPiece);
                 
-                LOG("Set new tile to piece completed!!");
+                Debug.Log("Set new tile to piece completed!!");
                 
-                PieceManager.SetSelectedPiece(null);
+                Instance.SetSelectedPiece(null);
                 
-                GameManager.ChangeTurn();
+                GameManager.Instance.ChangeTurn();
                 break;
             }
             
             case WhiteTurn when OccupiedPiece != null:
             {
-                LOG("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
+                Debug.Log("<color=yellow>Occupied Piece</color> is <color=red>not</color> <color=purple>null</color>");
             
-                //Calculate legal move if not legal break
-                if (!WhiteTeam.CalculateLegalMove()) return;
-
-                
                 if (OccupiedPiece.faction == WHITE)
                 {  
-                    LOG("<color=white>White Piece</color> is on tile");
+                    Debug.Log("<color=white>White Piece</color> is on tile");
                 
-                    PieceManager.SetSelectedPiece(OccupiedPiece);
+                    Instance.SetSelectedPiece(OccupiedPiece);
                 }
                 else
                 {
-                    LOG("there is something on tile");
+                    Debug.Log("there is something on tile");
 
                     if (SelectedPiece == null) return;
                     
-                    LOG("White piece move to black piece");
+                    Debug.Log("White piece move to black piece");
                     var blackPiece = (BlackPieces) OccupiedPiece;
                     Destroy(blackPiece.gameObject);
                     
-                    LOG($"set <color=white>{SelectedPiece}</color> to {pos}");
+                    Debug.Log($"set <color=white>{SelectedPiece}</color> to {_pos}");
                     SetPiece(SelectedPiece);
-                    PieceManager.SetSelectedPiece(null);
+                    Instance.SetSelectedPiece(null);
                     
-                    GameManager.ChangeTurn();
+                    GameManager.Instance.ChangeTurn();
                 }
 
                 break;
@@ -140,23 +130,20 @@ public class Tile : MonoBehaviour
             
             case WhiteTurn:
             {
-                LOG("Empty <color=green>Tile</color> is clicked!!");
+                Debug.Log("Empty <color=green>Tile</color> is clicked!!");
 
                 if (SelectedPiece == null) return;
-                LOG("Piece is prepare to move out!");
+                Debug.Log("Piece is prepare to move out!");
                 
                 SetPiece(SelectedPiece);
                 
-                LOG("Set new tile to piece completed!!");
+                Debug.Log("Set new tile to piece completed!!");
                 
-                Instance.SetSelectedPiece(null);
+                PieceManager.Instance.SetSelectedPiece(null);
             
-                GameManager.ChangeTurn();
+                GameManager.Instance.ChangeTurn();
                 break;
             }
-            
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 

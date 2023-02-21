@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
 using static Unity.Mathematics.quaternion;
-
+using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
 
-    #region Serialize Field
+    #region params
 
     [Header("Initial game setting")] 
     [SerializeField] private int width;
@@ -21,10 +22,6 @@ public class TileManager : MonoBehaviour
 
     [Space(3)]
     [SerializeField] private Tile Tile;
-    
-    #endregion
-
-    #region params
 
     [CanBeNull] private readonly Dictionary<Vector2, Tile> _tiles = new();
 
@@ -64,6 +61,29 @@ public class TileManager : MonoBehaviour
         
     }
 
+    #region Get spawn tile position
+
+    public Tile GetWhiteTeamSpawnTile() 
+    {
+        return _tiles!.Where(t 
+            => t.Key.x < (float) width / 2
+               && t.Value.Walkable
+        ).OrderBy(t
+            => Random.value
+        ).First().Value;
+    }
+    
+    public Tile GetBlackTeamSpawnTile() 
+    {
+        return _tiles!.Where(t 
+            => t.Key.x > (float) width / 2
+               && t.Value.Walkable
+        ).OrderBy(t
+            => Random.value
+        ).First().Value;
+    }
+
+    #endregion
 
    
     
