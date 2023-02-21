@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     
-    #region params
+    #region Serialize Field
 
     [Header("Start Scene")] 
     [SerializeField] private GameObject startGameHolder;
@@ -25,11 +22,18 @@ public class MenuManager : MonoBehaviour
     [Space(3)] [Header("Game Info")] 
     [SerializeField] private GameObject pieceInfo;
     
+    #endregion
+
+    #region params
+    
+    private static readonly GameManager GameManager = GameManager.Instance;
+    private static readonly Action<object> LOG = Debug.Log;
     public static MenuManager Instance;
+    
     private TMP_Text _turnDialog;
     
     #endregion
-
+    
     private void Start()
     {
         _turnDialog = playerTurn.GetComponentInChildren<TMP_Text>();
@@ -43,22 +47,22 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         
-        _turnDialog.text = GameManager.Instance.State.ToString();
+        _turnDialog.text = GameManager.State.ToString();
     }
 
     public void ShowSelectedPiece(Piece piece)
     {
-        Debug.Log("Show piece is selected");
+        LOG("Show piece is selected");
         
         if (piece == null)
         {
-            Debug.Log("Don't have any piece on this tile");
+            LOG("Don't have any piece on this tile");
             
             selectedPiece.SetActive(false);
             return;
         }
 
-        Debug.Log("Something on this tile..");
+        LOG("Something on this tile..");
         
         selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
         selectedPiece.SetActive(true);
@@ -90,13 +94,13 @@ public class MenuManager : MonoBehaviour
 
     public void SelectWhitePlayer()
     {
-        GameManager.Instance.UpdateGameState(GameState.WhiteTurn);
+        GameManager.UpdateGameState(GameState.WhiteTurn);
         startGameHolder.SetActive(false);
     }
 
     public void SelectBlackPlayer()
     {
-        GameManager.Instance.UpdateGameState(GameState.BlackTurn);
+        GameManager.UpdateGameState(GameState.BlackTurn);
         startGameHolder.SetActive(false);
     }
 }

@@ -7,25 +7,27 @@ public class GameManager : MonoBehaviour
 {
     #region params
     
+    private static readonly PieceManager PieceManager = PieceManager.Instance;
+    private static readonly TileManager TileManager = TileManager.Instance;
+    private static readonly Action<object> LOG = Debug.Log;
     public static GameManager Instance;
     
-    public GameState State;
-    
-    private int _round = 0;
     private List<Piece> _blackPieces, _whitePieces;
+    public GameState State;
+    private int _round = 0;
     private bool _isEnd;
-    
+ 
     #endregion
 
     private void UpdatePiecesLeft()
     {
-        _blackPieces = PieceManager.Instance.CalBlackPiecesLeft();
-        _whitePieces = PieceManager.Instance.CalWhitePiecesLeft();
+        _blackPieces = PieceManager.CalBlackPiecesLeft();
+        _whitePieces = PieceManager.CalWhitePiecesLeft();
         
-        Debug.Log(
+        LOG(
             $"<color=black>BLACK</color> has {_blackPieces.Count} left\n<color=white>WHITE</color> has {_whitePieces.Count} left");
 
-        Debug.Log(State);
+        LOG(State);
         
         _isEnd =  State != StartGame && (_whitePieces.Count == 0 || _blackPieces.Count == 0);
     }
@@ -47,9 +49,9 @@ public class GameManager : MonoBehaviour
         switch (State)
             {
                 case StartGame:
-                    TileManager.Instance.GenerateTile();
-                    PieceManager.Instance.SpawnWhitePieces();
-                    PieceManager.Instance.SpawnBlackPieces();
+                    TileManager.GenerateTile();
+                    PieceManager.SpawnWhitePieces();
+                    PieceManager.SpawnBlackPieces();
                     break;
                 
                 case BlackTurn:
@@ -76,19 +78,19 @@ public class GameManager : MonoBehaviour
 
     private void HandleWin()
     {
-        Debug.Log("Game END..");
+        LOG("Game END..");
     }
 
     private void HandleBlackTurn()
     {
-        Debug.Log("<color=black>BLACK</color> Player turn!");
+        LOG("<color=black>BLACK</color> Player turn!");
         State = BlackTurn;
         _round++;
     }
 
     private void HandleWhiteTurn()
     {
-        Debug.Log("<color=white>WHITE</color> Player turn!");
+        LOG("<color=white>WHITE</color> Player turn!");
         State = WhiteTurn;
         _round++;
 
@@ -97,13 +99,13 @@ public class GameManager : MonoBehaviour
     public void ChangeTurn()
     {
 
-        Debug.Log($"<color=red>Current</color> player {State}");
+        LOG($"<color=red>Current</color> player {State}");
         
         State = (State == BlackTurn) 
             ? WhiteTurn 
             : BlackTurn;
         
-        Debug.Log($"<color=red>Update</color> to player {State}");
+        LOG($"<color=red>Update</color> to player {State}");
         
         UpdateGameState(State);
     }
