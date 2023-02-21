@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
                     break;
                 
                 case BlackTurn:
-                    HandleBackTurn();
+                    HandleBlackTurn();
                     break;
                     
                 case WhiteTurn:
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game END..");
     }
 
-    private void HandleBackTurn()
+    private void HandleBlackTurn()
     {
         Debug.Log("<color=black>BLACK</color> Player turn!");
         State = BlackTurn;
