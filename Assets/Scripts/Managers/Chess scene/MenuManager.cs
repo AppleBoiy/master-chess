@@ -83,7 +83,7 @@ public class MenuManager : MonoBehaviour
         tileInfo.SetActive(true);
         
         if (!tile.OccupiedPiece) return;
-        pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.OccupiedPiece.faction}  {tile.OccupiedPiece.roll}";
+        pieceOnTile.GetComponentInChildren<TMP_Text>().text = tile.OccupiedPiece.roll.ToString();
         pieceOnTile.SetActive(true);
 
         pieceInfo.SetActive(true);
