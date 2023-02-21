@@ -924,8 +924,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -154.052, y: 0}
-  m_SizeDelta: {x: 308.104, y: 0}
+  m_AnchoredPosition: {x: -243.591, y: 0}
+  m_SizeDelta: {x: 487.181, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646403395
 MonoBehaviour:
@@ -1123,10 +1123,10 @@ RectTransform:
   m_Father: {fileID: 646403394}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00006485, y: -123.369}
-  m_SizeDelta: {x: 308.1, y: 501.654}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -125.03}
+  m_SizeDelta: {x: 0, y: -574.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &718424684
 MonoBehaviour:
@@ -2073,7 +2073,6 @@ MonoBehaviour:
   pieceOnTile: {fileID: 578170927}
   playerTurn: {fileID: 400293295}
   pieceInfo: {fileID: 718424682}
-  Sprite: {fileID: 21300000, guid: 5b93d2b30ecc4413bb138e78b252e9ee, type: 3}
 --- !u!1 &1403607337
 GameObject:
   m_ObjectHideFlags: 0

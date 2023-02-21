@@ -24,7 +24,6 @@ public class MenuManager : MonoBehaviour
 
     [Space(3)] [Header("Game Info")] 
     [SerializeField] private GameObject pieceInfo;
-    [SerializeField] private Sprite Sprite;
     
     public static MenuManager Instance;
     private TMP_Text _turnDialog;
