@@ -2073,6 +2073,7 @@ MonoBehaviour:
   pieceOnTile: {fileID: 578170927}
   playerTurn: {fileID: 400293295}
   pieceInfo: {fileID: 718424682}
+  Sprite: {fileID: 21300000, guid: 5b93d2b30ecc4413bb138e78b252e9ee, type: 3}
 --- !u!1 &1403607337
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -23,7 +24,7 @@ public class MenuManager : MonoBehaviour
 
     [Space(3)] [Header("Game Info")] 
     [SerializeField] private GameObject pieceInfo;
-    
+    [SerializeField] private Sprite Sprite;
     
     public static MenuManager Instance;
     private TMP_Text _turnDialog;
@@ -83,9 +84,8 @@ public class MenuManager : MonoBehaviour
         pieceOnTile.SetActive(true);
 
         pieceInfo.SetActive(true);
-        pieceInfo.GetComponent<Image>().sprite = pieceOnTile.GetComponent<Image>().sprite;
-        
-        Debug.Log(pieceOnTile.GetComponent<Image>().sprite);
+        pieceInfo.GetComponent<Image>().sprite = tile.OccupiedPiece.GetComponent<SpriteRenderer>().sprite;
+
     }
 
 
