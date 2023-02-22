@@ -150,6 +150,8 @@ public class PieceManager : MonoBehaviour
         var spawnAtTile = TileManager.Instance.GetTile(pos);
 
         spawnPiece.pos = spawnAtTile.GetPos();
+        spawnPiece.isFirstMove = true;
+        
         spawnAtTile.SetPiece(spawnPiece);
         
     }
