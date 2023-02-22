@@ -11,25 +11,12 @@ public class GameManager : MonoBehaviour
     
     public GameState State;
     
-    private int _round = 0;
     private List<Piece> _blackPieces, _whitePieces;
     private bool _isEnd;
     
     #endregion
 
-    private void UpdatePiecesLeft()
-    {
-        _blackPieces = PieceManager.Instance.CalBlackPiecesLeft();
-        _whitePieces = PieceManager.Instance.CalWhitePiecesLeft();
-        
-        Debug.Log(
-            $"<color=black>BLACK</color> has {_blackPieces.Count} left\n<color=white>WHITE</color> has {_whitePieces.Count} left");
-
-        Debug.Log(State);
-        
-        _isEnd =  State != StartGame && (_whitePieces.Count == 0 || _blackPieces.Count == 0);
-    }
-
+    
     private void Awake()
     {
         Instance = this;
@@ -42,14 +29,18 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGameState(GameState newState)
     {
+        Action generateTile = TileManager.Instance.GenerateTile;
+        var pieceManager = PieceManager.Instance;
+        
         State = newState;
-
+        
+        
         switch (State)
             {
                 case StartGame:
-                    TileManager.Instance.GenerateTile();
-                    PieceManager.Instance.SpawnWhitePieces();
-                    PieceManager.Instance.SpawnBlackPieces();
+                    generateTile();
+                    pieceManager.SpawnWhitePieces();
+                    pieceManager.SpawnBlackPieces();
                     break;
                 
                 case BlackTurn:
@@ -59,12 +50,9 @@ public class GameManager : MonoBehaviour
                 case WhiteTurn:
                     HandleWhiteTurn();
                     break;
-                    
-                case Win:
-                    HandleWin();
-                    break;
-                    
-                case Lose:
+
+                case END:
+                    Debug.Log("<color=red>GAME IS END</color>");
                     break;
                 
                 default:
@@ -74,7 +62,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void HandleWin()
+    private static void HandleWin()
     {
         Debug.Log("Game END..");
     }
@@ -83,15 +71,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("<color=black>BLACK</color> Player turn!");
         State = BlackTurn;
-        _round++;
     }
 
     private void HandleWhiteTurn()
     {
         Debug.Log("<color=white>WHITE</color> Player turn!");
         State = WhiteTurn;
-        _round++;
-
+        
     }
 
     public void ChangeTurn()

@@ -139,4 +139,12 @@ public class Piece : MonoBehaviour
             highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
         }
     }
+
+    private void OnDestroy()
+    {
+        Debug.Log($"{this} will be destroyed!!");
+        if (roll != Roll.King) return;
+        Debug.Log("This game was END!!");
+        GameManager.Instance.UpdateGameState(GameState.END);
+    }
 }

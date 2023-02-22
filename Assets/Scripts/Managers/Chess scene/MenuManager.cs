@@ -49,17 +49,12 @@ public class MenuManager : MonoBehaviour
 
     public void ShowSelectedPiece(Piece piece)
     {
-        Debug.Log("Show piece is selected");
         
         if (piece == null)
         {
-            Debug.Log("Don't have any piece on this tile");
-            
             selectedPiece.SetActive(false);
             return;
         }
-
-        Debug.Log("Something on this tile..");
         
         selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
         selectedPiece.SetActive(true);
