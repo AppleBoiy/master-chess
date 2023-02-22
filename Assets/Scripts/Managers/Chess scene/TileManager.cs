@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -67,5 +68,9 @@ public class TileManager : MonoBehaviour
         return _tiles.TryGetValue(pos, out var tile) ? tile : null;
     }
 
+    public Dictionary<Vector2, Tile> Tiles()
+    {
+        return _tiles;
+    }
 
 }

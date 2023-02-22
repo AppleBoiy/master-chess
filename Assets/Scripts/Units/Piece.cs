@@ -23,17 +23,17 @@ public class Piece : MonoBehaviour
 
     #endregion
     
-    public IEnumerable<Vector2> CalculateLegalMove()
+    public static IEnumerable<Vector2> CalculateLegalMove(Piece piece)
     {
 
-        LOG("Calculate legal move.. ");
+        LOG($"<color=green>Calculate legal move.. of {piece} at ({piece.pos.x}, {piece.pos.y})</color>");
         
         Vector2[] legalMove = {};
 
-        switch (roll)
+        switch (piece.roll)
         {
             case Roll.King: 
-                legalMove = KingWalk(pos.x, pos.y);
+                legalMove = KingWalk(piece.pos.x, piece.pos.y);
                 break;
             
             case Roll.Queen:
@@ -49,7 +49,7 @@ public class Piece : MonoBehaviour
                 break;
             
             case Roll.Pawn:
-                legalMove = PawnWalk(pos.x, pos.y, isFirstMove);
+                legalMove = PawnWalk(piece.pos.x, piece.pos.y, piece.isFirstMove);
                 break;
             
             case Roll.Piece:
@@ -123,5 +123,4 @@ public class Piece : MonoBehaviour
             highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
         }
     }
-
 }

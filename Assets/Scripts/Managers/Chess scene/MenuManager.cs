@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -98,5 +99,13 @@ public class MenuManager : MonoBehaviour
     {
         GameManager.Instance.UpdateGameState(GameState.BlackTurn);
         startGameHolder.SetActive(false);
+    }
+
+    public void ResetMove()
+    {
+        foreach (var tile in TileManager.Instance.Tiles().Values)
+        {
+            tile.transform.GetChild(2).GameObject().SetActive(false);
+        }
     }
 }

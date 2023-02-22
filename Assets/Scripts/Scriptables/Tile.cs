@@ -57,6 +57,8 @@ public class Tile : MonoBehaviour
     {
         Log($"On Mouse Down at {_pos}");
         
+        MenuManager.Instance.ResetMove();
+        
         Action<Piece> selectedPiece = Instance.SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.State;
@@ -73,7 +75,9 @@ public class Tile : MonoBehaviour
                 
                     selectedPiece(OccupiedPiece);
                     
-                    OccupiedPiece.CalculateLegalMove();
+                    Log($"<color=red>{OccupiedPiece}</color>");
+                    Piece.CalculateLegalMove(OccupiedPiece);
+
                 }
                 else
                 {
@@ -118,6 +122,10 @@ public class Tile : MonoBehaviour
                     Log("<color=white>White Piece</color> is on tile");
                 
                     selectedPiece(OccupiedPiece);
+
+                    Log($"<color=red>{OccupiedPiece}</color>");
+
+                    Piece.CalculateLegalMove(OccupiedPiece);
                 }
                 else
                 {
@@ -172,10 +180,14 @@ public class Tile : MonoBehaviour
         {
             piece.occupiedTile.OccupiedPiece = null;
         }
+
+        Vector2 newPos = transform.position;
         
-        piece.transform.position = transform.position;
+        piece.transform.position = newPos;
+        piece.pos = newPos;
         OccupiedPiece = piece;
         piece.occupiedTile = this;
+        
     }
     
 }
