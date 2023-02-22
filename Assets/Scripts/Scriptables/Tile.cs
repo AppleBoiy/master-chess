@@ -9,8 +9,8 @@ public class Tile : MonoBehaviour
     #region params
 
     [Header("Tile Uniqe")]
-    [SerializeField] private Color baseColor, offsetColor;
-    [SerializeField] private new SpriteRenderer renderer;
+    [SerializeField] private Sprite baseTile;
+    [SerializeField] private Sprite offsetTile;
     [SerializeField] private GameObject highlight;
 
     [Space(3)] 
@@ -26,7 +26,8 @@ public class Tile : MonoBehaviour
     
     public void Init(bool isOffset, Vector2 pos)
     {
-        renderer.color = isOffset? baseColor : offsetColor;
+        transform.GetChild(1).GetComponentInChildren<SpriteRenderer>().sprite = isOffset ? baseTile : offsetTile;
+        
         _pos = pos;
     }
 
