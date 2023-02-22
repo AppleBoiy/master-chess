@@ -8,38 +8,38 @@ public interface IPieceStartingPos
     {
         
         
-        public static readonly Vector2 FirstPawn = new(1, 0);
-        public static readonly Vector2 LastPawn = new(1, 8);
+        public static readonly Vector2 FirstPawn = new(0, 0);
+        public static readonly Vector2 LastPawn = new(8, 0);
         
-        public static readonly Vector2 Rook1 = new(0, 0);
-        public static readonly Vector2 Rook2 = new(0, 7);
+        public static readonly Vector2 Rook1 = new(0, 1);
+        public static readonly Vector2 Rook2 = new(7, 1);
 
-        public static readonly Vector2 Knight1 = new(0, 1);
-        public static readonly Vector2 Knight2 = new(0, 6);
+        public static readonly Vector2 Knight1 = new(1, 1);
+        public static readonly Vector2 Knight2 = new(6, 1);
 
-        public static readonly Vector2 Bishop1 = new(0, 2);
-        public static readonly Vector2 Bishop2 = new(0, 5);
+        public static readonly Vector2 Bishop1 = new(2, 1);
+        public static readonly Vector2 Bishop2 = new(5, 1);
         
-        public static readonly Vector2 King = new(0, 3);
-        public static readonly Vector2 Queen = new(0, 4);
+        public static readonly Vector2 King = new(3, 1);
+        public static readonly Vector2 Queen = new(4, 1);
 
     }
     
     public interface IBlack : IPieceStartingPos
     {
-        public static readonly Vector2 FirstPawn = new(6, 0);
-        public static readonly Vector2 LastPawn = new(6, 8);
+        public static readonly Vector2 FirstPawn = new(0, 6);
+        public static readonly Vector2 LastPawn = new(8, 6);
         
-        public static readonly Vector2 Rook1 = new(7, 0);
+        public static readonly Vector2 Rook1 = new(0, 7);
         public static readonly Vector2 Rook2 = new(7, 7);
 
-        public static readonly Vector2 Knight1 = new(7, 1);
-        public static readonly Vector2 Knight2 = new(7, 6);
+        public static readonly Vector2 Knight1 = new(1, 7);
+        public static readonly Vector2 Knight2 = new(6, 7);
 
-        public static readonly Vector2 Bishop1 = new(7, 2);
-        public static readonly Vector2 Bishop2 = new(7, 5);
+        public static readonly Vector2 Bishop1 = new(2, 7);
+        public static readonly Vector2 Bishop2 = new(5, 7);
         
-        public static readonly Vector2 King = new(7, 3);
-        public static readonly Vector2 Queen = new(7, 4);
+        public static readonly Vector2 King = new(3, 7);
+        public static readonly Vector2 Queen = new(4, 7);
     }
 }

@@ -69,7 +69,7 @@ public class PieceManager : MonoBehaviour
         {
             SpawnPiece(currentPos, whitePawn, whiteParentPrefabs);
 
-            currentPos = new Vector2(currentPos.x, currentPos.y + 1);
+            currentPos = new Vector2(currentPos.x + 1, currentPos.y);
 
         } while (currentPos != IWhite.LastPawn);
 
@@ -95,7 +95,7 @@ public class PieceManager : MonoBehaviour
         {
             SpawnPiece(currentPos, blackPawn, blackParentPrefabs);
 
-            currentPos = new Vector2(currentPos.x, currentPos.y + 1);
+            currentPos = new Vector2(currentPos.x + 1, currentPos.y);
 
         } while (currentPos != IBlack.LastPawn);
 
