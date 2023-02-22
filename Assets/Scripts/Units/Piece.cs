@@ -49,7 +49,7 @@ public class Piece : MonoBehaviour
                 break;
             
             case Roll.Pawn:
-                legalMove = PawnWalk(piece.pos.x, piece.pos.y, piece.isFirstMove);
+                legalMove = PawnWalk(piece);
                 break;
             
             case Roll.Piece:
@@ -90,20 +90,36 @@ public class Piece : MonoBehaviour
         };
     }
 
-    private static Vector2[] PawnWalk(float x, float y, bool isFirstMove)
+    private static Vector2[] PawnWalk(Piece piece)
     {
-        if (isFirstMove)
+
+        var move = new List<Vector2>{};
+        
+        switch (piece.faction)
         {
-            return new[]
-            {
-                new Vector2(x, y + 1),
-                new Vector2(x, y + 2)
-            };
+            case Faction.WHITE when piece.isFirstMove:
+                move.Add(new Vector2(piece.pos.x, piece.pos.y+1));
+                move.Add(new Vector2(piece.pos.x, piece.pos.y+2));
+                break;
+            
+            case Faction.WHITE:
+                move.Add(new Vector2(piece.pos.x, piece.pos.y+1));
+                break;
+            
+            case Faction.BLACK when piece.isFirstMove:
+                move.Add(new Vector2(piece.pos.x, piece.pos.y-1));
+                move.Add(new Vector2(piece.pos.x, piece.pos.y-2));
+                break;
+            
+            case Faction.BLACK:
+                move.Add(new Vector2(piece.pos.x, piece.pos.y-1));
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-        return new[]
-        {
-            new Vector2(x, y),
-        };
+
+        return move.ToArray();
     }
 
     #endregion
