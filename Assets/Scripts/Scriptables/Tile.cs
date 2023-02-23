@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
         
         MenuManager.Instance.ResetMove();
         
-        Action<Piece> selectedPiece = Instance.SetSelectedPiece;
+        Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.State;
         
@@ -189,5 +189,6 @@ public class Tile : MonoBehaviour
         piece.occupiedTile = this;
         
     }
+    
     
 }
