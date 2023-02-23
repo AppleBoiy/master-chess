@@ -21,9 +21,11 @@ public class Piece : MonoBehaviour
     public Vector2 pos;
     private static readonly Action<object> LOG = Debug.Log;
 
+    public static Vector2[] CurrentPieceMove;
+
     #endregion
     
-    public static IEnumerable<Vector2> CalculateLegalMove(Piece piece)
+    public static void CalculateLegalMove(Piece piece)
     {
 
         LOG($"<color=green>Calculate legal move.. of {piece} at ({piece.pos.x}, {piece.pos.y})</color>");
@@ -55,15 +57,13 @@ public class Piece : MonoBehaviour
             case Roll.Piece:
                 break;
             
-            default:
-                return legalMove;
         }
 
 
         LOG($"Total legal move is {legalMove.Length}: {legalMove} ");
         ShowLegalMove(legalMove);
         
-        return legalMove;
+        CurrentPieceMove =  legalMove;
     }
 
 

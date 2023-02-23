@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using static Faction;
 using static GameState;
+using static Piece;
 using static PieceManager;
 using static UnityEngine.Debug;
 
@@ -56,37 +57,28 @@ public class Tile : MonoBehaviour
     private void OnMouseDown()
     {
         Log($"On Mouse Down at {_pos}");
-        
+
         MenuManager.Instance.ResetMove();
         
         Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
-        var instanceState = GameManager.Instance.State;
-        
+        GameState instanceState = GameManager.Instance.State;
+
         switch (instanceState)
         {
             //tile has a piece on it
             case BlackTurn when OccupiedPiece != null:
-                Log("Occupied Piece is not null");
-            
                 if (OccupiedPiece.faction == BLACK)
                 {  
-                    Log("<color=white>Black Piece</color> is on tile");
-                
                     selectedPiece(OccupiedPiece);
-                    
-                    Log($"<color=red>{OccupiedPiece}</color>");
-                    Piece.CalculateLegalMove(OccupiedPiece);
+                    CalculateLegalMove(OccupiedPiece);
 
                 }
                 else
                 {
-                    Log("there is something on tile");
                     if (SelectedPiece == null) return;
-                    
                     var whitePiece = (WhitePieces) OccupiedPiece;
                     Destroy(whitePiece.gameObject);
-                    
                     SetPiece(SelectedPiece);
                     selectedPiece(null);
                     
@@ -97,17 +89,8 @@ public class Tile : MonoBehaviour
             //Click to empty tile
             case BlackTurn:
             {
-                Log("Empty Tile is clicked!!");
-
-                if (SelectedPiece == null) return;
-                Log("Piece is prepare to move out!");
-                
                 SetPiece(SelectedPiece);
-                
-                Log("Set new tile to piece completed!!");
-                
                 selectedPiece(null);
-                
                 changeTurn();
                 break;
             }
@@ -115,34 +98,19 @@ public class Tile : MonoBehaviour
             //tile has a piece on it
             case WhiteTurn when OccupiedPiece != null:
             {
-                Log("Occupied Piece is not null");
-            
+
                 if (OccupiedPiece.faction == WHITE)
-                {  
-                    Log("<color=white>White Piece</color> is on tile");
-                
+                {
                     selectedPiece(OccupiedPiece);
-
-                    Log($"<color=red>{OccupiedPiece}</color>");
-
-                    Piece.CalculateLegalMove(OccupiedPiece);
+                    CalculateLegalMove(OccupiedPiece);
                 }
                 else
                 {
-                    Log("there is something on tile");
-
                     if (SelectedPiece == null) return;
-                    
-                    Log("White piece move to black piece");
                     var blackPiece = (BlackPieces) OccupiedPiece;
                     Destroy(blackPiece.gameObject);
-                    
-                    Log($"set <color=white>{SelectedPiece}</color> to {_pos}");
-                    
                     SetPiece(SelectedPiece);
-                    
                     selectedPiece(null);
-                    
                     changeTurn();
                 }
 
@@ -152,17 +120,8 @@ public class Tile : MonoBehaviour
             //click on empty tile
             case WhiteTurn:
             {
-                Log("Empty <color=green>Tile</color> is clicked!!");
-
-                if (SelectedPiece == null) return;
-                Log("Piece is prepare to move out!");
-                
                 SetPiece(SelectedPiece);
-                
-                Log("Set new tile to piece completed!!");
-                
                 selectedPiece(null);
-            
                 changeTurn();
                 break;
             }
