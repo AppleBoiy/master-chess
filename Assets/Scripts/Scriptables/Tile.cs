@@ -63,7 +63,8 @@ public class Tile : MonoBehaviour
         Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
         GameState instanceState = GameManager.Instance.State;
-
+        
+        
         switch (instanceState)
         {
             //tile has a piece on it
@@ -77,11 +78,13 @@ public class Tile : MonoBehaviour
                 else
                 {
                     if (SelectedPiece == null) return;
+                    if (!Walkable()) return;
+
                     var whitePiece = (WhitePieces) OccupiedPiece;
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
                     selectedPiece(null);
-                    
+
                     changeTurn();
                 }
                 break;
@@ -89,6 +92,9 @@ public class Tile : MonoBehaviour
             //Click to empty tile
             case BlackTurn:
             {
+                if (SelectedPiece == null) return;
+                if (!Walkable()) return;
+                
                 SetPiece(SelectedPiece);
                 selectedPiece(null);
                 changeTurn();
@@ -107,6 +113,8 @@ public class Tile : MonoBehaviour
                 else
                 {
                     if (SelectedPiece == null) return;
+                    if (!Walkable()) return;
+                    
                     var blackPiece = (BlackPieces) OccupiedPiece;
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
@@ -120,6 +128,7 @@ public class Tile : MonoBehaviour
             //click on empty tile
             case WhiteTurn:
             {
+                if (!Walkable()) return;
                 SetPiece(SelectedPiece);
                 selectedPiece(null);
                 changeTurn();
@@ -147,6 +156,17 @@ public class Tile : MonoBehaviour
         OccupiedPiece = piece;
         piece.occupiedTile = this;
         
+    }
+
+    private bool Walkable()
+    {
+        var walkable = false;
+        foreach (var pos in CurrentPieceMove)
+        {
+            if (_pos == pos) walkable = true;
+        }
+                    
+        return walkable;
     }
     
     
