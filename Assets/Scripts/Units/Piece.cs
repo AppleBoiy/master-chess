@@ -21,45 +21,46 @@ public class Piece : MonoBehaviour
     public Vector2 pos;
     private static readonly Action<object> LOG = Debug.Log;
 
-    public static Vector2[] CurrentPieceMove;
+    public static List<Vector2> CurrentPieceMove;
 
     #endregion
-    
+
+
     public static void CalculateLegalMove(Piece piece)
     {
-        Vector2 piecePos = piece.pos;
+        var piecePosX =  piece.pos.x;
+        var piecePosY =  piece.pos.y;
+        LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePosX}, {piecePosY})</color>");
         
-        LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePos.x}, {piecePos.y})</color>");
-        
-        Vector2[] legalMove = {};
+        Vector2[][] legalMove = {};
 
         switch (piece.roll)
         {
             case Roll.King: 
-                legalMove = KingWalk(piecePos.x, piecePos.y);
+                legalMove = new [] {KingWalk(piecePosX, piecePosY)};
                 break;
             
             case Roll.Queen:
-                var temp = new List<Vector2>();
-                temp.AddRange(RookWalk(piecePos.x, piecePos.y));
-                temp.AddRange(BishopWalk(piecePos.x, piecePos.y));
+                var temp = new List<Vector2[]>();
+                temp.AddRange(RookWalk(piecePosX, piecePosY));
+                temp.AddRange(BishopWalk(piecePosX, piecePosY));
                 legalMove = temp.ToArray();
                 break;
             
             case Roll.Knight:
-                legalMove = KnightWalk(piecePos.x, piecePos.y);
+                legalMove = new [] {KnightWalk(piecePosX, piecePosY)};
                 break;
             
             case Roll.Rook:
-                legalMove = RookWalk(piecePos.x, piecePos.y);
+                legalMove = RookWalk(piecePosX, piecePosY);
                 break;
             
             case Roll.Bishop:
-                legalMove = BishopWalk(piecePos.x, piecePos.y);
+                legalMove = BishopWalk(piecePosX, piecePosY);
                 break;
             
             case Roll.Pawn:
-                legalMove = PawnWalk(piece);
+                legalMove = new []{PawnWalk(piece)};
                 break;
             
             case Roll.Piece:
@@ -70,47 +71,61 @@ public class Piece : MonoBehaviour
         }
 
 
-        LOG($"Total legal move is {legalMove.Length}: {legalMove} ");
         ShowLegalMove(legalMove, piece);
-        
-        CurrentPieceMove =  legalMove;
     }
 
 
     #region Piece move
 
-    private static Vector2[] BishopWalk(float x, float y)
+    private static Vector2[][] BishopWalk(float x, float y)
     {
-        var legalWalk = new List<Vector2>();
-
+        var topRightMove  = new List<Vector2>();
+        var downRightMove =  new List<Vector2>();
+        var topLeftMove =  new List<Vector2>();
+        var downLeftMove =  new List<Vector2>();
+            
         for (var i = 1; i < 9; i++)
         {
-            var topRightMove = new Vector2(x + i, y + i);
-            var downRightMove = new Vector2(x + i, y - i);
-            var topLeftMove = new Vector2(x - i, y + i);
-            var downLeftMove = new Vector2(x - i, y - i);
+            topRightMove.Add( new Vector2(x + i, y + i));
+            downRightMove.Add(new Vector2(x + i, y - i));
+            topLeftMove.Add(new Vector2(x - i, y + i));
+            downLeftMove.Add(new Vector2(x - i, y - i));
             
-            legalWalk.AddRange(new []{topLeftMove, topRightMove, downLeftMove, downRightMove});
         }
 
-        return legalWalk.ToArray();
+        return new[]
+        {
+            topLeftMove.ToArray(),
+            downLeftMove.ToArray(),
+            topRightMove.ToArray(),
+            downRightMove.ToArray()
+        };
     }
 
-    private static Vector2[] RookWalk(float x, float y)
+    private static Vector2[][] RookWalk(float x, float y)
     {
-        var legalWalk = new List<Vector2>();
+        var topMove = new List<Vector2>();
+        var downMove = new List<Vector2>();
+        var leftMove = new List<Vector2>();
+        var rightMove = new List<Vector2>();
 
         for (var i = 1; i < 9; i++)
         {
-            var topMove = new Vector2(x, y + i);
-            var downMove = new Vector2(x, y - i);
-            var leftMove = new Vector2(x - i, y);
-            var rightMove = new Vector2(x + i, y);
+            topMove.Add(new Vector2(x, y + i));
+            downMove.Add(new Vector2(x, y - i));
+            leftMove.Add(new Vector2(x - i, y));
+            rightMove.Add(new Vector2(x + i, y));
             
-            legalWalk.AddRange(new []{topMove, downMove, leftMove, rightMove});
+            
         }
 
-        return legalWalk.ToArray();
+        return new[]
+        {
+            topMove.ToArray(),
+            downMove.ToArray(),
+            leftMove.ToArray(),
+            rightMove.ToArray()
+        };
     }
 
     private static Vector2[] KnightWalk(float x, float y)
@@ -156,25 +171,27 @@ public class Piece : MonoBehaviour
     {
 
         var move = new List<Vector2>{};
+
+        var piecePos = piece.pos;
         
         switch (piece.faction)
         {
             case Faction.WHITE when piece.isFirstMove:
-                move.Add(new Vector2(piece.pos.x, piece.pos.y+1));
-                move.Add(new Vector2(piece.pos.x, piece.pos.y+2));
+                move.Add(new Vector2(piecePos.x, piecePos.y+1));
+                move.Add(new Vector2(piecePos.x, piecePos.y+2));
                 break;
             
             case Faction.WHITE:
-                move.Add(new Vector2(piece.pos.x, piece.pos.y+1));
+                move.Add(new Vector2(piecePos.x, piecePos.y+1));
                 break;
             
             case Faction.BLACK when piece.isFirstMove:
-                move.Add(new Vector2(piece.pos.x, piece.pos.y-1));
-                move.Add(new Vector2(piece.pos.x, piece.pos.y-2));
+                move.Add(new Vector2(piecePos.x, piecePos.y-1));
+                move.Add(new Vector2(piecePos.x, piecePos.y-2));
                 break;
             
             case Faction.BLACK:
-                move.Add(new Vector2(piece.pos.x, piece.pos.y-1));
+                move.Add(new Vector2(piecePos.x, piecePos.y-1));
                 break;
             
             default:
@@ -186,24 +203,36 @@ public class Piece : MonoBehaviour
 
     #endregion
 
-    private static void ShowLegalMove(IEnumerable<Vector2> legalMove, Piece piece)
+    private static void ShowLegalMove(IEnumerable<Vector2[]> legalMove, Piece piece)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+        LOG("<color=red>Show Legal move</color>");
+        var temp = new List<Vector2>{};
         
-        foreach (var move in legalMove)
+        foreach (var axis in legalMove)
         {
-            if (!getTile(move)) continue;
-
-            if (getTile(move).OccupiedPiece.faction == piece.faction) continue;
             
-            LOG($"<color=yellow>{getTile(move).OccupiedPiece.faction} master {piece.faction}</color>");
-
-            LOG(getTile(move));
-            
-            var highlight = getTile(move).transform.GetChild(2);
-            highlight.GameObject().SetActive(true);
-            highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            foreach (var move in axis)
+            {
+                var tile = getTile(move);
+                if (!tile) continue;
+                
+                if (tile.OccupiedPiece != null && tile.OccupiedPiece.faction == piece.faction)
+                {   
+                    if (piece.roll == Roll.Knight) continue;
+                    break;
+                }
+                
+                temp.Add(move);
+                
+                var highlight = getTile(move).transform.GetChild(2);
+                highlight.GameObject().SetActive(true);
+                highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            }
         }
+
+        CurrentPieceMove = temp;
+
     }
 
     private void OnDestroy()

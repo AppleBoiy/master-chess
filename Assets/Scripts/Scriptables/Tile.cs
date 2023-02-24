@@ -62,7 +62,7 @@ public class Tile : MonoBehaviour
         
         Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
-        GameState instanceState = GameManager.Instance.State;
+        var instanceState = GameManager.Instance.State;
         
         
         switch (instanceState)
@@ -78,7 +78,10 @@ public class Tile : MonoBehaviour
                 else
                 {
                     if (SelectedPiece == null) return;
-                    if (!Walkable()) return;
+                    if (!Walkable())
+                    {
+                        return;
+                    }
 
                     var whitePiece = (WhitePieces) OccupiedPiece;
                     Destroy(whitePiece.gameObject);
@@ -113,7 +116,11 @@ public class Tile : MonoBehaviour
                 else
                 {
                     if (SelectedPiece == null) return;
-                    if (!Walkable()) return;
+                    if (!Walkable())
+                    {
+                        
+                        return;
+                    }
                     
                     var blackPiece = (BlackPieces) OccupiedPiece;
                     Destroy(blackPiece.gameObject);
@@ -128,6 +135,7 @@ public class Tile : MonoBehaviour
             //click on empty tile
             case WhiteTurn:
             {
+                Log("<color=red>White turn</color>");
                 if (!Walkable()) return;
                 SetPiece(SelectedPiece);
                 selectedPiece(null);
@@ -160,16 +168,15 @@ public class Tile : MonoBehaviour
 
     private bool Walkable()
     {
-        var walkable = false;
         foreach (var pos in CurrentPieceMove)
         {
-            if (_pos == pos) walkable = true;
-        }
-                    
-        return walkable;
+            Log(pos);
+            if (_pos == pos) 
+                return true;
+        }      
+        return false;
     }
     
-    public bool 
     
     
 }
