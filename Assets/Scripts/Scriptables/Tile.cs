@@ -169,5 +169,7 @@ public class Tile : MonoBehaviour
         return walkable;
     }
     
+    public bool 
+    
     
 }
