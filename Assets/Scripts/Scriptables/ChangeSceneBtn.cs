@@ -6,6 +6,6 @@ public class ChangeSceneBtn : MonoBehaviour
 {
     public void StartGameSinglePlayer()
     {
-        // SceneManager.LoadScene("Chess Scene");
+        //SceneManager.LoadScene("Chess Scene");
     }
 }
