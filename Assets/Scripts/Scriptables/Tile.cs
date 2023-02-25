@@ -25,7 +25,10 @@ public sealed class Tile : MonoBehaviour
     
     public void Init(bool isOffset, Vector2 pos)
     {
-        transform.GetChild(1).GetComponentInChildren<SpriteRenderer>().sprite = isOffset ? baseTile : offsetTile;
+        Transform child = transform.GetChild(1);
+        SpriteRenderer componentInChildren = child.GetComponentInChildren<SpriteRenderer>();
+        
+        componentInChildren.sprite = isOffset ? baseTile : offsetTile;
         
         _pos = pos;
     }
