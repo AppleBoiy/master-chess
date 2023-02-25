@@ -35,36 +35,37 @@ public class Piece : MonoBehaviour
         
         LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePosX}, {piecePosY})</color>");
         
-        Vector2[][] legalMove = {};
+        Vector2[] legalMove = {};
 
         switch (piece.roll)
         {
             case Roll.King: 
-                legalMove = new [] {KingWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = KingWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Queen:
-                legalMove = new []
-                {
-                    RookWalk(piecePosX, piecePosY, pFaction),
-                    BishopWalk(piecePosX, piecePosY, pFaction)
-                };
+                
+                var temp = new List<Vector2>();
+                temp.AddRange(RookWalk(piecePosX, piecePosY, pFaction));
+                temp.AddRange(BishopWalk(piecePosX, piecePosY, pFaction));
+                legalMove = temp.ToArray();
+                
                 break;
             
             case Roll.Knight:
-                legalMove = new [] {KnightWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = KnightWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Rook:
-                legalMove = new []{RookWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = RookWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Bishop:
-                legalMove = new []{BishopWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = BishopWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Pawn:
-                legalMove = new []{PawnWalk(piece)};
+                legalMove = PawnWalk(piece);
                 break;
             
             case Roll.Piece:
@@ -294,17 +295,12 @@ public class Piece : MonoBehaviour
 
     #region Show walkable tile
     
-    private static void ShowLegalMove(IEnumerable<Vector2[]> legalMove)
+    private static void ShowLegalMove(IEnumerable<Vector2> legalMove)
     {
         LOG("<color=red>Show Legal move</color>");
-        
-        var temp = new List<Vector2>{};
-        
-        foreach (var axis in legalMove)
-        {
-            temp.AddRange(axis.Select(ShowHighlight));
-        }
 
+        var temp = new List<Vector2>();
+        temp.AddRange(legalMove.Select(ShowHighlight));
         CurrentPieceMove = temp;
 
     }

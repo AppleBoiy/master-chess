@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 {
     #region params
 
-    [Header("Tile Uniqe")]
+    [Header("Tile Unique")]
     [SerializeField] private Sprite baseTile;
     [SerializeField] private Sprite offsetTile;
     [SerializeField] private GameObject highlight;
@@ -34,10 +34,18 @@ public class Tile : MonoBehaviour
     }
 
     #region Getter
+<<<<<<< Updated upstream
     public Vector2 GetPos()
     {
         return _pos;
     }
+=======
+    
+    protected virtual bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
+
+    public Vector2 GetPos() => _pos;
+
+>>>>>>> Stashed changes
     #endregion
     
     #region Mouse action
