@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using static Faction;
 using static GameState;
@@ -34,10 +35,13 @@ public class Tile : MonoBehaviour
     }
 
     #region Getter
+    
+    protected virtual bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
     public Vector2 GetPos()
     {
         return _pos;
     }
+    
     #endregion
     
     #region Mouse action
@@ -166,18 +170,4 @@ public class Tile : MonoBehaviour
         piece.occupiedTile = this;
         
     }
-
-    private bool Walkable()
-    {
-        foreach (var pos in CurrentPieceMove)
-        {
-            Log(pos);
-            if (_pos == pos) 
-                return true;
-        }      
-        return false;
-    }
-    
-    
-    
 }

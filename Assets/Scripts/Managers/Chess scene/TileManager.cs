@@ -65,7 +65,7 @@ public class TileManager : MonoBehaviour
     
     public Tile GetTile(Vector2 pos)
     {
-        return _tiles.TryGetValue(pos, out var tile) ? tile : null;
+        return _tiles!.TryGetValue(pos, out var tile) ? tile : null;
     }
 
     public Dictionary<Vector2, Tile> Tiles()
