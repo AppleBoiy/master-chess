@@ -82,7 +82,8 @@ public class Tile : MonoBehaviour
                     {
                         return;
                     }
-
+                    if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    
                     var whitePiece = (WhitePieces) OccupiedPiece;
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
@@ -97,6 +98,8 @@ public class Tile : MonoBehaviour
             {
                 if (SelectedPiece == null) return;
                 if (!Walkable()) return;
+
+                if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
                 selectedPiece(null);
@@ -116,12 +119,9 @@ public class Tile : MonoBehaviour
                 else
                 {
                     if (SelectedPiece == null) return;
-                    if (!Walkable())
-                    {
-                        
-                        return;
-                    }
-                    
+                    if (!Walkable()) return;
+                    if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+
                     var blackPiece = (BlackPieces) OccupiedPiece;
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
@@ -137,6 +137,7 @@ public class Tile : MonoBehaviour
             {
                 Log("<color=red>White turn</color>");
                 if (!Walkable()) return;
+                if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 SetPiece(SelectedPiece);
                 selectedPiece(null);
                 changeTurn();

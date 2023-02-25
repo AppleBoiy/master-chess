@@ -28,8 +28,9 @@ public class Piece : MonoBehaviour
 
     public static void CalculateLegalMove(Piece piece)
     {
-        var piecePosX =  piece.pos.x;
-        var piecePosY =  piece.pos.y;
+        float piecePosX =  piece.pos.x;
+        float piecePosY =  piece.pos.y;
+        
         LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePosX}, {piecePosY})</color>");
         
         Vector2[][] legalMove = {};
@@ -172,26 +173,36 @@ public class Piece : MonoBehaviour
 
         var move = new List<Vector2>{};
 
-        var piecePos = piece.pos;
+        
+        var piecePosX = piece.pos.x;
+        var piecePosY = piece.pos.y;
         
         switch (piece.faction)
         {
             case Faction.WHITE when piece.isFirstMove:
-                move.Add(new Vector2(piecePos.x, piecePos.y+1));
-                move.Add(new Vector2(piecePos.x, piecePos.y+2));
+                move.Add(new Vector2(piecePosX, piecePosY + 1));
+                move.Add(new Vector2(piecePosX, piecePosY + 2));
+                move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
+                move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 break;
             
             case Faction.WHITE:
-                move.Add(new Vector2(piecePos.x, piecePos.y+1));
+                move.Add(new Vector2(piecePosX, piecePosY + 1));
+                move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
+                move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 break;
             
             case Faction.BLACK when piece.isFirstMove:
-                move.Add(new Vector2(piecePos.x, piecePos.y-1));
-                move.Add(new Vector2(piecePos.x, piecePos.y-2));
+                move.Add(new Vector2(piecePosX, piecePosY - 1));
+                move.Add(new Vector2(piecePosX, piecePosY - 2));
+                move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
+                move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
                 break;
             
             case Faction.BLACK:
-                move.Add(new Vector2(piecePos.x, piecePos.y-1));
+                move.Add(new Vector2(piecePosX, piecePosY - 1));
+                move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
+                move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
                 break;
             
             default:
@@ -207,27 +218,42 @@ public class Piece : MonoBehaviour
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         LOG("<color=red>Show Legal move</color>");
-        var temp = new List<Vector2>{};
+        
+        List<Vector2> temp = new List<Vector2>{};
         
         foreach (var axis in legalMove)
         {
             
             foreach (var move in axis)
             {
-                var tile = getTile(move);
+                Tile tile = getTile(move);
                 if (!tile) continue;
                 
-                if (tile.OccupiedPiece != null && tile.OccupiedPiece.faction == piece.faction)
-                {   
-                    if (piece.roll == Roll.Knight) continue;
+                Piece tileOccupiedPiece = tile.OccupiedPiece;
+                
+                if (tileOccupiedPiece != null)
+                {
+                    if (piece.roll == Roll.Knight && tileOccupiedPiece.faction == piece.faction)
+                    {
+                        continue;
+                    }
+                    if (piece.roll == Roll.Pawn && tileOccupiedPiece.pos.x - piece.pos.x == 0)
+                    {
+                        LOG("False");
+                        continue;
+                    }
+                    if (piece.roll == Roll.Pawn && tileOccupiedPiece.faction != piece.faction)
+                    {
+                        LOG("True");
+                        temp.Add(ShowHighlight(move));
+                    }
+
                     break;
                 }
-                
-                temp.Add(move);
-                
-                var highlight = getTile(move).transform.GetChild(2);
-                highlight.GameObject().SetActive(true);
-                highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+                if (piece.roll == Roll.Pawn && tile.GetPos().x - piece.pos.x != 0) continue;
+
+
+                temp.Add(ShowHighlight(move));
             }
         }
 
@@ -241,5 +267,17 @@ public class Piece : MonoBehaviour
         if (roll != Roll.King) return;
         Debug.Log("This game was END!!");
         GameManager.Instance.UpdateGameState(GameState.END);
+    }
+
+    private static Vector2 ShowHighlight(Vector2 move)
+    {
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+        
+        Transform highlight = getTile(move).transform.GetChild(2);
+                
+        highlight.GameObject().SetActive(true);
+        highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+
+        return move;
     }
 }
