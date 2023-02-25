@@ -1,12 +1,13 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using static UnityEngine.SceneManagement.SceneManager;
 
 public class Start : MonoBehaviour {
-    public void goToScene(string sceneName) {
-        SceneManager.LoadScene(sceneName);
+    public void GoToScene(string sceneName)
+    {
+        LoadScene(sceneName);
     }
 
-    public void quitApp() {
+    public void QuitApp() {
         Application.Quit();
         Debug.Log("Already Quit");
     }
