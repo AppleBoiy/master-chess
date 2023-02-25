@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using static Faction;
 using static GameState;
@@ -7,7 +8,7 @@ using static PieceManager;
 using static UnityEngine.Debug;
 
 
-public class Tile : MonoBehaviour
+public sealed class Tile : MonoBehaviour
 {
     #region params
 
@@ -15,14 +16,10 @@ public class Tile : MonoBehaviour
     [SerializeField] private Sprite baseTile;
     [SerializeField] private Sprite offsetTile;
     [SerializeField] private GameObject highlight;
-
-    [Space(3)] 
-    [Header("Tile attribute")] 
-    [SerializeField] private bool isWalkable;
     
     private Vector2 _pos;
 
-    public Piece OccupiedPiece;
+    public Piece occupiedPiece;
 
     #endregion
     
@@ -34,18 +31,11 @@ public class Tile : MonoBehaviour
     }
 
     #region Getter
-<<<<<<< Updated upstream
-    public Vector2 GetPos()
-    {
-        return _pos;
-    }
-=======
-    
-    protected virtual bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
+
+    private bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
 
     public Vector2 GetPos() => _pos;
-
->>>>>>> Stashed changes
+    
     #endregion
     
     #region Mouse action
@@ -76,11 +66,11 @@ public class Tile : MonoBehaviour
         switch (instanceState)
         {
             //tile has a piece on it
-            case BlackTurn when OccupiedPiece != null:
-                if (OccupiedPiece.faction == BLACK)
+            case BlackTurn when occupiedPiece != null:
+                if (occupiedPiece.faction == BLACK)
                 {  
-                    selectedPiece(OccupiedPiece);
-                    CalculateLegalMove(OccupiedPiece);
+                    selectedPiece(occupiedPiece);
+                    CalculateLegalMove(occupiedPiece);
 
                 }
                 else
@@ -92,7 +82,7 @@ public class Tile : MonoBehaviour
                     }
                     if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
-                    var whitePiece = (WhitePieces) OccupiedPiece;
+                    var whitePiece = (WhitePieces) occupiedPiece;
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
                     selectedPiece(null);
@@ -115,13 +105,13 @@ public class Tile : MonoBehaviour
             }
             
             //tile has a piece on it
-            case WhiteTurn when OccupiedPiece != null:
+            case WhiteTurn when occupiedPiece != null:
             {
 
-                if (OccupiedPiece.faction == WHITE)
+                if (occupiedPiece.faction == WHITE)
                 {
-                    selectedPiece(OccupiedPiece);
-                    CalculateLegalMove(OccupiedPiece);
+                    selectedPiece(occupiedPiece);
+                    CalculateLegalMove(occupiedPiece);
                 }
                 else
                 {
@@ -129,7 +119,7 @@ public class Tile : MonoBehaviour
                     if (!Walkable()) return;
                     if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
 
-                    var blackPiece = (BlackPieces) OccupiedPiece;
+                    var blackPiece = (BlackPieces) occupiedPiece;
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
                     selectedPiece(null);
@@ -163,29 +153,17 @@ public class Tile : MonoBehaviour
         //Drop piece out when set pos
         if (piece.occupiedTile)
         {
-            piece.occupiedTile.OccupiedPiece = null;
+            piece.occupiedTile.occupiedPiece = null;
         }
 
         Vector2 newPos = transform.position;
         
         piece.transform.position = newPos;
         piece.pos = newPos;
-        OccupiedPiece = piece;
+        occupiedPiece = piece;
         piece.occupiedTile = this;
         
     }
 
-    private bool Walkable()
-    {
-        foreach (var pos in CurrentPieceMove)
-        {
-            Log(pos);
-            if (_pos == pos) 
-                return true;
-        }      
-        return false;
-    }
-    
-    
     
 }
