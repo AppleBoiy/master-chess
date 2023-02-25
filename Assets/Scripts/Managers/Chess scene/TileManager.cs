@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -56,41 +57,20 @@ public class TileManager : MonoBehaviour
                 _tiles![pos] = tile;
             }
         }
-
+        
         camera.transform.position = new Vector3((float)width / 2 - 0.5f,(float)hight/2 - 0.5f, -10 );
         
     }
-
-    #region Get spawn tile position
-
-    public Tile GetWhiteTeamSpawnTile() 
-    {
-        return _tiles!.Where(t 
-            => t.Key.x < (float) width / 2
-               && t.Value.Walkable
-        ).OrderBy(t
-            => Random.value
-        ).First().Value;
-    }
     
-    public Tile GetBlackTeamSpawnTile() 
-    {
-        return _tiles!.Where(t 
-            => t.Key.x > (float) width / 2
-               && t.Value.Walkable
-        ).OrderBy(t
-            => Random.value
-        ).First().Value;
-    }
-
-    #endregion
-
-   
     
     public Tile GetTile(Vector2 pos)
     {
-        return _tiles!.TryGetValue(pos, out var tile) ? tile : null;
+        return _tiles.TryGetValue(pos, out var tile) ? tile : null;
     }
 
+    public Dictionary<Vector2, Tile> Tiles()
+    {
+        return _tiles;
+    }
 
 }

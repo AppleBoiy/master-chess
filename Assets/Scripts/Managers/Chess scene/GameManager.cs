@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static GameState;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,10 +11,12 @@ public class GameManager : MonoBehaviour
     
     public GameState State;
     
-    private int _round = 0;
-
+    private List<Piece> _blackPieces, _whitePieces;
+    private bool _isEnd;
+    
     #endregion
 
+    
     private void Awake()
     {
         Instance = this;
@@ -20,65 +24,72 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     { 
-        UpdateGameState(GameState.StartGame);
+        UpdateGameState(StartGame);
     }
 
     public void UpdateGameState(GameState newState)
     {
-        State = newState;
-
-        if (_round > 5) return;
-
-        switch (State)
-        {
-            case GameState.StartGame:
-                TileManager.Instance.GenerateTile();
-                PieceManager.Instance.SpawnWhitePieces();
-                PieceManager.Instance.SpawnBlackPieces();
-                break;
-            
-            case GameState.BlackTurn:
-                HandleBackTurn();
-                break;
-                
-            case GameState.WhiteTurn:
-                HandleWhiteTurn();
-                break;
-                
-            case GameState.Win:
-            case GameState.Lose:
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        Action generateTile = TileManager.Instance.GenerateTile;
+        var pieceManager = PieceManager.Instance;
         
+        State = newState;
+        
+        
+        switch (State)
+            {
+                case StartGame:
+                    generateTile();
+                    pieceManager.SpawnWhitePieces();
+                    pieceManager.SpawnBlackPieces();
+                    break;
+                
+                case BlackTurn:
+                    HandleBlackTurn();
+                    break;
+                    
+                case WhiteTurn:
+                    HandleWhiteTurn();
+                    break;
 
+                case END:
+                    Debug.Log("<color=red>GAME IS END</color>");
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+        
     }
 
-    private void HandleCalculatePieces()
+    private static void HandleWin()
     {
-        if (_round <= 5) return;
-        UpdateGameState(GameState.Win);
-        Debug.Log("There is no pieces left");
+        Debug.Log("Game END..");
     }
 
-    private void HandleBackTurn()
+    private void HandleBlackTurn()
     {
         Debug.Log("<color=black>BLACK</color> Player turn!");
-        _round++;
+        State = BlackTurn;
     }
 
     private void HandleWhiteTurn()
     {
         Debug.Log("<color=white>WHITE</color> Player turn!");
-        _round++;
-
+        State = WhiteTurn;
+        
     }
 
     public void ChangeTurn()
     {
-        State = (State == GameState.BlackTurn) 
-            ? GameState.WhiteTurn 
-            : GameState.BlackTurn;
+
+        Debug.Log($"<color=red>Current</color> player {State}");
+        
+        State = (State == BlackTurn) 
+            ? WhiteTurn 
+            : BlackTurn;
+        
+        Debug.Log($"<color=red>Update</color> to player {State}");
         
         UpdateGameState(State);
     }
