@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -74,12 +70,12 @@ public class MenuManager : MonoBehaviour
         tileInfo.GetComponentInChildren<TMP_Text>().text = tile.name;
         tileInfo.SetActive(true);
         
-        if (!tile.OccupiedPiece) return;
-        pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.OccupiedPiece.faction}  {tile.OccupiedPiece.roll}";
+        if (!tile.occupiedPiece) return;
+        pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.occupiedPiece.faction}  {tile.occupiedPiece.roll}";
         pieceOnTile.SetActive(true);
 
         pieceInfo.SetActive(true);
-        pieceInfo.GetComponent<Image>().sprite = tile.OccupiedPiece.GetComponent<SpriteRenderer>().sprite;
+        pieceInfo.GetComponent<Image>().sprite = tile.occupiedPiece.GetComponent<SpriteRenderer>().sprite;
 
     }
 

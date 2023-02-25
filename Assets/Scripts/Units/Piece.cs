@@ -14,15 +14,16 @@ public class Piece : MonoBehaviour
     
     [FormerlySerializedAs("Faction")] 
     public Faction faction;
-    
+
     [FormerlySerializedAs("Roll")] 
     public Roll roll;
     public bool isFirstMove;
     
-    public Vector2 pos;
     private static readonly Action<object> LOG = Debug.Log;
 
     public static List<Vector2> CurrentPieceMove;
+    
+    public Vector2 pos;
     
     #endregion
 
@@ -35,36 +36,37 @@ public class Piece : MonoBehaviour
         
         LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePosX}, {piecePosY})</color>");
         
-        Vector2[][] legalMove = {};
+        Vector2[] legalMove = {};
 
         switch (piece.roll)
         {
             case Roll.King: 
-                legalMove = new [] {KingWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = KingWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Queen:
-                legalMove = new []
-                {
-                    RookWalk(piecePosX, piecePosY, pFaction),
-                    BishopWalk(piecePosX, piecePosY, pFaction)
-                };
+                
+                var temp = new List<Vector2>();
+                temp.AddRange(RookWalk(piecePosX, piecePosY, pFaction));
+                temp.AddRange(BishopWalk(piecePosX, piecePosY, pFaction));
+                legalMove = temp.ToArray();
+                
                 break;
             
             case Roll.Knight:
-                legalMove = new [] {KnightWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = KnightWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Rook:
-                legalMove = new []{RookWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = RookWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Bishop:
-                legalMove = new []{BishopWalk(piecePosX, piecePosY, pFaction)};
+                legalMove = BishopWalk(piecePosX, piecePosY, pFaction);
                 break;
             
             case Roll.Pawn:
-                legalMove = new []{PawnWalk(piece)};
+                legalMove = PawnWalk(piece);
                 break;
             
             case Roll.Piece:
@@ -180,7 +182,7 @@ public class Piece : MonoBehaviour
 
     private static Vector2[] PawnWalk(Piece piece)
     {
-        var move = new List<Vector2>{};
+        var move = new List<Vector2>();
         
         var piecePosX = piece.pos.x;
         var piecePosY = piece.pos.y;
@@ -188,10 +190,10 @@ public class Piece : MonoBehaviour
         switch (piece.faction)
         {
             case Faction.WHITE when piece.isFirstMove:
-                move.Add(new Vector2(piecePosX, piecePosY + 1));
-                move.Add(new Vector2(piecePosX, piecePosY + 2));
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
+                move.Add(new Vector2(piecePosX, piecePosY + 1));
+                move.Add(new Vector2(piecePosX, piecePosY + 2));
                 break;
             
             case Faction.WHITE:
@@ -201,10 +203,10 @@ public class Piece : MonoBehaviour
                 break;
             
             case Faction.BLACK when piece.isFirstMove:
-                move.Add(new Vector2(piecePosX, piecePosY - 1));
-                move.Add(new Vector2(piecePosX, piecePosY - 2));
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
+                move.Add(new Vector2(piecePosX, piecePosY - 1));
+                move.Add(new Vector2(piecePosX, piecePosY - 2));
                 break;
             
             case Faction.BLACK:
@@ -231,12 +233,16 @@ public class Piece : MonoBehaviour
             var tile = getTile(pos);
             if (!tile) continue;
             
+            // in front of selected piece is not empty tile
+            if (tile.occupiedPiece != null && tile.GetPos().x - piece.pos.x == 0)
+                break;
+            
             // front straight tile is empty tile
-            if (tile.OccupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
+            if (tile.occupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
                 temp.Add(pos);
             
             // font left and right is not empty and occupiedPiece faction is not same 
-            if (tile.OccupiedPiece != null && tile.OccupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
+            if (tile.occupiedPiece != null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
                 temp.Add(pos);
             
         }
@@ -252,7 +258,7 @@ public class Piece : MonoBehaviour
         
         foreach (var pos in from pos in move
                  let tile = getTile(pos)
-                 where tile && (tile.OccupiedPiece == null || tile.OccupiedPiece.faction != faction)
+                 where tile && (tile.occupiedPiece == null || tile.occupiedPiece.faction != faction)
                  select pos)
         {
             LOG(pos);
@@ -276,9 +282,9 @@ public class Piece : MonoBehaviour
                 var tile = getTile(pos);
                 if (!tile) break;
 
-                if (tile.OccupiedPiece != null)
+                if (tile.occupiedPiece != null)
                 {
-                    if (tile.OccupiedPiece.faction == faction)
+                    if (tile.occupiedPiece.faction == faction)
                         break;
                     temp.Add(pos);
                     break;
@@ -294,17 +300,12 @@ public class Piece : MonoBehaviour
 
     #region Show walkable tile
     
-    private static void ShowLegalMove(IEnumerable<Vector2[]> legalMove)
+    private static void ShowLegalMove(IEnumerable<Vector2> legalMove)
     {
         LOG("<color=red>Show Legal move</color>");
-        
-        var temp = new List<Vector2>{};
-        
-        foreach (var axis in legalMove)
-        {
-            temp.AddRange(axis.Select(ShowHighlight));
-        }
 
+        var temp = new List<Vector2>();
+        temp.AddRange(legalMove.Select(ShowHighlight));
         CurrentPieceMove = temp;
 
     }

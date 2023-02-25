@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
+using Unity.Mathematics;
 using UnityEngine;
-
-using static Unity.Mathematics.quaternion;
-using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
@@ -43,7 +39,7 @@ public class TileManager : MonoBehaviour
         {
             for (var row = 0; row < hight; row++)
             {
-                var tile = Instantiate(Tile, new Vector3(column, row), identity);
+                var tile = Instantiate(Tile, new Vector3(column, row), quaternion.identity);
                 var isOffset = (column % 2 == 0 && row % 2 != 0 ) || (column % 2 != 0 && row % 2 == 0);
                 Vector2 pos = new Vector2(column, row);
 
@@ -65,7 +61,7 @@ public class TileManager : MonoBehaviour
     
     public Tile GetTile(Vector2 pos)
     {
-        return _tiles.TryGetValue(pos, out var tile) ? tile : null;
+        return _tiles!.TryGetValue(pos, out var tile) ? tile : null;
     }
 
     public Dictionary<Vector2, Tile> Tiles()
