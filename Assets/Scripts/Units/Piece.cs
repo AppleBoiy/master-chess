@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,7 +23,7 @@ public class Piece : MonoBehaviour
     private static readonly Action<object> LOG = Debug.Log;
 
     public static List<Vector2> CurrentPieceMove;
-
+    
     #endregion
 
 
@@ -30,6 +31,7 @@ public class Piece : MonoBehaviour
     {
         float piecePosX =  piece.pos.x;
         float piecePosY =  piece.pos.y;
+        Faction pFaction = piece.faction;
         
         LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePosX}, {piecePosY})</color>");
         
@@ -38,7 +40,7 @@ public class Piece : MonoBehaviour
         switch (piece.roll)
         {
             case Roll.King: 
-                legalMove = new [] {KingWalk(piecePosX, piecePosY)};
+                legalMove = new [] {KingWalk(piecePosX, piecePosY, pFaction)};
                 break;
             
             case Roll.Queen:
@@ -49,7 +51,7 @@ public class Piece : MonoBehaviour
                 break;
             
             case Roll.Knight:
-                legalMove = new [] {KnightWalk(piecePosX, piecePosY)};
+                legalMove = new [] {KnightWalk(piecePosX, piecePosY, pFaction)};
                 break;
             
             case Roll.Rook:
@@ -72,7 +74,7 @@ public class Piece : MonoBehaviour
         }
 
 
-        ShowLegalMove(legalMove, piece);
+        ShowLegalMove(legalMove);
     }
 
 
@@ -116,8 +118,7 @@ public class Piece : MonoBehaviour
             downMove.Add(new Vector2(x, y - i));
             leftMove.Add(new Vector2(x - i, y));
             rightMove.Add(new Vector2(x + i, y));
-            
-            
+
         }
 
         return new[]
@@ -129,48 +130,78 @@ public class Piece : MonoBehaviour
         };
     }
 
-    private static Vector2[] KnightWalk(float x, float y)
+    private static Vector2[] KnightWalk(float x, float y, Faction faction)
     {
         LOG("Calculate knight move!");
 
-        return new[]
-        {
-            new Vector2(x + 2, y + 1),
-            new Vector2(x + 1, y + 2),
-            new Vector2(x - 1, y + 2),
-            new Vector2(x - 2, y + 1),
+        var temp = new List<Vector2> {
+            new(x + 2, y + 1),
+            new(x + 1, y + 2),
+            new(x - 1, y + 2),
+            new(x - 2, y + 1),
             
-            new Vector2(x - 2, y - 1),
-            new Vector2(x - 1, y - 2),
-            new Vector2(x + 1, y - 2),
-            new Vector2(x + 2, y - 1)
+            new(x - 2, y - 1),
+            new(x - 1, y - 2),
+            new(x + 1, y - 2),
+            new(x + 2, y - 1)
         };
+
+        var legalMove = new List<Vector2>();
+        
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+
+        foreach (var pos in from pos in temp
+                 let tile = getTile(pos)
+                 where tile && (tile.OccupiedPiece == null || tile.OccupiedPiece.faction != faction)
+                 select pos)
+        {
+            LOG(pos);
+            legalMove.Add(pos);
+        }
+
+        return legalMove.ToArray();
     }
 
-    private static Vector2[] KingWalk(float x, float y)
+    private static Vector2[] KingWalk(float x, float y, Faction faction)
     {
 
         LOG("Calculate king move!");
         
-        return new[]
+        var temp = new List<Vector2>
         {
-            new Vector2(x - 1, y + 1),
-            new Vector2(x - 1, y - 1),
+            new(x - 1, y + 1),
+            new(x - 1, y - 1),
 
-            new Vector2(x + 1, y + 1),
-            new Vector2(x + 1, y - 1),
+            new(x + 1, y + 1),
+            new(x + 1, y - 1),
 
-            new Vector2(x - 1, y),
-            new Vector2(x + 1, y),
+            new(x - 1, y),
+            new(x + 1, y),
 
-            new Vector2(x, y + 1),
-            new Vector2(x, y - 1)
+            new(x, y + 1),
+            new(x, y - 1)
         };
+
+        var legalMove = new List<Vector2>();
+        
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+
+        foreach (var pos in from pos in temp
+                 let tile = getTile(pos)
+                 where tile && (tile.OccupiedPiece == null || tile.OccupiedPiece.faction != faction)
+                 select pos)
+        {
+            LOG(pos);
+            legalMove.Add(pos);
+        }
+        
+        
+        return legalMove.ToArray();
     }
 
     private static Vector2[] PawnWalk(Piece piece)
     {
-
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         var move = new List<Vector2>{};
 
         
@@ -209,52 +240,36 @@ public class Piece : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
 
-        return move.ToArray();
+        var temp = new List<Vector2>();
+        
+        foreach (var pos in move)
+        {
+            var tile = getTile(pos);
+            if (!tile) continue;
+            
+            // front straight tile is empty tile
+            if (tile.OccupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
+                temp.Add(pos);
+            
+            // font left and right is not empty and occupiedPiece faction is not same 
+            if (tile.OccupiedPiece != null && tile.OccupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
+                temp.Add(pos);
+            
+        }
+        return temp.ToArray();
     }
 
     #endregion
 
-    private static void ShowLegalMove(IEnumerable<Vector2[]> legalMove, Piece piece)
+    private static void ShowLegalMove(IEnumerable<Vector2[]> legalMove)
     {
-        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         LOG("<color=red>Show Legal move</color>");
         
-        List<Vector2> temp = new List<Vector2>{};
+        var temp = new List<Vector2>{};
         
         foreach (var axis in legalMove)
         {
-            
-            foreach (var move in axis)
-            {
-                Tile tile = getTile(move);
-                if (!tile) continue;
-                
-                Piece tileOccupiedPiece = tile.OccupiedPiece;
-                
-                if (tileOccupiedPiece != null)
-                {
-                    if (piece.roll == Roll.Knight && tileOccupiedPiece.faction == piece.faction)
-                    {
-                        continue;
-                    }
-                    if (piece.roll == Roll.Pawn && tileOccupiedPiece.pos.x - piece.pos.x == 0)
-                    {
-                        LOG("False");
-                        continue;
-                    }
-                    if (piece.roll == Roll.Pawn && tileOccupiedPiece.faction != piece.faction)
-                    {
-                        LOG("True");
-                        temp.Add(ShowHighlight(move));
-                    }
-
-                    break;
-                }
-                if (piece.roll == Roll.Pawn && tile.GetPos().x - piece.pos.x != 0) continue;
-
-
-                temp.Add(ShowHighlight(move));
-            }
+            temp.AddRange(axis.Select(ShowHighlight));
         }
 
         CurrentPieceMove = temp;

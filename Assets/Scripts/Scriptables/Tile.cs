@@ -98,7 +98,6 @@ public class Tile : MonoBehaviour
             {
                 if (SelectedPiece == null) return;
                 if (!Walkable()) return;
-
                 if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
@@ -135,9 +134,10 @@ public class Tile : MonoBehaviour
             //click on empty tile
             case WhiteTurn:
             {
-                Log("<color=red>White turn</color>");
+                if (SelectedPiece == null) return;
                 if (!Walkable()) return;
                 if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+                
                 SetPiece(SelectedPiece);
                 selectedPiece(null);
                 changeTurn();
