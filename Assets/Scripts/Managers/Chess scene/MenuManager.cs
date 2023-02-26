@@ -92,7 +92,7 @@ public class MenuManager : MonoBehaviour
         startGameHolder.SetActive(false);
     }
 
-    public void ResetMove()
+    public static void ResetMove()
     {
         foreach (var tile in TileManager.Instance.Tiles().Values)
         {

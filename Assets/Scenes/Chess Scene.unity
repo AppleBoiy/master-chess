@@ -1415,7 +1415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 103.16, y: 0}
+  m_AnchoredPosition: {x: 103.15991, y: 0}
   m_SizeDelta: {x: 206.319, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &940349316
@@ -2445,10 +2445,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 8
-  hight: 8
+  height: 8
   camera: {fileID: 963194228}
   parentTiles: {fileID: 21283621}
-  Tile: {fileID: 4520352541966012819, guid: 6adcb5ba05ba1427ca4ec32b3a37e112, type: 3}
+  tile: {fileID: 4520352541966012819, guid: 6adcb5ba05ba1427ca4ec32b3a37e112, type: 3}
 --- !u!1 &1720904322
 GameObject:
   m_ObjectHideFlags: 0
