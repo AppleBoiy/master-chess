@@ -20,9 +20,6 @@ public  class CursorOnTile : ScriptableCursor
         GameState turn = GameManager.Instance.State;
       
         if (turn == GameState.StartGame) return;
-
-        Debug.Log(_tileOnPos);
-        
         var pieceOnTile = _tileOnPos.occupiedPiece;
         
         if (!pieceOnTile)
