@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static IPieceStartingPos;
 
-public class PieceManager : MonoBehaviour
+public class PieceManager : MonoBehaviour, IWhite, IBlack 
 {
 
     #region params

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3613027617839990005, guid: 094a2093f70624855b7ded996d48c46f, type: 3}
+      propertyPath: roll
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 175543480438028960, guid: 094a2093f70624855b7ded996d48c46f, type: 3}
       propertyPath: roll
       value: 2

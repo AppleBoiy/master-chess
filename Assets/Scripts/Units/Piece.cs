@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public abstract class Piece : MonoBehaviour
+public class Piece : MonoBehaviour
 {
     #region params
     
@@ -355,9 +355,4 @@ public abstract class Piece : MonoBehaviour
     
     #endregion
 
-    #region GetAlliancePiece
-
-    public abstract void FindAllAlliance();
-
-    #endregion
 }
