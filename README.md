@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/OOPProject-to-the-moon/2D-Chess-game-OOP-Project">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="Assets/Sprites/Pieces%20fantasy/medal.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Chess game</h3>
