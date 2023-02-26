@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6011951785309102593}
   - component: {fileID: 8535710230913295387}
-  - component: {fileID: 4466266663679016842}
+  - component: {fileID: -4349527344519267025}
   m_Layer: 0
   m_Name: Temp
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4466266663679016842
+--- !u!114 &-4349527344519267025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,10 +94,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5246292494684460515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b3ebe276715475282e8e01994c8eb7, type: 3}
+  m_Script: {fileID: 11500000, guid: b472a4b31c7a1422c80d7ed664d68dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTile: {fileID: 0}
   faction: 1
   roll: 6
+  isFirstMove: 0
   pos: {x: 0, y: 0}
