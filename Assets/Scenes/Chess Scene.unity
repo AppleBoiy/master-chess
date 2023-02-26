@@ -2068,11 +2068,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a483f18347974a44afee7e21abe29a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Default: {fileID: 21300000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
-  attack: {fileID: 21300000, guid: a1b0622d3249d984fbb47afa8029e3a7, type: 3}
-  onAlliance: {fileID: 21300000, guid: b56e6234cd04cae4480b73d35724b49b, type: 3}
-  onEnemy: {fileID: 21300000, guid: 2f0836cf3bf136f4c9b46097290c2db2, type: 3}
-  onEmpty: {fileID: 21300000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
+  default: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
+  attack: {fileID: 2800000, guid: a1b0622d3249d984fbb47afa8029e3a7, type: 3}
+  onAlliance: {fileID: 2800000, guid: 07c693e9242f1be4a806482ccdb2ae91, type: 3}
+  onEnemy: {fileID: 2800000, guid: 2f0836cf3bf136f4c9b46097290c2db2, type: 3}
+  onEmpty: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
 --- !u!1 &1246104066
 GameObject:
   m_ObjectHideFlags: 0

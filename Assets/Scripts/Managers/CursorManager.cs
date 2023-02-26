@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static UnityEngine.Cursor;
 
 public class CursorManager : MonoBehaviour
 {
 
     #region params
-    [SerializeField] private Texture2D Default, attack, onAlliance, onEnemy, onEmpty;
-    
-    public static CursorManager Instance;    
+    [FormerlySerializedAs("Default")] 
+    [SerializeField] private Texture2D @default;
+    [SerializeField] private Texture2D attack, onAlliance, onEnemy, onEmpty;
 
+    private static readonly Vector2 HotspotCursor = new(20, 20);
+    public static CursorManager Instance;
     
+
     #endregion
     
 
@@ -20,13 +22,32 @@ public class CursorManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ChangeCursor()
-    {
-        SetCursor(attack, new Vector2(20, 20), CursorMode.Auto);
-    }
+    #region Set Cursor
 
     public void ResetCursor()
     {
-        SetCursor(Default, new Vector2(20, 20), CursorMode.Auto);
+        SetCursor(@default, HotspotCursor, CursorMode.Auto);
     }
+
+    public void Attack()
+    {
+        SetCursor(attack, HotspotCursor, CursorMode.Auto);
+    }
+
+    public void OnAlliance()
+    {
+        SetCursor(onAlliance, HotspotCursor, CursorMode.Auto);
+    }
+
+    public void OnEnemy()
+    {
+        SetCursor(onEnemy, HotspotCursor, CursorMode.Auto);
+    }
+
+    public void OnEmpty()
+    {
+        SetCursor(onEmpty, HotspotCursor, CursorMode.Auto);
+    }
+
+    #endregion
 }

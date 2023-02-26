@@ -70,6 +70,7 @@ public sealed class Tile : MonoBehaviour
         {
             //tile has a piece on it
             case BlackTurn when occupiedPiece != null:
+                
                 if (occupiedPiece.faction == BLACK)
                 {  
                     selectedPiece(occupiedPiece);
@@ -92,6 +93,7 @@ public sealed class Tile : MonoBehaviour
 
                     changeTurn();
                 }
+
                 break;
             
             //Click to empty tile

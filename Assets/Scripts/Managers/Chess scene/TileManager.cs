@@ -34,7 +34,7 @@ public class TileManager : MonoBehaviour
 
     public void GenerateTile()
     {
-
+        
         for (var column = 0; column < width; column++)
         {
             for (var row = 0; row < hight; row++)

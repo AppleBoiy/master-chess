@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Piece : MonoBehaviour
+public abstract class Piece : MonoBehaviour
 {
     #region params
     
@@ -26,8 +26,7 @@ public class Piece : MonoBehaviour
     public Vector2 pos;
     
     #endregion
-
-
+    
     public static void CalculateLegalMove(Piece piece)
     {
         float piecePosX =  piece.pos.x;
@@ -321,5 +320,11 @@ public class Piece : MonoBehaviour
         return move;
     }
     
+    #endregion
+
+    #region GetAlliancePiece
+
+    public abstract void FindAllAlliance();
+
     #endregion
 }
