@@ -168,6 +168,8 @@ public sealed class Tile : MonoBehaviour
         occupiedPiece = piece;
         piece.occupiedTile = this;
         
+        CursorManager.Instance.ResetCursor();
+        
     }
 
     

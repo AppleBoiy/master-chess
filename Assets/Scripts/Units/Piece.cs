@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,11 +23,15 @@ public abstract class Piece : MonoBehaviour
     private static readonly Action<object> LOG = Debug.Log;
 
     public static List<Vector2> CurrentPieceMove;
-    
+    public static List<Vector2> AttackMove;
+
     public Vector2 pos;
     
     #endregion
-    
+
+
+    #region Calculate Move
+
     public static void CalculateLegalMove(Piece piece)
     {
         float piecePosX =  piece.pos.x;
@@ -77,7 +82,109 @@ public abstract class Piece : MonoBehaviour
 
 
         ShowLegalMove(legalMove);
+        CalculateAttackMove(legalMove, pFaction);
     }
+    
+    //For pawn only
+    private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Piece piece)
+    {
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+        var temp = new List<Vector2>();
+        
+        foreach (var pos in move)
+        {
+            var tile = getTile(pos);
+            if (!tile) continue;
+            
+            // in front of selected piece is not empty tile
+            if (tile.occupiedPiece != null && tile.GetPos().x - piece.pos.x == 0)
+                break;
+            
+            // front straight tile is empty tile
+            if (tile.occupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
+                temp.Add(pos);
+            
+            // font left and right is not empty and occupiedPiece faction is not same 
+            if (tile.occupiedPiece != null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
+                temp.Add(pos);
+            
+        }
+
+        return temp.ToArray();
+    }
+    
+    //For piece that check occupiedPiece is alliance or not
+    private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Faction faction)
+    {
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+        var legalMove = new List<Vector2>();
+        
+        foreach (var pos in from pos in move
+                 let tile = getTile(pos)
+                 where tile && (tile.occupiedPiece == null || tile.occupiedPiece.faction != faction)
+                 select pos)
+        {
+            LOG(pos);
+            legalMove.Add(pos);
+        }
+
+
+        return legalMove.ToArray();
+    }
+    
+    //For piece that move multi-axis
+    private static Vector2[] CurrentLegalMove(IEnumerable<Vector2[]> move, Faction faction)
+    {
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+        var temp = new List<Vector2>();
+
+        foreach (var axis in move)
+        {
+            foreach (var pos in axis)
+            {
+                var tile = getTile(pos);
+                if (!tile) break;
+
+                if (tile.occupiedPiece != null)
+                {
+                    if (tile.occupiedPiece.faction == faction)
+                        break;
+                    temp.Add(pos);
+                    break;
+                }
+
+                temp.Add(pos);
+            }
+        }
+        return temp.ToArray();
+    }
+
+    //Find enemy on tile
+    private static void CalculateAttackMove(IEnumerable<Vector2> legalMove, Faction faction)
+    {
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
+
+        List<Vector2> attackMove = new List<Vector2>();
+
+        foreach (Vector2 pos in legalMove)
+        {
+            Tile tile = getTile(pos);
+            
+            if (!tile.occupiedPiece) continue;
+
+            if (tile.occupiedPiece.faction == faction) continue;
+            
+            LOG(pos);
+            attackMove.Add(pos);
+
+        }
+
+        AttackMove = attackMove;
+    }
+
+    #endregion
+    
+    
 
 
     #region Piece move
@@ -219,80 +326,6 @@ public abstract class Piece : MonoBehaviour
         }
         
         return CurrentLegalMove(move.ToArray(), piece);
-    }
-
-    //For pawn only
-    private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Piece piece)
-    {
-        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
-        var temp = new List<Vector2>();
-        
-        foreach (var pos in move)
-        {
-            var tile = getTile(pos);
-            if (!tile) continue;
-            
-            // in front of selected piece is not empty tile
-            if (tile.occupiedPiece != null && tile.GetPos().x - piece.pos.x == 0)
-                break;
-            
-            // front straight tile is empty tile
-            if (tile.occupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
-                temp.Add(pos);
-            
-            // font left and right is not empty and occupiedPiece faction is not same 
-            if (tile.occupiedPiece != null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
-                temp.Add(pos);
-            
-        }
-
-        return temp.ToArray();
-    }
-    
-    //For piece that check occupiedPiece is alliance or not
-    private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Faction faction)
-    {
-        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
-        var legalMove = new List<Vector2>();
-        
-        foreach (var pos in from pos in move
-                 let tile = getTile(pos)
-                 where tile && (tile.occupiedPiece == null || tile.occupiedPiece.faction != faction)
-                 select pos)
-        {
-            LOG(pos);
-            legalMove.Add(pos);
-        }
-
-
-        return legalMove.ToArray();
-    }
-    
-    //For piece that move multi-axis
-    private static Vector2[] CurrentLegalMove(IEnumerable<Vector2[]> move, Faction faction)
-    {
-        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
-        var temp = new List<Vector2>();
-
-        foreach (var axis in move)
-        {
-            foreach (var pos in axis)
-            {
-                var tile = getTile(pos);
-                if (!tile) break;
-
-                if (tile.occupiedPiece != null)
-                {
-                    if (tile.occupiedPiece.faction == faction)
-                        break;
-                    temp.Add(pos);
-                    break;
-                }
-
-                temp.Add(pos);
-            }
-        }
-        return temp.ToArray();
     }
     
     #endregion
