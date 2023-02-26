@@ -59,7 +59,7 @@ public sealed class Tile : MonoBehaviour
     {
         Log($"On Mouse Down at {_pos}");
 
-        MenuManager.Instance.ResetMove();
+        MenuManager.ResetMove();
         
         Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
