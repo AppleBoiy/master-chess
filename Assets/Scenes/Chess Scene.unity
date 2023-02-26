@@ -1360,7 +1360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad1f89b085fd0415583a45b899b6aa52, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d22b30e76bfb445c1a00065f5510ff1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2020,9 +2020,59 @@ Transform:
   - {fileID: 1246104067}
   - {fileID: 1114488207}
   - {fileID: 1704691812}
+  - {fileID: 1201546616}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1201546615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201546616}
+  - component: {fileID: 1201546617}
+  m_Layer: 0
+  m_Name: Cursor Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201546616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201546615}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1182088842}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201546617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201546615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a483f18347974a44afee7e21abe29a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  default: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
+  attack: {fileID: 2800000, guid: a1b0622d3249d984fbb47afa8029e3a7, type: 3}
+  onAlliance: {fileID: 2800000, guid: 07c693e9242f1be4a806482ccdb2ae91, type: 3}
+  onEnemy: {fileID: 2800000, guid: 2f0836cf3bf136f4c9b46097290c2db2, type: 3}
+  onEmpty: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
 --- !u!1 &1246104066
 GameObject:
   m_ObjectHideFlags: 0

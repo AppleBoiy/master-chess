@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
                     HandleWhiteTurn();
                     break;
 
-                case END:
+                case End:
                     Debug.Log("<color=red>GAME IS END</color>");
                     break;
                 

@@ -1,18 +1,8 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
 
-public class BlackPieces : Piece
+public abstract class BlackPieces : Piece
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected static List<Piece> Pieces;
+    
 }

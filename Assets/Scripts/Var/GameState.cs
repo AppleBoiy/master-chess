@@ -7,5 +7,5 @@ public enum GameState
     WhiteTurn = 2,
     
     
-    END
+    End
 }

@@ -8,39 +8,36 @@ using static PieceManager;
 using static UnityEngine.Debug;
 
 
-public class Tile : MonoBehaviour
+public sealed class Tile : MonoBehaviour
 {
     #region params
 
-    [Header("Tile Uniqe")]
+    [Header("Tile Unique")]
     [SerializeField] private Sprite baseTile;
     [SerializeField] private Sprite offsetTile;
     [SerializeField] private GameObject highlight;
-
-    [Space(3)] 
-    [Header("Tile attribute")] 
-    [SerializeField] private bool isWalkable;
     
     private Vector2 _pos;
 
-    public Piece OccupiedPiece;
+    public Piece occupiedPiece;
 
     #endregion
     
     public void Init(bool isOffset, Vector2 pos)
     {
-        transform.GetChild(1).GetComponentInChildren<SpriteRenderer>().sprite = isOffset ? baseTile : offsetTile;
+        Transform child = transform.GetChild(1);
+        SpriteRenderer componentInChildren = child.GetComponentInChildren<SpriteRenderer>();
+        
+        componentInChildren.sprite = isOffset ? baseTile : offsetTile;
         
         _pos = pos;
     }
 
     #region Getter
-    
-    protected virtual bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
-    public Vector2 GetPos()
-    {
-        return _pos;
-    }
+
+    private bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
+
+    public Vector2 GetPos() => _pos;
     
     #endregion
     
@@ -72,11 +69,12 @@ public class Tile : MonoBehaviour
         switch (instanceState)
         {
             //tile has a piece on it
-            case BlackTurn when OccupiedPiece != null:
-                if (OccupiedPiece.faction == BLACK)
+            case BlackTurn when occupiedPiece != null:
+                
+                if (occupiedPiece.faction == BLACK)
                 {  
-                    selectedPiece(OccupiedPiece);
-                    CalculateLegalMove(OccupiedPiece);
+                    selectedPiece(occupiedPiece);
+                    CalculateLegalMove(occupiedPiece);
 
                 }
                 else
@@ -88,13 +86,14 @@ public class Tile : MonoBehaviour
                     }
                     if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
-                    var whitePiece = (WhitePieces) OccupiedPiece;
+                    var whitePiece = (WhitePieces) occupiedPiece;
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
                     selectedPiece(null);
 
                     changeTurn();
                 }
+
                 break;
             
             //Click to empty tile
@@ -111,13 +110,13 @@ public class Tile : MonoBehaviour
             }
             
             //tile has a piece on it
-            case WhiteTurn when OccupiedPiece != null:
+            case WhiteTurn when occupiedPiece != null:
             {
 
-                if (OccupiedPiece.faction == WHITE)
+                if (occupiedPiece.faction == WHITE)
                 {
-                    selectedPiece(OccupiedPiece);
-                    CalculateLegalMove(OccupiedPiece);
+                    selectedPiece(occupiedPiece);
+                    CalculateLegalMove(occupiedPiece);
                 }
                 else
                 {
@@ -125,7 +124,7 @@ public class Tile : MonoBehaviour
                     if (!Walkable()) return;
                     if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
 
-                    var blackPiece = (BlackPieces) OccupiedPiece;
+                    var blackPiece = (BlackPieces) occupiedPiece;
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
                     selectedPiece(null);
@@ -159,15 +158,19 @@ public class Tile : MonoBehaviour
         //Drop piece out when set pos
         if (piece.occupiedTile)
         {
-            piece.occupiedTile.OccupiedPiece = null;
+            piece.occupiedTile.occupiedPiece = null;
         }
 
         Vector2 newPos = transform.position;
         
         piece.transform.position = newPos;
         piece.pos = newPos;
-        OccupiedPiece = piece;
+        occupiedPiece = piece;
         piece.occupiedTile = this;
         
+        CursorManager.Instance.ResetCursor();
+        
     }
+
+    
 }
