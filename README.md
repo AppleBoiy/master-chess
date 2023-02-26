@@ -195,6 +195,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [license-url]: https://github.com/OOPProject-to-the-moon/2D-Chess-game-OOP-Project/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: Var/Screenshot/Screenshot%202566-02-25%20at%2015.30.59.png
 [Unity]: https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white
 [Unity-url]: https://unity.com/
