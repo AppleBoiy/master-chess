@@ -60,7 +60,8 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
     public void SpawnWhitePieces()
     {
-
+        
+        
         var currentPos = IWhite.FirstPawn;
 
         do

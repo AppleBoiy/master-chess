@@ -4,7 +4,7 @@ using UnityEngine;
 
 interface IPiecesInGame
 {
-    public List<Piece> GetAllAlliance(Faction faction)
+    public static List<Piece> GetAllAlliance(Faction faction)
     {
         return faction == Faction.BLACK 
             ? BlackTeam.Instance.FindAllAlliance() 

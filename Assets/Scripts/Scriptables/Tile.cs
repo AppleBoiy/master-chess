@@ -68,6 +68,7 @@ public sealed class Tile : MonoBehaviour
         
         switch (instanceState)
         {
+
             //tile has a piece on it
             case BlackTurn when occupiedPiece != null:
                 
@@ -112,7 +113,6 @@ public sealed class Tile : MonoBehaviour
             //tile has a piece on it
             case WhiteTurn when occupiedPiece != null:
             {
-
                 if (occupiedPiece.faction == WHITE)
                 {
                     selectedPiece(occupiedPiece);
@@ -146,6 +146,10 @@ public sealed class Tile : MonoBehaviour
                 changeTurn();
                 break;
             }
+            
+            default:
+                Log(false);
+                break;
         }
     }
 

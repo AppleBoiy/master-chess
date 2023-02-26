@@ -2293,7 +2293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1422251777}
-  - component: {fileID: 1422251779}
+  - component: {fileID: 1422251778}
   m_Layer: 0
   m_Name: Piece Manager
   m_TagString: Untagged
@@ -2316,7 +2316,7 @@ Transform:
   m_Father: {fileID: 1182088842}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1422251779
+--- !u!114 &1422251778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2325,7 +2325,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1422251776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c724c7e8ca1da4363b20459e9d18f202, type: 3}
+  m_Script: {fileID: 11500000, guid: ef2fa60f58f46452eb72f1ce0e688d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whitePawn: {fileID: 7007688767349316658, guid: e4e586398624c4198b03a295d1ccf28f, type: 3}

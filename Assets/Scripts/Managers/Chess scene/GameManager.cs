@@ -41,9 +41,6 @@ public class GameManager : MonoBehaviour
                     generateTile();
                     pieceManager.SpawnWhitePieces();
                     pieceManager.SpawnBlackPieces();
-
-                    // PiecesInGame.Instance.FindAllAlliance();
-
                     break;
                 
                 case BlackTurn:
