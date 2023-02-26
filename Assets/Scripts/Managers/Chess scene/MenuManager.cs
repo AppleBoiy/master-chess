@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -48,17 +45,12 @@ public class MenuManager : MonoBehaviour
 
     public void ShowSelectedPiece(Piece piece)
     {
-        Debug.Log("Show piece is selected");
         
         if (piece == null)
         {
-            Debug.Log("Don't have any piece on this tile");
-            
             selectedPiece.SetActive(false);
             return;
         }
-
-        Debug.Log("Something on this tile..");
         
         selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
         selectedPiece.SetActive(true);
@@ -78,12 +70,12 @@ public class MenuManager : MonoBehaviour
         tileInfo.GetComponentInChildren<TMP_Text>().text = tile.name;
         tileInfo.SetActive(true);
         
-        if (!tile.OccupiedPiece) return;
-        pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.OccupiedPiece.faction}  {tile.OccupiedPiece.roll}";
+        if (!tile.occupiedPiece) return;
+        pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.occupiedPiece.faction}  {tile.occupiedPiece.roll}";
         pieceOnTile.SetActive(true);
 
         pieceInfo.SetActive(true);
-        pieceInfo.GetComponent<Image>().sprite = tile.OccupiedPiece.GetComponent<SpriteRenderer>().sprite;
+        pieceInfo.GetComponent<Image>().sprite = tile.occupiedPiece.GetComponent<SpriteRenderer>().sprite;
 
     }
 
@@ -98,5 +90,13 @@ public class MenuManager : MonoBehaviour
     {
         GameManager.Instance.UpdateGameState(GameState.BlackTurn);
         startGameHolder.SetActive(false);
+    }
+
+    public static void ResetMove()
+    {
+        foreach (var tile in TileManager.Instance.Tiles().Values)
+        {
+            tile.transform.GetChild(2).GameObject().SetActive(false);
+        }
     }
 }

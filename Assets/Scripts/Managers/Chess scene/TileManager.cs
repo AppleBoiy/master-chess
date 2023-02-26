@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
+using Unity.Mathematics;
 using UnityEngine;
-
-using static Unity.Mathematics.quaternion;
-using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
@@ -13,17 +10,18 @@ public class TileManager : MonoBehaviour
 
     [Header("Initial game setting")] 
     [SerializeField] private int width;
-    [SerializeField] private int hight;
+    [SerializeField] private int height;
     [SerializeField] private new Transform camera;
     
     [Space(3)]
     [Header("Game object parents")]
     [SerializeField] private GameObject parentTiles;
-
+    
     [Space(3)]
-    [SerializeField] private Tile Tile;
+    [SerializeField] private Tile tile;
 
-    [CanBeNull] private readonly Dictionary<Vector2, Tile> _tiles = new();
+    [CanBeNull] 
+    private readonly Dictionary<Vector2, Tile> _tiles = new();
 
     public static TileManager Instance;
     
@@ -37,60 +35,39 @@ public class TileManager : MonoBehaviour
 
     public void GenerateTile()
     {
-
+        
         for (var column = 0; column < width; column++)
         {
-            for (var row = 0; row < hight; row++)
+            for (var row = 0; row < height; row++)
             {
-                var tile = Instantiate(Tile, new Vector3(column, row), identity);
+                var instantiateTile = Instantiate(tile, new Vector3(column, row), quaternion.identity);
                 var isOffset = (column % 2 == 0 && row % 2 != 0 ) || (column % 2 != 0 && row % 2 == 0);
                 Vector2 pos = new Vector2(column, row);
 
                 
                 //set parent of tile
-                tile.transform.parent = parentTiles.transform;
-                tile.name = $"Tile at ({column}, {row})";
+                instantiateTile.transform.parent = parentTiles.transform;
+                instantiateTile.name = $"Tile at ({column}, {row})";
 
-                tile.Init(isOffset, pos);
+                instantiateTile.Init(isOffset, pos);
 
-                _tiles![pos] = tile;
+                _tiles![pos] = instantiateTile;
             }
         }
-
-        camera.transform.position = new Vector3((float)width / 2 - 0.5f,(float)hight/2 - 0.5f, -10 );
+        
+        camera.transform.position = new Vector3((float)width / 2 - 0.5f,(float)height/2 - 0.5f, -10 );
         
     }
-
-    #region Get spawn tile position
-
-    public Tile GetWhiteTeamSpawnTile() 
-    {
-        return _tiles!.Where(t 
-            => t.Key.x < (float) width / 2
-               && t.Value.Walkable
-        ).OrderBy(t
-            => Random.value
-        ).First().Value;
-    }
     
-    public Tile GetBlackTeamSpawnTile() 
-    {
-        return _tiles!.Where(t 
-            => t.Key.x > (float) width / 2
-               && t.Value.Walkable
-        ).OrderBy(t
-            => Random.value
-        ).First().Value;
-    }
-
-    #endregion
-
-   
     
     public Tile GetTile(Vector2 pos)
     {
-        return _tiles!.TryGetValue(pos, out var tile) ? tile : null;
+        return _tiles!.TryGetValue(pos, value: out var getTile) ? getTile : null;
     }
 
+    public Dictionary<Vector2, Tile> Tiles()
+    {
+        return _tiles;
+    }
 
 }

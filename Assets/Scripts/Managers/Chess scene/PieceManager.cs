@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using static IPieceStartingPos;
 
 public class PieceManager : MonoBehaviour
@@ -69,7 +68,7 @@ public class PieceManager : MonoBehaviour
         {
             SpawnPiece(currentPos, whitePawn, whiteParentPrefabs);
 
-            currentPos = new Vector2(currentPos.x, currentPos.y + 1);
+            currentPos = new Vector2(currentPos.x + 1, currentPos.y);
 
         } while (currentPos != IWhite.LastPawn);
 
@@ -82,9 +81,7 @@ public class PieceManager : MonoBehaviour
         SpawnPiece(IWhite.Rook2, whiteRook, whiteParentPrefabs);
         SpawnPiece(IWhite.Knight1, whiteKnight, whiteParentPrefabs);
         SpawnPiece(IWhite.Knight2, whiteKnight, whiteParentPrefabs);
-
-
-        Debug.Log($"<color=white>WHITE TEAM PIECES</color> has {CalPiecesLeft(whiteParentPrefabs).Count} pieces");
+        
 }
     
     public void SpawnBlackPieces()
@@ -95,7 +92,7 @@ public class PieceManager : MonoBehaviour
         {
             SpawnPiece(currentPos, blackPawn, blackParentPrefabs);
 
-            currentPos = new Vector2(currentPos.x, currentPos.y + 1);
+            currentPos = new Vector2(currentPos.x + 1, currentPos.y);
 
         } while (currentPos != IBlack.LastPawn);
 
@@ -108,26 +105,14 @@ public class PieceManager : MonoBehaviour
         SpawnPiece(IBlack.Rook2, blackRook, blackParentPrefabs);
         SpawnPiece(IBlack.Knight1, blackKnight, blackParentPrefabs);
         SpawnPiece(IBlack.Knight2, blackKnight, blackParentPrefabs);
-
-
-        Debug.Log($"<color=white>WHITE TEAM PIECES</color> has {CalPiecesLeft(blackParentPrefabs).Count} pieces");
-
+        
     }
 
     #endregion
 
 
-    public List<Piece> CalWhitePiecesLeft()
-    {
-        return CalPiecesLeft(whiteParentPrefabs);
-    }
-
-    public List<Piece> CalBlackPiecesLeft()
-    {
-        return CalPiecesLeft(blackParentPrefabs);
-    }
     
-    public void SetSelectedPiece(Piece piece)
+    public static void SetSelectedPiece(Piece piece)
     {
         if (piece == null)
         {
@@ -150,26 +135,14 @@ public class PieceManager : MonoBehaviour
         var spawnAtTile = TileManager.Instance.GetTile(pos);
 
         spawnPiece.pos = spawnAtTile.GetPos();
+        spawnPiece.isFirstMove = true;
+        
         spawnAtTile.SetPiece(spawnPiece);
         
     }
 
-    private static List<Piece> CalPiecesLeft(GameObject pieceHolder)
-    {
-        
-        
-        List<Piece> pieces = new();
-        
-        for (var i = 0; i < pieceHolder.transform.childCount; i++)
-        {
-            Piece piece = pieceHolder.transform.GetChild(i).GetComponentInChildren<Piece>();
-            
-            pieces.Add(piece);
 
-        }
-
-        return pieces;
-    }
+ 
 
 
 }
