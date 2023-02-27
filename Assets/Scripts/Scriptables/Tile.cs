@@ -8,7 +8,7 @@ using static PieceManager;
 using static UnityEngine.Debug;
 
 
-public sealed class Tile : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     #region params
 
@@ -23,6 +23,8 @@ public sealed class Tile : MonoBehaviour
 
     #endregion
     
+    
+    //Initialize Tile attribute
     public void Init(bool isOffset, Vector2 pos)
     {
         Transform child = transform.GetChild(1);
@@ -35,7 +37,12 @@ public sealed class Tile : MonoBehaviour
 
     #region Getter
 
-    private bool Walkable() => CurrentPieceMove.Any(pos => _pos == pos);
+    
+    //Has any tile in position in  walkable pos list
+    private protected virtual bool Predicate(Vector2 pos) => _pos == pos;
+    private bool Walkable() => CurrentPieceMove.Any(Predicate);
+
+    
 
     public Vector2 GetPos() => _pos;
     
@@ -80,6 +87,8 @@ public sealed class Tile : MonoBehaviour
                 }
                 else
                 {
+                    //Click on enemy
+                    
                     if (SelectedPiece == null) return;
                     if (!Walkable())
                     {
@@ -128,6 +137,7 @@ public sealed class Tile : MonoBehaviour
                 }
                 else
                 {
+                    //Click on enemy
                     if (SelectedPiece == null) return;
                     if (!Walkable()) return;
                     if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
@@ -189,7 +199,8 @@ public sealed class Tile : MonoBehaviour
         piece.occupiedTile = this;
         
         CursorManager.Instance.ResetCursor();
-        
+     
+        IPiecesInGame.ReloadPiecesLeftInGame();
     }
 
     

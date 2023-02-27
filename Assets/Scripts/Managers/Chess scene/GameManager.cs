@@ -62,8 +62,6 @@ public class GameManager : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-        
     }
 
     private void HandleWhiteTurn()
