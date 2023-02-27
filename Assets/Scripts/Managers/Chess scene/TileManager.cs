@@ -9,8 +9,6 @@ public class TileManager : MonoBehaviour
     #region params
 
     [Header("Initial game setting")] 
-    [SerializeField] private int width;
-    [SerializeField] private int height;
     [SerializeField] private new Transform camera;
     
     [Space(3)]
@@ -22,8 +20,11 @@ public class TileManager : MonoBehaviour
 
     [CanBeNull] 
     private readonly Dictionary<Vector2, Tile> _tiles = new();
-
+    
     public static TileManager Instance;
+    
+    private const int Width = 8;
+    private const int Height = 8;
     
     #endregion
 
@@ -36,9 +37,9 @@ public class TileManager : MonoBehaviour
     public void GenerateTile()
     {
         
-        for (var column = 0; column < width; column++)
+        for (var column = 0; column < Width; column++)
         {
-            for (var row = 0; row < height; row++)
+            for (var row = 0; row < Height; row++)
             {
                 var instantiateTile = Instantiate(tile, new Vector3(column, row), quaternion.identity);
                 var isOffset = (column % 2 == 0 && row % 2 != 0 ) || (column % 2 != 0 && row % 2 == 0);
@@ -55,7 +56,7 @@ public class TileManager : MonoBehaviour
             }
         }
         
-        camera.transform.position = new Vector3((float)width / 2 - 0.5f,(float)height/2 - 0.5f, -10 );
+        camera.transform.position = new Vector3((float)Width / 2 - 0.5f,(float)Height/2 - 0.5f, -10 );
         
     }
     

@@ -184,8 +184,6 @@ public class Piece : MonoBehaviour
 
     #endregion
     
-    
-
 
     #region Piece move
 
@@ -355,4 +353,15 @@ public class Piece : MonoBehaviour
     
     #endregion
 
+    public static bool IsCheck()
+    {
+        
+        
+        foreach (Vector2 move in AttackMove)
+        {
+            
+        }
+
+        return true;
+    }
 }

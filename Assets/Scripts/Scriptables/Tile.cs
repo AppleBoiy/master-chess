@@ -90,6 +90,10 @@ public sealed class Tile : MonoBehaviour
                     var whitePiece = (WhitePieces) occupiedPiece;
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
+                    
+                    //Calculate next possible movement of selected move to check that piece is checkmate or not.
+                    CalculateLegalMove(SelectedPiece);
+
                     selectedPiece(null);
 
                     changeTurn();
@@ -105,6 +109,10 @@ public sealed class Tile : MonoBehaviour
                 if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
+                
+                //Calculate next possible movement of selected move to check that piece is checkmate or not.
+                CalculateLegalMove(SelectedPiece);
+                
                 selectedPiece(null);
                 changeTurn();
                 break;
@@ -127,6 +135,10 @@ public sealed class Tile : MonoBehaviour
                     var blackPiece = (BlackPieces) occupiedPiece;
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
+                    
+                    //Calculate next possible movement of selected move to check that piece is checkmate or not.
+                    CalculateLegalMove(SelectedPiece);
+
                     selectedPiece(null);
                     changeTurn();
                 }
@@ -142,6 +154,10 @@ public sealed class Tile : MonoBehaviour
                 if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
+                
+                //Calculate next possible movement of selected move to check that piece is checkmate or not.
+                CalculateLegalMove(SelectedPiece);
+
                 selectedPiece(null);
                 changeTurn();
                 break;

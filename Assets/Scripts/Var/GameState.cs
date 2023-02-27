@@ -6,6 +6,8 @@ public enum GameState
     BlackTurn = 1,
     WhiteTurn = 2,
     
+    CheckBlack,
+    CheckWhite,
     
     End
 }

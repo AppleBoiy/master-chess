@@ -1,12 +1,12 @@
-
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BlackTeam : MonoBehaviour, IPiecesInGame
 {
-    public static BlackTeam Instance;
-
+    public new static BlackTeam Instance;
+    public static Vector2 KingPos;
+    
     private void Awake()
     {
         Instance = this;
@@ -22,5 +22,18 @@ public class BlackTeam : MonoBehaviour, IPiecesInGame
         }
 
         return alliance;
+    }
+    
+    
+    //Find King position on board
+    internal void FindKing()
+    {
+        //Introduce local method
+        bool IsKing(Piece piece) => piece.roll == Roll.King;
+
+        List<Piece> alliance = FindAllAlliance();
+        Piece piece = alliance.Where(IsKing).ToArray()[0];
+
+        KingPos = piece.pos;
     }
 }

@@ -44,33 +44,26 @@ public class GameManager : MonoBehaviour
                     break;
                 
                 case BlackTurn:
-                    HandleBlackTurn();
                     break;
                     
                 case WhiteTurn:
-                    HandleWhiteTurn();
                     break;
 
                 case End:
                     Debug.Log("<color=red>GAME IS END</color>");
                     break;
+
+                case CheckBlack:
+                    break;
                 
+                case CheckWhite:
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
             
         
-    }
-
-    private static void HandleWin()
-    {
-        Debug.Log("Game END..");
-    }
-
-    private void HandleBlackTurn()
-    {
-        Debug.Log("<color=black>BLACK</color> Player turn!");
-        State = BlackTurn;
     }
 
     private void HandleWhiteTurn()
