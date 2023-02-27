@@ -90,10 +90,7 @@ public class Tile : MonoBehaviour
                     //Click on enemy
                     
                     if (SelectedPiece == null) return;
-                    if (!Walkable())
-                    {
-                        return;
-                    }
+                    if (!Walkable()) return;
                     if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
                     var whitePiece = (WhitePieces) occupiedPiece;
@@ -102,7 +99,7 @@ public class Tile : MonoBehaviour
                     
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
-
+                    
                     selectedPiece(null);
 
                     changeTurn();
@@ -148,7 +145,7 @@ public class Tile : MonoBehaviour
                     
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
-
+                    
                     selectedPiece(null);
                     changeTurn();
                 }
