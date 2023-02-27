@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlackTeam : MonoBehaviour, IPiecesInGame
 {
-    public new static BlackTeam Instance;
+    public static BlackTeam Instance;
     public static Vector2 KingPos;
     
     private void Awake()

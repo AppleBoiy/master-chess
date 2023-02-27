@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WhiteTeam : MonoBehaviour, IPiecesInGame
 {
-    public new static WhiteTeam Instance;
+    public static WhiteTeam Instance;
     public static Vector2 KingPos;
 
     private void Awake()
@@ -29,7 +29,8 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
     internal void FindKing()
     {
         //Introduce local method
-        bool IsKing(Piece piece) => piece.roll == Roll.King;
+        bool IsKing(Piece piece) 
+            => piece.roll == Roll.King;
 
         List<Piece> alliance = FindAllAlliance();
         Piece piece = alliance.Where(IsKing).ToArray()[0];
