@@ -62,6 +62,7 @@ public class Tile : MonoBehaviour
         MenuManager.Instance.ShowTileInfo(null);
     }
 
+    //When mouse click on tile
     private void OnMouseDown()
     {
         Log($"On Mouse Down at {_pos}");
@@ -79,16 +80,18 @@ public class Tile : MonoBehaviour
             //tile has a piece on it
             case BlackTurn when occupiedPiece is not null:
                 
+                //Select piece phase
                 if (occupiedPiece.faction is BLACK)
                 {  
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
 
                 }
+                
+                //Attack phase
                 else
                 {
                     //Click on enemy
-                    
                     if (SelectedPiece is null) return;
                     if (!Walkable()) return;
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
@@ -110,6 +113,7 @@ public class Tile : MonoBehaviour
             //Click to empty tile
             case BlackTurn:
             {
+                //Move phase
                 if (SelectedPiece is null) return;
                 if (!Walkable()) return;
                 if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
@@ -127,11 +131,15 @@ public class Tile : MonoBehaviour
             //tile has a piece on it
             case WhiteTurn when occupiedPiece is not null:
             {
+                
+                //Select piece phase
                 if (occupiedPiece.faction is WHITE)
                 {
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
                 }
+                
+                //Attack phase
                 else
                 {
                     //Click on enemy
@@ -156,6 +164,7 @@ public class Tile : MonoBehaviour
             //click on empty tile
             case WhiteTurn:
             {
+                //Move phase
                 if (SelectedPiece is null) return;
                 if (!Walkable()) return;
                 if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;

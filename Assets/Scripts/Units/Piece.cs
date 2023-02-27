@@ -32,6 +32,11 @@ public class Piece : MonoBehaviour
 
     #region Calculate Move
 
+    /// <summary>
+    /// Calculate to find legal move of selected piece
+    /// </summary>
+    /// <param name="piece">Selected piece</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static void CalculateLegalMove(Piece piece)
     {
         float piecePosX =  piece.pos.x;
@@ -42,6 +47,7 @@ public class Piece : MonoBehaviour
         
         Vector2[] legalMove = {};
 
+        //Legal move depends on piece roll
         switch (piece.roll)
         {
             case Roll.King: 
@@ -49,7 +55,7 @@ public class Piece : MonoBehaviour
                 break;
             
             case Roll.Queen:
-                
+                //Queen move is  Rook and Bishop Legal move (Both of them)
                 var temp = new List<Vector2>();
                 temp.AddRange(RookWalk(piecePosX, piecePosY, pFaction));
                 temp.AddRange(BishopWalk(piecePosX, piecePosY, pFaction));
@@ -81,11 +87,18 @@ public class Piece : MonoBehaviour
         }
 
 
+        //Show highlight on tile
         ShowLegalMove(legalMove);
+        //Find only attack move (Move to enemy piece)
         CalculateAttackMove(legalMove, pFaction);
     }
     
-    //For pawn only
+    /// <summary>
+    /// Calculate Legal move of pawn
+    /// </summary>
+    /// <param name="move">List of all possible movement of pawn</param>
+    /// <param name="piece">Pawn it's self</param>
+    /// <returns>List of legal move of pawn</returns>
     private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Piece piece)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
@@ -94,6 +107,8 @@ public class Piece : MonoBehaviour
         foreach (var pos in move)
         {
             var tile = getTile(pos);
+            
+            //At this pos doesn't have tile on it
             if (!tile) continue;
             
             // in front of selected piece is not empty tile
@@ -113,7 +128,12 @@ public class Piece : MonoBehaviour
         return temp.ToArray();
     }
     
-    //For piece that check occupiedPiece is alliance or not
+    /// <summary>
+    /// Calculate legal with condition for piece that check occupiedPiece is alliance or not
+    /// </summary>
+    /// <param name="move">List of all possible movement of piece</param>
+    /// <param name="faction">Piece team</param>
+    /// <returns>List of legal move of piece</returns>
     private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Faction faction)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
@@ -132,7 +152,12 @@ public class Piece : MonoBehaviour
         return legalMove.ToArray();
     }
     
-    //For piece that move multi-axis
+    /// <summary>
+    /// calculate legal move for piece that move multi-axis
+    /// </summary>
+    /// <param name="move">List of all possible movement of piece</param>
+    /// <param name="faction">Piece team</param>
+    /// <returns>List of legal move of piece</returns>
     private static Vector2[] CurrentLegalMove(IEnumerable<Vector2[]> move, Faction faction)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
@@ -159,7 +184,11 @@ public class Piece : MonoBehaviour
         return temp.ToArray();
     }
 
-    //Find enemy on tile
+    /// <summary>
+    /// Find that tile has enemy on it or not.
+    /// </summary>
+    /// <param name="legalMove">List of all possible movement of piece</param>
+    /// <param name="faction">Piece team</param>
     private static void CalculateAttackMove(IEnumerable<Vector2> legalMove, Faction faction)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
@@ -187,6 +216,13 @@ public class Piece : MonoBehaviour
 
     #region Piece move
 
+    /// <summary>
+    /// A bishop can move any number of squares diagonally, but cannot leap over other pieces.
+    /// </summary>
+    /// <param name="x">position on X-axis</param>
+    /// <param name="y">position on Y-axis</param>
+    /// <param name="faction">Piece Team</param>
+    /// <returns>All possible movement of piece (included attack move)</returns>
     private static Vector2[] BishopWalk(float x, float y, Faction faction)
     {
         var topRightMove  = new List<Vector2>();
@@ -214,6 +250,14 @@ public class Piece : MonoBehaviour
         return CurrentLegalMove(temp.ToArray(), faction);
     }
 
+    /// <summary>
+    /// A rook can move any number of squares along a rank or file, but cannot leap over other pieces.
+    /// Along with the king, a rook is involved during the king's castling move.
+    /// </summary>
+    /// <param name="x">position on X-axis</param>
+    /// <param name="y">position on Y-axis</param>
+    /// <param name="faction">Piece Team</param>
+    /// <returns>All possible movement of piece (included attack move)</returns>
     private static Vector2[] RookWalk(float x, float y, Faction faction)
     {
         var topMove = new List<Vector2>();
@@ -241,6 +285,16 @@ public class Piece : MonoBehaviour
         return CurrentLegalMove(axisMove, faction);
     }
 
+    /// <summary>
+    /// A knight moves to any of the closest squares that are not on the same rank, file, or diagonal.
+    /// (Thus the move forms an "L"-shape: two squares vertically and one square horizontally,
+    /// or two squares horizontally and one square vertically.)
+    /// The knight is the only piece that can leap over other pieces.
+    /// </summary>
+    /// <param name="x">position on X-axis</param>
+    /// <param name="y">position on Y-axis</param>
+    /// <param name="faction">Piece Team</param>
+    /// <returns>All possible movement of piece (included attack move)</returns>
     private static Vector2[] KnightWalk(float x, float y, Faction faction)
     {
         LOG("Calculate knight move!");
@@ -260,7 +314,16 @@ public class Piece : MonoBehaviour
         return CurrentLegalMove(temp.ToArray(), faction);
     }
 
-    
+    /// <summary>
+    /// The king moves one square in any direction.
+    /// There is also a special move called castling (Not finish yet) that involves moving the king and a rook.
+    /// The king is the most valuable piece — attacks on the king must be immediately countered,
+    /// and if this is impossible, immediate loss of the game ensues (see Check and checkmate below).
+    /// </summary>
+    /// <param name="x">position on X-axis</param>
+    /// <param name="y">position on Y-axis</param>
+    /// <param name="faction">Piece Team</param>
+    /// <returns>All possible movement of piece (included attack move)</returns>
     private static Vector2[] KingWalk(float x, float y, Faction faction)
     {
 
@@ -284,6 +347,17 @@ public class Piece : MonoBehaviour
         return CurrentLegalMove(temp.ToArray(), faction);
     }
 
+    /// <summary>
+    /// A pawn can move forward to the unoccupied square immediately in front of it on the same file,
+    /// or on its first move it can advance two squares along the same file,
+    /// provided both squares are unoccupied (black dots in the diagram).
+    /// A pawn can capture an opponent's piece on a square diagonally in front of it by moving to that square (black crosses).
+    /// It cannot capture a piece while advancing along the same file. A pawn has two special
+    /// moves: the en passant capture and promotion.
+    /// </summary>
+    /// <param name="piece">Selected Piece</param>
+    /// <returns>All possible movement of piece (included attack move)</returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private static Vector2[] PawnWalk(Piece piece)
     {
         var move = new List<Vector2>();
@@ -330,15 +404,23 @@ public class Piece : MonoBehaviour
 
     #region Show walkable tile
     
+    /// <summary>
+    /// Map highlight function to List of legal movement 
+    /// </summary>
+    /// <param name="legalMove">List of legal movement of current selected piece</param>
     private static void ShowLegalMove(IEnumerable<Vector2> legalMove)
     {
-        LOG("<color=red>Show Legal move</color>");
-
         var temp = new List<Vector2>();
         temp.AddRange(legalMove.Select(ShowHighlight));
         CurrentPieceMove = temp;
 
     }
+    
+    /// <summary>
+    /// Show highlight on tile if this tile selected piece can move to it
+    /// </summary>
+    /// <param name="move">Position of move (Move to which tile)</param>
+    /// <returns>It's self position</returns>
     private static Vector2 ShowHighlight(Vector2 move)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;

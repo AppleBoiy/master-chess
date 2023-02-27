@@ -21,16 +21,18 @@ public  class CursorOnTile : ScriptableCursor
         GameState turn = GameManager.Instance.State;
       
         
-        
+        //On start game scene do not check piece on tile to avoid error
         if (turn is GameState.StartGame) return;
         var pieceOnTile = _tileOnPos.occupiedPiece;
         
+        //Empty tile
         if (!pieceOnTile)
         {
             cursorManager.OnEmpty();
             return;
         }
 
+        //Attack phase
         if (Piece.AttackMove != null)
         {
             bool CanAttack(Vector2 pos) => (Vector2)transform.position == pos;
@@ -43,18 +45,16 @@ public  class CursorOnTile : ScriptableCursor
             }
         }
 
+        //Selected piece phase
         switch (pieceOnTile.faction)
         {
             case Faction.BLACK when turn is GameState.BlackTurn:
-                cursorManager.OnAlliance();
-                break;
-
             case Faction.WHITE when turn is GameState.WhiteTurn:
                 cursorManager.OnAlliance();
                 break;
             
             default:
-                cursorManager.ResetCursor();
+                cursorManager.OnEnemy();
                 break;
         }
     }
@@ -62,15 +62,19 @@ public  class CursorOnTile : ScriptableCursor
     //Piece that prepare to attack has Faction as same as Player turn
     //etc. if this turn is white turn only white piece can attack to black piece
     //     otherwise black piece only can attack to white piece
-    private static bool CorrectPlayerTurn(Piece pieceOnTile)
-    {
-        GameState state = GameManager.Instance.State;
-
-        return state switch
+    private static bool CorrectPlayerTurn(Piece pieceOnTile) =>
+        GameManager.Instance.State switch
         {
-            GameState.BlackTurn or GameState.CheckWhite when pieceOnTile.faction is Faction.WHITE => true,
-            GameState.WhiteTurn or GameState.CheckBlack when pieceOnTile.faction is Faction.BLACK => true,
+            
+            //Black turn or Black is check white king 
+            GameState.BlackTurn or GameState.CheckWhite 
+                when pieceOnTile.faction is Faction.WHITE => true,
+            
+            //White turn or White is check black king
+            GameState.WhiteTurn or GameState.CheckBlack 
+                when pieceOnTile.faction is Faction.BLACK => true,
+            
+            //Otherwise
             _ => false
         };
-    }
 } 
