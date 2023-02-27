@@ -37,7 +37,6 @@ public  class CursorOnTile : ScriptableCursor
 
             if (Piece.AttackMove.Any(CanAttack) && CorrectPlayerTurn(pieceOnTile))
             {
-                Debug.Log(true);
                 cursorManager.Attack();
                 return;
             }

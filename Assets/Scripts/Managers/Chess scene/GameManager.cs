@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         
         State = newState;
         
+        
         //Game state handler
         switch (State)
             {
@@ -58,7 +59,6 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case End:
-                    Debug.Log("<color=red>GAME IS END</color>");
                     break;
 
                 case CheckBlack:
@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
 
     private void HandleWhiteTurn()
     {
-        Debug.Log("<color=white>WHITE</color> Player turn!");
         State = WhiteTurn;
         
     }
@@ -85,14 +84,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ChangeTurn()
     {
-
-        Debug.Log($"<color=red>Current</color> player {State}");
-        
         State = (State is BlackTurn) 
             ? WhiteTurn 
             : BlackTurn;
-        
-        Debug.Log($"<color=red>Update</color> to player {State}");
         
         UpdateGameState(State);
     }

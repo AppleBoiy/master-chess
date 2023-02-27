@@ -8,7 +8,7 @@ using static PieceManager;
 using static UnityEngine.Debug;
 
 
-public class Tile : MonoBehaviour
+public sealed class Tile : MonoBehaviour
 {
     #region params
 
@@ -39,7 +39,7 @@ public class Tile : MonoBehaviour
 
     
     //Has any tile in position in  walkable pos list
-    private protected virtual bool Predicate(Vector2 pos) => _pos == pos;
+    private bool Predicate(Vector2 pos) => _pos == pos;
     private bool Walkable() => CurrentPieceMove.Any(Predicate);
 
     
@@ -65,14 +65,11 @@ public class Tile : MonoBehaviour
     //When mouse click on tile
     private void OnMouseDown()
     {
-        Log($"On Mouse Down at {_pos}");
-
         MenuManager.ResetMove();
         
         Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.State;
-        
         
         switch (instanceState)
         {
@@ -85,6 +82,8 @@ public class Tile : MonoBehaviour
                 {  
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
+                    
+                    IPiecesInGame.ReloadPiecesLeftInGame();
 
                 }
                 
@@ -96,15 +95,18 @@ public class Tile : MonoBehaviour
                     if (!Walkable()) return;
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
+                    //Attack (Destroy enemy game object)
                     var whitePiece = (WhitePieces) occupiedPiece;
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
-                    
+
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
                     
                     selectedPiece(null);
 
+                    IPiecesInGame.ReloadPiecesLeftInGame();
+                    
                     changeTurn();
                 }
 
@@ -124,6 +126,9 @@ public class Tile : MonoBehaviour
                 CalculateLegalMove(SelectedPiece);
                 
                 selectedPiece(null);
+                
+                IPiecesInGame.ReloadPiecesLeftInGame();
+                
                 changeTurn();
                 break;
             }
@@ -137,6 +142,8 @@ public class Tile : MonoBehaviour
                 {
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
+                    
+                    IPiecesInGame.ReloadPiecesLeftInGame();
                 }
                 
                 //Attack phase
@@ -147,14 +154,18 @@ public class Tile : MonoBehaviour
                     if (!Walkable()) return;
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
 
+                    //Attack (Destroy enemy game object) 
                     var blackPiece = (BlackPieces) occupiedPiece;
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
-                    
+
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
                     
                     selectedPiece(null);
+                    
+                    IPiecesInGame.ReloadPiecesLeftInGame();
+                    
                     changeTurn();
                 }
 
@@ -178,11 +189,9 @@ public class Tile : MonoBehaviour
                 changeTurn();
                 break;
             }
-            
-            default:
-                Log(false);
-                break;
         }
+        
+        IPiecesInGame.ReloadPiecesLeftInGame();
     }
 
 
@@ -207,10 +216,14 @@ public class Tile : MonoBehaviour
         piece.pos = newPos;
         occupiedPiece = piece;
         piece.occupiedTile = this;
-        
+
         CursorManager.Instance.ResetCursor();
-     
-        IPiecesInGame.ReloadPiecesLeftInGame();
+        
+    }
+
+    public void RemovePiece()
+    {
+        occupiedPiece = null;
     }
 
     

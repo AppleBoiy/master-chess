@@ -99,7 +99,6 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
     #endregion
 
-
     
     public static void SetSelectedPiece(Piece piece)
     {
@@ -111,11 +110,8 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         }
         
         SelectedPiece = piece;
-
-        Debug.Log($"{piece.name} is Selected");
         MenuManager.Instance.ShowSelectedPiece(piece);
-        Debug.Log("Show Selected Piece complete.");
-        
+
     }
 
     private static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
@@ -129,9 +125,6 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         spawnAtTile.SetPiece(spawnPiece);
         
     }
-
-
- 
-
+    
 
 }

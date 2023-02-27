@@ -19,8 +19,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile tile;
 
     [CanBeNull] 
-    private readonly Dictionary<Vector2, Tile> _tiles = new();
-    
+    public readonly Dictionary<Vector2, Tile> DictTiles = new();
     public static TileManager Instance;
     
     private const int Width = 8;
@@ -52,7 +51,7 @@ public class TileManager : MonoBehaviour
 
                 instantiateTile.Init(isOffset, pos);
 
-                _tiles![pos] = instantiateTile;
+                DictTiles![pos] = instantiateTile;
             }
         }
         
@@ -63,12 +62,12 @@ public class TileManager : MonoBehaviour
     
     public Tile GetTile(Vector2 pos)
     {
-        return _tiles!.TryGetValue(pos, value: out var getTile) ? getTile : null;
+        return DictTiles!.TryGetValue(pos, value: out var getTile) ? getTile : null;
     }
 
     public Dictionary<Vector2, Tile> Tiles()
     {
-        return _tiles;
+        return DictTiles;
     }
 
 }

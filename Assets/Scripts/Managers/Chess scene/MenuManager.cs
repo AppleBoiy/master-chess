@@ -14,8 +14,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject startGameHolder;
     
 
-    [Space(3)] 
-    [Header("Panel")] 
+    [Space(3)] [Header("Panel")] 
     [SerializeField] private GameObject selectedPiece;
     [SerializeField] private GameObject tileInfo;
     [SerializeField] private GameObject pieceOnTile;
@@ -23,6 +22,12 @@ public class MenuManager : MonoBehaviour
 
     [Space(3)] [Header("Game Info")] 
     [SerializeField] private GameObject pieceInfo;
+
+    [Space(3)] [Header("Piece left")] 
+    [SerializeField] private TMP_Text blackPieceLeftInfo;
+    [SerializeField] private TMP_Text whitePieceLeftInfo;
+    [SerializeField] private TMP_Text blackKingPosInfo;
+    [SerializeField] private TMP_Text whiteKingPosInfo;
     
     public static MenuManager Instance;
     private TMP_Text _turnDialog;
@@ -100,5 +105,16 @@ public class MenuManager : MonoBehaviour
         {
             tile.transform.GetChild(2).GameObject().SetActive(false);
         }
+    }
+
+    public void ShowPieceLeft()
+    {
+        blackPieceLeftInfo.text = IPiecesInGame.BlackPieces.Count.ToString();
+        whitePieceLeftInfo.text = IPiecesInGame.WhitePieces.Count.ToString();
+
+        if (GameManager.Instance.State is GameState.StartGame) return;
+        
+        blackKingPosInfo.text = BlackTeam.KingPos.ToString();
+        whiteKingPosInfo.text = WhiteTeam.KingPos.ToString();
     }
 }

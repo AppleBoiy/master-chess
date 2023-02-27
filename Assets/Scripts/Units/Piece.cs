@@ -28,8 +28,7 @@ public class Piece : MonoBehaviour
     public Vector2 pos;
     
     #endregion
-
-
+    
     #region Calculate Move
 
     /// <summary>
@@ -42,9 +41,6 @@ public class Piece : MonoBehaviour
         float piecePosX =  piece.pos.x;
         float piecePosY =  piece.pos.y;
         Faction pFaction = piece.faction;
-        
-        LOG($"<color=green>Calculate legal move.. of {piece} at ({piecePosX}, {piecePosY})</color>");
-        
         Vector2[] legalMove = {};
 
         //Legal move depends on piece roll
@@ -202,8 +198,6 @@ public class Piece : MonoBehaviour
             if (!tile.occupiedPiece) continue;
 
             if (tile.occupiedPiece.faction == faction) continue;
-            
-            LOG(pos);
             attackMove.Add(pos);
 
         }
@@ -297,8 +291,6 @@ public class Piece : MonoBehaviour
     /// <returns>All possible movement of piece (included attack move)</returns>
     private static Vector2[] KnightWalk(float x, float y, Faction faction)
     {
-        LOG("Calculate knight move!");
-
         var temp = new List<Vector2> {
             new(x + 2, y + 1),
             new(x + 1, y + 2),
@@ -326,8 +318,6 @@ public class Piece : MonoBehaviour
     /// <returns>All possible movement of piece (included attack move)</returns>
     private static Vector2[] KingWalk(float x, float y, Faction faction)
     {
-
-        LOG("Calculate king move!");
         
         var temp = new List<Vector2>
         {
