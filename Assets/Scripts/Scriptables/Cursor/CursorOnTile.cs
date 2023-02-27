@@ -22,7 +22,7 @@ public  class CursorOnTile : ScriptableCursor
       
         
         
-        if (turn == GameState.StartGame) return;
+        if (turn is GameState.StartGame) return;
         var pieceOnTile = _tileOnPos.occupiedPiece;
         
         if (!pieceOnTile)
@@ -45,11 +45,11 @@ public  class CursorOnTile : ScriptableCursor
 
         switch (pieceOnTile.faction)
         {
-            case Faction.BLACK when turn == GameState.BlackTurn:
+            case Faction.BLACK when turn is GameState.BlackTurn:
                 cursorManager.OnAlliance();
                 break;
 
-            case Faction.WHITE when turn == GameState.WhiteTurn:
+            case Faction.WHITE when turn is GameState.WhiteTurn:
                 cursorManager.OnAlliance();
                 break;
             
@@ -68,8 +68,8 @@ public  class CursorOnTile : ScriptableCursor
 
         return state switch
         {
-            GameState.BlackTurn or GameState.CheckWhite when pieceOnTile.faction == Faction.WHITE => true,
-            GameState.WhiteTurn or GameState.CheckBlack when pieceOnTile.faction == Faction.BLACK => true,
+            GameState.BlackTurn or GameState.CheckWhite when pieceOnTile.faction is Faction.WHITE => true,
+            GameState.WhiteTurn or GameState.CheckBlack when pieceOnTile.faction is Faction.BLACK => true,
             _ => false
         };
     }

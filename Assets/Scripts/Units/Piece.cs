@@ -97,15 +97,15 @@ public class Piece : MonoBehaviour
             if (!tile) continue;
             
             // in front of selected piece is not empty tile
-            if (tile.occupiedPiece != null && tile.GetPos().x - piece.pos.x == 0)
+            if (tile.occupiedPiece is not null && tile.GetPos().x - piece.pos.x == 0)
                 break;
             
             // front straight tile is empty tile
-            if (tile.occupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
+            if (tile.occupiedPiece is null && tile.GetPos().x - piece.pos.x == 0)
                 temp.Add(pos);
             
             // font left and right is not empty and occupiedPiece faction is not same 
-            if (tile.occupiedPiece != null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
+            if (tile.occupiedPiece is not null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
                 temp.Add(pos);
             
         }
@@ -121,7 +121,7 @@ public class Piece : MonoBehaviour
         
         foreach (var pos in from pos in move
                  let tile = getTile(pos)
-                 where tile && (tile.occupiedPiece == null || tile.occupiedPiece.faction != faction)
+                 where tile && (tile.occupiedPiece is null || tile.occupiedPiece.faction != faction)
                  select pos)
         {
             LOG(pos);
@@ -145,7 +145,7 @@ public class Piece : MonoBehaviour
                 var tile = getTile(pos);
                 if (!tile) break;
 
-                if (tile.occupiedPiece != null)
+                if (tile.occupiedPiece is not null)
                 {
                     if (tile.occupiedPiece.faction == faction)
                         break;

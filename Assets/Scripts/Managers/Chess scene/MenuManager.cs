@@ -46,7 +46,7 @@ public class MenuManager : MonoBehaviour
     public void ShowSelectedPiece(Piece piece)
     {
         
-        if (piece == null)
+        if (piece is null)
         {
             selectedPiece.SetActive(false);
             return;
@@ -59,7 +59,7 @@ public class MenuManager : MonoBehaviour
     public void ShowTileInfo(Tile tile)
     {
         
-        if (tile == null)
+        if (tile is null)
         {
             tileInfo.SetActive(false);
             pieceOnTile.SetActive(false);       

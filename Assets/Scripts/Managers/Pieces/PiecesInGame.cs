@@ -19,7 +19,7 @@ internal interface IPiecesInGame
     public static void ReloadPiecesLeftInGame()
     {
         
-        if (GameManager.Instance.State == GameState.StartGame) return;
+        if (GameManager.Instance.State is GameState.StartGame) return;
         
         var blackTeam = BlackTeam.Instance;
         var whiteTeam = WhiteTeam.Instance;

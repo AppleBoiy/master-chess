@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"<color=red>Current</color> player {State}");
         
-        State = (State == BlackTurn) 
+        State = (State is BlackTurn) 
             ? WhiteTurn 
             : BlackTurn;
         

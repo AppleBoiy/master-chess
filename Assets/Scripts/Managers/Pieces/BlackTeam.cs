@@ -37,7 +37,7 @@ public class BlackTeam : MonoBehaviour, IPiecesInGame
     internal void FindKing()
     {
         //Introduce local method
-        bool IsKing(Piece piece) => piece.roll == Roll.King;
+        bool IsKing(Piece piece) => piece.roll is Roll.King;
 
         List<Piece> alliance = FindAllAlliance();
         

@@ -39,7 +39,7 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
     {
         //Introduce local method
         bool IsKing(Piece piece) 
-            => piece.roll == Roll.King;
+            => piece.roll is Roll.King;
 
         List<Piece> alliance = FindAllAlliance();
 
