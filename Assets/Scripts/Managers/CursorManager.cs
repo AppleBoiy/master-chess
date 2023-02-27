@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using static UnityEngine.Cursor;
 
+
 public class CursorManager : MonoBehaviour
 {
 
@@ -22,7 +23,8 @@ public class CursorManager : MonoBehaviour
         Instance = this;
     }
 
-    #region Set Cursor
+    
+    #region Set in game player cursor
 
     public void ResetCursor()
     {
@@ -50,6 +52,5 @@ public class CursorManager : MonoBehaviour
     }
 
     #endregion
-    
     
 }

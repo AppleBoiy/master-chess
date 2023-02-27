@@ -1,5 +1,3 @@
-
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -62,19 +60,20 @@ public  class CursorOnTile : ScriptableCursor
     //Piece that prepare to attack has Faction as same as Player turn
     //etc. if this turn is white turn only white piece can attack to black piece
     //     otherwise black piece only can attack to white piece
-    private static bool CorrectPlayerTurn(Piece pieceOnTile) =>
-        GameManager.Instance.State switch
+    private static bool CorrectPlayerTurn(Piece pieceOnTile)
+    {
+        return GameManager.Instance.State switch
         {
-            
             //Black turn or Black is check white king 
-            GameState.BlackTurn or GameState.CheckWhite 
+            GameState.BlackTurn or GameState.CheckWhite
                 when pieceOnTile.faction is Faction.WHITE => true,
-            
+
             //White turn or White is check black king
-            GameState.WhiteTurn or GameState.CheckBlack 
+            GameState.WhiteTurn or GameState.CheckBlack
                 when pieceOnTile.faction is Faction.BLACK => true,
-            
+
             //Otherwise
             _ => false
         };
+    }
 } 

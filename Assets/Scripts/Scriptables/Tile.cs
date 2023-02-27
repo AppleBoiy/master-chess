@@ -188,6 +188,10 @@ public class Tile : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Set piece to this tile
+    /// </summary>
+    /// <param name="piece">Piece to set to occupied piece</param>
     public void SetPiece(Piece piece)
     {
         

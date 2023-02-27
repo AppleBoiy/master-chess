@@ -5,6 +5,7 @@ using UnityEngine;
 
 using static GameState;
 
+
 public class GameManager : MonoBehaviour
 {
     #region params
@@ -29,6 +30,11 @@ public class GameManager : MonoBehaviour
         UpdateGameState(StartGame);
     }
 
+    /// <summary>
+    /// Update game to next state
+    /// </summary>
+    /// <param name="newState">Next game state</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public void UpdateGameState(GameState newState)
     {
         Action generateTile = TileManager.Instance.GenerateTile;
@@ -36,7 +42,7 @@ public class GameManager : MonoBehaviour
         
         State = newState;
         
-        
+        //Game state handler
         switch (State)
             {
                 case StartGame:
@@ -73,6 +79,10 @@ public class GameManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Change game state from black player turn to white player turn
+    /// Or change from white player turn to black player turn
+    /// </summary>
     public void ChangeTurn()
     {
 

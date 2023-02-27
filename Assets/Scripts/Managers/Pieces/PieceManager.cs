@@ -32,9 +32,6 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     [SerializeField] public GameObject blackParentPrefabs;
     
     public static PieceManager Instance;
-
-    private List<ScriptablePiece> _pieces;
-    
     public static Piece SelectedPiece;
     
     private List<Piece> _list;
@@ -45,14 +42,6 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     private void Awake()
     {
         Instance = this;
-
-        // found But not found WHAT!!!
-         _pieces = Resources.LoadAll<ScriptablePiece>("Pieces").ToList();
-
-         foreach (var piece in _pieces)
-         {
-             Debug.Log(piece);
-         }
     }
     
 

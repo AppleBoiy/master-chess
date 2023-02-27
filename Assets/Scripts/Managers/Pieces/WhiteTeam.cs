@@ -13,6 +13,10 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
         Instance = this;
     }
 
+    /// <summary>
+    /// Find all alliance is still on game
+    /// </summary>
+    /// <returns>List of alliance that are still on this game</returns>
     public List<Piece> FindAllAlliance()
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
