@@ -102,7 +102,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     
     public static void SetSelectedPiece(Piece piece)
     {
-        if (piece is null)
+        if (piece == null)
         {
             SelectedPiece = null;
             MenuManager.Instance.ShowSelectedPiece(null);

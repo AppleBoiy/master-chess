@@ -100,27 +100,31 @@ public class Piece : MonoBehaviour
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         var temp = new List<Vector2>();
         
+
         foreach (var pos in move)
         {
             var tile = getTile(pos);
-            
+
             //At this pos doesn't have tile on it
             if (!tile) continue;
             
             // in front of selected piece is not empty tile
-            if (tile.occupiedPiece is not null && tile.GetPos().x - piece.pos.x == 0)
-                break;
+            if (tile.occupiedPiece != null && tile.GetPos().x - piece.pos.x == 0)
+                continue;
             
             // front straight tile is empty tile
-            if (tile.occupiedPiece is null && tile.GetPos().x - piece.pos.x == 0)
+            if (tile.occupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
+            {
                 temp.Add(pos);
-            
+                continue;
+            }
+
             // font left and right is not empty and occupiedPiece faction is not same 
-            if (tile.occupiedPiece is not null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
+            if (tile.occupiedPiece != null && tile.occupiedPiece.faction != piece.faction && tile.GetPos().x - piece.pos.x != 0)
                 temp.Add(pos);
             
         }
-
+        
         return temp.ToArray();
     }
     
@@ -137,7 +141,7 @@ public class Piece : MonoBehaviour
         
         foreach (var pos in from pos in move
                  let tile = getTile(pos)
-                 where tile && (tile.occupiedPiece is null || tile.occupiedPiece.faction != faction)
+                 where tile && (tile.occupiedPiece == null || tile.occupiedPiece.faction != faction)
                  select pos)
         {
             LOG(pos);
@@ -166,7 +170,7 @@ public class Piece : MonoBehaviour
                 var tile = getTile(pos);
                 if (!tile) break;
 
-                if (tile.occupiedPiece is not null)
+                if (tile.occupiedPiece != null)
                 {
                     if (tile.occupiedPiece.faction == faction)
                         break;

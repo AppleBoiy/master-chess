@@ -8,7 +8,7 @@ using static PieceManager;
 using static UnityEngine.Debug;
 
 
-public sealed class Tile : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     #region params
 
@@ -39,10 +39,9 @@ public sealed class Tile : MonoBehaviour
 
     
     //Has any tile in position in  walkable pos list
-    private bool Predicate(Vector2 pos) => _pos == pos;
-    private bool Walkable() => CurrentPieceMove.Any(Predicate);
+    protected virtual bool Walkable() => CurrentPieceMove.Any(OnWalkableTile); 
+    protected virtual bool OnWalkableTile(Vector2 pos) => _pos == pos;
 
-    
 
     public Vector2 GetPos() => _pos;
     
@@ -75,25 +74,22 @@ public sealed class Tile : MonoBehaviour
         {
 
             //tile has a piece on it
-            case BlackTurn when occupiedPiece is not null:
+            case BlackTurn when occupiedPiece != null:
                 
                 //Select piece phase
-                if (occupiedPiece.faction is BLACK)
+                if (occupiedPiece.faction == BLACK)
                 {  
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
-                    
-                    IPiecesInGame.ReloadPiecesLeftInGame();
-
                 }
                 
                 //Attack phase
                 else
                 {
                     //Click on enemy
-                    if (SelectedPiece is null) return;
+                    if (SelectedPiece == null) return;
                     if (!Walkable()) return;
-                    if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
                     //Attack (Destroy enemy game object)
                     var whitePiece = (WhitePieces) occupiedPiece;
@@ -115,10 +111,9 @@ public sealed class Tile : MonoBehaviour
             //Click to empty tile
             case BlackTurn:
             {
-                //Move phase
-                if (SelectedPiece is null) return;
+                if (SelectedPiece == null) return;
                 if (!Walkable()) return;
-                if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+                if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
                 
@@ -134,11 +129,9 @@ public sealed class Tile : MonoBehaviour
             }
             
             //tile has a piece on it
-            case WhiteTurn when occupiedPiece is not null:
+            case WhiteTurn when occupiedPiece != null:
             {
-                
-                //Select piece phase
-                if (occupiedPiece.faction is WHITE)
+                if (occupiedPiece.faction == WHITE)
                 {
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
@@ -150,9 +143,9 @@ public sealed class Tile : MonoBehaviour
                 else
                 {
                     //Click on enemy
-                    if (SelectedPiece is null) return;
+                    if (SelectedPiece == null) return;
                     if (!Walkable()) return;
-                    if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
 
                     //Attack (Destroy enemy game object) 
                     var blackPiece = (BlackPieces) occupiedPiece;
@@ -175,10 +168,9 @@ public sealed class Tile : MonoBehaviour
             //click on empty tile
             case WhiteTurn:
             {
-                //Move phase
-                if (SelectedPiece is null) return;
+                if (SelectedPiece == null) return;
                 if (!Walkable()) return;
-                if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+                if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
                 

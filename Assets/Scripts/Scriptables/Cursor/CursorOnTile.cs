@@ -17,10 +17,9 @@ public  class CursorOnTile : ScriptableCursor
         
         CursorManager cursorManager = CursorManager.Instance;
         GameState turn = GameManager.Instance.State;
-      
         
         //On start game scene do not check piece on tile to avoid error
-        if (turn is GameState.StartGame) return;
+        if (turn == GameState.StartGame) return;
         var pieceOnTile = _tileOnPos.occupiedPiece;
         
         //Empty tile
@@ -45,8 +44,11 @@ public  class CursorOnTile : ScriptableCursor
         //Selected piece phase
         switch (pieceOnTile.faction)
         {
-            case Faction.BLACK when turn is GameState.BlackTurn:
-            case Faction.WHITE when turn is GameState.WhiteTurn:
+            case Faction.BLACK when turn == GameState.BlackTurn:
+                cursorManager.OnAlliance();
+                break;
+
+            case Faction.WHITE when turn == GameState.WhiteTurn:
                 cursorManager.OnAlliance();
                 break;
             
@@ -63,15 +65,8 @@ public  class CursorOnTile : ScriptableCursor
     {
         return GameManager.Instance.State switch
         {
-            //Black turn or Black is check white king 
-            GameState.BlackTurn or GameState.CheckWhite
-                when pieceOnTile.faction is Faction.WHITE => true,
-
-            //White turn or White is check black king
-            GameState.WhiteTurn or GameState.CheckBlack
-                when pieceOnTile.faction is Faction.BLACK => true,
-
-            //Otherwise
+            GameState.BlackTurn or GameState.CheckWhite when pieceOnTile.faction == Faction.WHITE => true,
+            GameState.WhiteTurn or GameState.CheckBlack when pieceOnTile.faction == Faction.BLACK => true,
             _ => false
         };
     }

@@ -10,11 +10,10 @@ internal interface IPiecesInGame
     public static void ReloadPiecesLeftInGame()
     {
         
-        if (GameManager.Instance.State is GameState.StartGame) return;
 
         WhitePieces = new List<Piece>();
         BlackPieces = new List<Piece>();
-        
+        if (GameManager.Instance.State == GameState.StartGame) return;
         foreach (KeyValuePair<Vector2,Tile> tilePos in TileManager.Instance.DictTiles!)
         {
             Piece occupiedPiece = tilePos.Value.occupiedPiece;
