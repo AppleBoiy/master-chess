@@ -403,10 +403,7 @@ public abstract class Piece : MonoBehaviour
     /// <param name="legalMove">List of legal movement of current selected piece</param>
     private static void ShowLegalMove(IEnumerable<Vector2> legalMove)
     {
-        var temp = new List<Vector2>();
-        temp.AddRange(legalMove.Select(ShowHighlight));
-        CurrentPieceMove = temp;
-
+        CurrentPieceMove = new List<Vector2>(legalMove.Select(ShowHighlight));
     }
     
     /// <summary>

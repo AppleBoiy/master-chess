@@ -11,12 +11,8 @@ public class WhitePieces : Piece
     {
         if (roll is not Roll.Pawn) return;
         if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return;
-        
-        string promotionWarn = faction is Faction.WHITE
-            ? $"<color=white>Pawn {faction} can promotion now!>/color>"
-            : $"<color=black>Pawn {faction} can promotion now!>/color>";
-            
-        Debug.Log(promotionWarn);
+
+        Debug.Log($"<color=white>Pawn {faction} can promotion now!</color>");
         
     }
     

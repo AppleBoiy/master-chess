@@ -123,6 +123,9 @@ public class Tile : MonoBehaviour
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
                 
+                //Check this pawn is ready to promotion or not
+                SelectedPiece.CheckPawnPromotion();
+                
                 selectedPiece(null);
                 
                 IPiecesInGame.ReloadPiecesLeftInGame();
@@ -158,6 +161,9 @@ public class Tile : MonoBehaviour
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
                     
+                    //Check this pawn is ready to promotion or not
+                    SelectedPiece.CheckPawnPromotion();
+                    
                     selectedPiece(null);
                     
                     IPiecesInGame.ReloadPiecesLeftInGame();
@@ -180,6 +186,9 @@ public class Tile : MonoBehaviour
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
 
+                //Check this pawn is ready to promotion or not
+                SelectedPiece.CheckPawnPromotion();
+                
                 selectedPiece(null);
                 changeTurn();
                 break;

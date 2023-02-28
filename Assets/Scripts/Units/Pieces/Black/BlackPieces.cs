@@ -11,7 +11,8 @@ public class BlackPieces : Piece
     {
         if (Math.Abs(pos.y - PromotionYPos) < 0.01f)
         {
-            Debug.Log($"<color={faction}>Pawn {faction} can promotion now!>/color>");
+            Debug.Log($"<color=black>Pawn {faction} can promotion now!</color>");
+
         } 
     }
     
