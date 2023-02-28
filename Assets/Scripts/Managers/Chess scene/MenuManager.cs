@@ -63,9 +63,14 @@ public class MenuManager : MonoBehaviour
         selectedPiece.SetActive(true);
     }
 
+    /// <summary>
+    /// Show information of tile etc. this tile has occupied piece or not. this tile is empty tile or this position is not tile
+    /// </summary>
+    /// <param name="tile">Tile to get info</param>
     public void ShowTileInfo(Tile tile)
     {
         
+        //This position isn't tile
         if (tile == null)
         {
             tileInfo.SetActive(false);
@@ -74,9 +79,11 @@ public class MenuManager : MonoBehaviour
             return;
         }
         
+        //Show tile name (Position)
         tileInfo.GetComponentInChildren<TMP_Text>().text = tile.name;
         tileInfo.SetActive(true);
         
+        //Show occupied piece on it
         if (!tile.occupiedPiece) return;
         pieceOnTile.GetComponentInChildren<TMP_Text>().text = $"{tile.occupiedPiece.faction}  {tile.occupiedPiece.roll}";
         pieceOnTile.SetActive(true);

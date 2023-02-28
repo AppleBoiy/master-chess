@@ -70,11 +70,11 @@ public class Tile : MonoBehaviour
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.State;
         
-        switch (instanceState)
+        switch (instanceState, occupiedPiece)
         {
 
             //tile has a piece on it
-            case BlackTurn when occupiedPiece != null:
+            case (BlackTurn, not null) :
                 
                 //Select piece phase
                 if (occupiedPiece.faction == BLACK)
@@ -112,7 +112,7 @@ public class Tile : MonoBehaviour
                 break;
             
             //Click to empty tile
-            case BlackTurn:
+            case (BlackTurn, _):
             {
                 if (SelectedPiece == null) return;
                 if (!Walkable()) return;
@@ -135,7 +135,7 @@ public class Tile : MonoBehaviour
             }
             
             //tile has a piece on it
-            case WhiteTurn when occupiedPiece != null:
+            case (WhiteTurn, not null):
             {
                 if (occupiedPiece.faction == WHITE)
                 {
@@ -175,7 +175,7 @@ public class Tile : MonoBehaviour
             }
             
             //click on empty tile
-            case WhiteTurn:
+            case (WhiteTurn, _):
             {
                 if (SelectedPiece == null) return;
                 if (!Walkable()) return;

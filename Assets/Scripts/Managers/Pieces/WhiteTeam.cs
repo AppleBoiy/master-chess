@@ -14,7 +14,7 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
     
     
     //Find King position on board
-    internal void FindKing()
+    internal static void FindKing()
     {
         //Introduce local method
 

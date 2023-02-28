@@ -358,29 +358,29 @@ public abstract class Piece : MonoBehaviour
         var piecePosX = piece.pos.x;
         var piecePosY = piece.pos.y;
         
-        switch (piece.faction)
+        switch (piece.faction, piece.isFirstMove)
         {
-            case Faction.WHITE when piece.isFirstMove:
+            case (Faction.WHITE, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 2));
                 break;
             
-            case Faction.WHITE:
+            case (Faction.WHITE, _):
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 break;
             
-            case Faction.BLACK when piece.isFirstMove:
+            case (Faction.BLACK, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 2));
                 break;
             
-            case Faction.BLACK:
+            case (Faction.BLACK, _):
                 move.Add(new Vector2(piecePosX, piecePosY - 1));
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
@@ -437,5 +437,14 @@ public abstract class Piece : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Check pawn is ready to promotion or not.
+    /// </summary>
     public abstract void CheckPawnPromotion();
+
+    /// <summary>
+    /// Promotion pawn that moved to promotion zone
+    /// </summary>
+    /// <param name="promotionToPiece"></param>
+    public abstract void PromotionPawn(Piece promotionToPiece);
 }

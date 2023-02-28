@@ -15,6 +15,11 @@ public class WhitePieces : Piece
         Debug.Log($"<color=white>Pawn {faction} can promotion now!</color>");
         
     }
-    
+
+    public override void PromotionPawn(Piece promotionToPiece)
+    {
+        
+    }
+
     #endregion
 }

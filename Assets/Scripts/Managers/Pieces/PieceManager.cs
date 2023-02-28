@@ -114,7 +114,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
     }
 
-    private static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
+    public static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
     {
         var spawnPiece = Instantiate(piece, parentPiece.transform, true);
         var spawnAtTile = TileManager.Instance.GetTile(pos);

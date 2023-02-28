@@ -15,6 +15,11 @@ public class BlackPieces : Piece
 
         } 
     }
-    
+
+    public override void PromotionPawn(Piece promotionToPiece)
+    {
+        PieceManager.SpawnPiece(pos, promotionToPiece, PieceManager.Instance.whiteParentPrefabs);
+    }
+
     #endregion
 }

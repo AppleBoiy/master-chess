@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,15 +20,23 @@ internal interface IPiecesInGame
             Piece occupiedPiece = tilePos.Value.occupiedPiece;
             if (!occupiedPiece) continue;
             
-            if (occupiedPiece.faction is Faction.BLACK) BlackPieces.Add(occupiedPiece);
-            if (occupiedPiece.faction is Faction.WHITE) WhitePieces.Add(occupiedPiece);
+            switch (occupiedPiece.faction)
+            {
+                case Faction.BLACK:
+                    BlackPieces.Add(occupiedPiece);
+                    break;
+                
+                case Faction.WHITE:
+                    WhitePieces.Add(occupiedPiece);
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
-
-        var blackTeam = BlackTeam.Instance;
-        var whiteTeam = WhiteTeam.Instance;
         
-        blackTeam.FindKing();
-        whiteTeam.FindKing();
+        BlackTeam.FindKing();
+        WhiteTeam.FindKing();
         
         MenuManager.Instance.ShowPieceLeft();
     }

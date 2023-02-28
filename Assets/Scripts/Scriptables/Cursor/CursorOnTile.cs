@@ -42,13 +42,13 @@ public  class CursorOnTile : ScriptableCursor
         }
 
         //Selected piece phase
-        switch (pieceOnTile.faction)
+        switch (pieceOnTile.faction, turn)
         {
-            case Faction.BLACK when turn == GameState.BlackTurn:
+            case (Faction.BLACK, GameState.BlackTurn):
                 cursorManager.OnAlliance();
                 break;
 
-            case Faction.WHITE when turn == GameState.WhiteTurn:
+            case (Faction.WHITE, GameState.WhiteTurn):
                 cursorManager.OnAlliance();
                 break;
             
