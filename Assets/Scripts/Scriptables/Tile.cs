@@ -96,6 +96,9 @@ public class Tile : MonoBehaviour
                     Destroy(whitePiece.gameObject);
                     SetPiece(SelectedPiece);
 
+                    //Check this pawn is ready to promotion or not
+                    SelectedPiece.CheckPawnPromotion();
+                    
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
                     
@@ -208,7 +211,7 @@ public class Tile : MonoBehaviour
         piece.pos = newPos;
         occupiedPiece = piece;
         piece.occupiedTile = this;
-
+        
         CursorManager.Instance.ResetCursor();
         
     }

@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Piece : MonoBehaviour
+public abstract class Piece : MonoBehaviour
 {
     #region params
     
@@ -211,7 +211,6 @@ public class Piece : MonoBehaviour
 
     #endregion
     
-
     #region Piece move
 
     /// <summary>
@@ -440,4 +439,6 @@ public class Piece : MonoBehaviour
 
         return true;
     }
+
+    public abstract void CheckPawnPromotion();
 }
