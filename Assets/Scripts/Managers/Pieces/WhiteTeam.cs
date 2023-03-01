@@ -19,7 +19,8 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
         //Introduce local method
 
         bool IsKing(Piece piece) 
-            => piece.roll == Roll.King;
+            => piece.roll is Roll.King;
+        
         Piece piece = IPiecesInGame.WhitePieces.Where(IsKing).ToArray()[0];
 
         KingPos = piece.pos;

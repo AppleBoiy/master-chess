@@ -77,7 +77,7 @@ public class Tile : MonoBehaviour
             case (BlackTurn, not null) :
                 
                 //Select piece phase
-                if (occupiedPiece.faction == BLACK)
+                if (occupiedPiece.faction is BLACK)
                 {  
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
@@ -87,9 +87,9 @@ public class Tile : MonoBehaviour
                 else
                 {
                     //Click on enemy
-                    if (SelectedPiece == null) return;
+                    if (SelectedPiece is null) return;
                     if (!Walkable()) return;
-                    if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
                     //Attack (Destroy enemy game object)
                     var whitePiece = (WhitePieces) occupiedPiece;
@@ -114,9 +114,9 @@ public class Tile : MonoBehaviour
             //Click to empty tile
             case (BlackTurn, _):
             {
-                if (SelectedPiece == null) return;
+                if (SelectedPiece is null) return;
                 if (!Walkable()) return;
-                if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+                if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
                 
@@ -137,7 +137,7 @@ public class Tile : MonoBehaviour
             //tile has a piece on it
             case (WhiteTurn, not null):
             {
-                if (occupiedPiece.faction == WHITE)
+                if (occupiedPiece.faction is WHITE)
                 {
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
@@ -149,9 +149,9 @@ public class Tile : MonoBehaviour
                 else
                 {
                     //Click on enemy
-                    if (SelectedPiece == null) return;
+                    if (SelectedPiece is null) return;
                     if (!Walkable()) return;
-                    if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
 
                     //Attack (Destroy enemy game object) 
                     var blackPiece = (BlackPieces) occupiedPiece;
@@ -177,9 +177,9 @@ public class Tile : MonoBehaviour
             //click on empty tile
             case (WhiteTurn, _):
             {
-                if (SelectedPiece == null) return;
+                if (SelectedPiece is null) return;
                 if (!Walkable()) return;
-                if (SelectedPiece.roll == Roll.Pawn) SelectedPiece.isFirstMove = false;
+                if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
                 

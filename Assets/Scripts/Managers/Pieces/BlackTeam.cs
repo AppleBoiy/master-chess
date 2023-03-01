@@ -17,7 +17,7 @@ public class BlackTeam : MonoBehaviour, IPiecesInGame
     internal static void FindKing()
     {
         //Introduce local method
-        bool IsKing(Piece piece) => piece.roll == Roll.King;
+        bool IsKing(Piece piece) => piece.roll is Roll.King;
 
         Piece piece = IPiecesInGame.BlackPieces.Where(IsKing).ToArray()[0];
 
