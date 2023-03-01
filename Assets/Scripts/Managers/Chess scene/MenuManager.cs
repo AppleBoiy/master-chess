@@ -46,7 +46,6 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        
         _turnDialog.text = GameManager.Instance.State.ToString();
     }
 

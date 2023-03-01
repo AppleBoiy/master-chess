@@ -226,7 +226,7 @@ RectTransform:
   m_GameObject: {fileID: 51741041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0884, y: 1.0884, z: 1.0884}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1463370376}
@@ -235,7 +235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -824.445, y: 450.964}
+  m_AnchoredPosition: {x: -0.000061035, y: -477.64}
   m_SizeDelta: {x: 227.773, y: 118.106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &51741043
@@ -727,7 +727,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 121130580}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PromotionPawnBtn, Assembly-CSharp
+        m_MethodName: OnMouseDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &121130580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,9 +1869,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 609922478}
-  - component: {fileID: 609922479}
+  - component: {fileID: 609922480}
   m_Layer: 0
-  m_Name: Promotion Pawn Manager
+  m_Name: Black Pawn Promotion Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1872,15 +1884,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609922477}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1182088842}
-  m_RootOrder: 1
+  m_Father: {fileID: 838137958}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &609922479
+--- !u!114 &609922480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1889,11 +1901,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 609922477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a219cd5cba1498cbb4524b8c8939b9, type: 3}
+  m_Script: {fileID: 11500000, guid: b13ea6c5d90b148159025979967757c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawnPromotionMenu: {fileID: 2120214616}
-  promotionPosInfo: {fileID: 464275730}
+  pawnPromotionMenu: {fileID: 0}
+  promotionPosInfo: {fileID: 0}
+  selectQueenBtn: {fileID: 0}
+  selectRookBtn: {fileID: 0}
+  selectBishopBtn: {fileID: 0}
+  selectKnightBtn: {fileID: 0}
+  queenPrefab: {fileID: 0}
+  rookPrefabs: {fileID: 0}
+  bishopPrefab: {fileID: 0}
+  knightPrefab: {fileID: 0}
 --- !u!1 &621135944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2992,6 +3012,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822132324}
   m_CullTransparentMesh: 1
+--- !u!1 &838137957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838137958}
+  m_Layer: 0
+  m_Name: Promotion Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &838137958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838137957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 609922478}
+  - {fileID: 927883615}
+  m_Father: {fileID: 1182088842}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &846904720
 GameObject:
   m_ObjectHideFlags: 0
@@ -3135,7 +3188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -824.445, y: 450.964}
+  m_AnchoredPosition: {x: -0.000061035, y: -477.64}
   m_SizeDelta: {x: 227.773, y: 118.106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &857419303
@@ -3394,6 +3447,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875314349}
   m_CullTransparentMesh: 1
+--- !u!1 &927883614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927883615}
+  - component: {fileID: 927883616}
+  m_Layer: 0
+  m_Name: White Pawn Promotion Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927883615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927883614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 838137958}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927883616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927883614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021d912c188044503b9e1929b39d860a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnPromotionMenu: {fileID: 2120214616}
+  promotionPosInfo: {fileID: 464275730}
+  selectQueenBtn: {fileID: 121130579}
+  selectRookBtn: {fileID: 207822315}
+  selectBishopBtn: {fileID: 857419305}
+  selectKnightBtn: {fileID: 1620160636}
+  queenPrefab: {fileID: 2240998707600444529, guid: 44b76609bd4674bc3978419930cd5c84, type: 3}
+  rookPrefabs: {fileID: 5643860893503859305, guid: 6b0d4fa0899094714bbec7a2578afb73, type: 3}
+  bishopPrefab: {fileID: 4468048989683141795, guid: 0d9eb7b7cb17f49db865dc98396cb43b, type: 3}
+  knightPrefab: {fileID: 8173437825713962924, guid: 810511136acb74b37b03068ddbce52c3, type: 3}
 --- !u!1 &940349314
 GameObject:
   m_ObjectHideFlags: 0
@@ -4111,7 +4218,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1114488207}
-  - {fileID: 609922478}
+  - {fileID: 838137958}
   - {fileID: 1422251777}
   - {fileID: 1704691812}
   - {fileID: 1246104067}
@@ -6196,7 +6303,7 @@ GameObject:
   - component: {fileID: 2120214619}
   - component: {fileID: 2120214618}
   m_Layer: 5
-  m_Name: Promotion Pawn Canvas
+  m_Name: Promotion White Pawn Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -53,6 +53,9 @@ public sealed class Tile : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        //Promotion scene player can't interaction with board
+        if (GameManager.Instance.State is Promotion) return;
+        
         highlight.SetActive(true);
         MenuManager.Instance.ShowTileInfo(this);
     }
@@ -88,9 +91,9 @@ public sealed class Tile : MonoBehaviour
                 //Attack phase
                 else
                 {
+                    if (SelectedPiece is null || !Walkable()) return;
+                    
                     //Click on enemy
-                    if (SelectedPiece is null) return;
-                    if (!Walkable()) return;
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
                     //Attack (Destroy enemy game object)
@@ -100,6 +103,7 @@ public sealed class Tile : MonoBehaviour
 
                     //Check this pawn is ready to promotion or not
                     SelectedPiece.CheckPawnPromotion();
+                    if (GameManager.Instance.State is Promotion) return;
                     
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
@@ -116,17 +120,18 @@ public sealed class Tile : MonoBehaviour
             //Click to empty tile
             case (BlackTurn, _):
             {
-                if (SelectedPiece is null) return;
-                if (!Walkable()) return;
+                if (SelectedPiece is null || !Walkable()) return;
+                
                 if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
+
+                //Check this pawn is ready to promotion or not
+                SelectedPiece.CheckPawnPromotion();
+                if (GameManager.Instance.State is Promotion) return;
                 
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
-                
-                //Check this pawn is ready to promotion or not
-                SelectedPiece.CheckPawnPromotion();
                 
                 selectedPiece(null);
                 
@@ -150,9 +155,9 @@ public sealed class Tile : MonoBehaviour
                 //Attack phase
                 else
                 {
+                    if (SelectedPiece is null || !Walkable()) return;
+                    
                     //Click on enemy
-                    if (SelectedPiece is null) return;
-                    if (!Walkable()) return;
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
 
                     //Attack (Destroy enemy game object) 
@@ -160,11 +165,12 @@ public sealed class Tile : MonoBehaviour
                     Destroy(blackPiece.gameObject);
                     SetPiece(SelectedPiece);
 
-                    //Calculate next possible movement of selected move to check that piece is checkmate or not.
-                    CalculateLegalMove(SelectedPiece);
-                    
                     //Check this pawn is ready to promotion or not
                     SelectedPiece.CheckPawnPromotion();
+                    if (GameManager.Instance.State is Promotion) return;
+                    
+                    //Calculate next possible movement of selected move to check that piece is checkmate or not.
+                    CalculateLegalMove(SelectedPiece);
                     
                     selectedPiece(null);
                     
@@ -179,18 +185,19 @@ public sealed class Tile : MonoBehaviour
             //click on empty tile
             case (WhiteTurn, _):
             {
-                if (SelectedPiece is null) return;
-                if (!Walkable()) return;
+                if (SelectedPiece is null || !Walkable()) return;
+                
                 if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
                 
+                //Check this pawn is ready to promotion or not
+                SelectedPiece.CheckPawnPromotion();
+                if (GameManager.Instance.State is Promotion) return;
+                
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
 
-                //Check this pawn is ready to promotion or not
-                SelectedPiece.CheckPawnPromotion();
-                
                 selectedPiece(null);
                 changeTurn();
                 break;

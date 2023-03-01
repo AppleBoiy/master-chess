@@ -17,7 +17,7 @@ public class BlackPieces : Piece
         if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return;
         
         Debug.Log($"<color=black>Pawn {faction} can promotion now!</color>");
-        PawnPromotionManager.Instance.TimeToPromotion(this);
+        BlackPawnPromotionManager.Instance.TimeToPromotion(this);
     }
 
     public override void PromotionPawn(Piece promotionToPiece)

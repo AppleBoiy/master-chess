@@ -17,7 +17,7 @@ public class WhitePieces : Piece
         if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return;
 
         Debug.Log($"<color=white>Pawn {faction} can promotion now!</color>");
-        PawnPromotionManager.Instance.TimeToPromotion(this);
+        WhitePawnPromotionManager.Instance.TimeToPromotion(this);
 
     }
 

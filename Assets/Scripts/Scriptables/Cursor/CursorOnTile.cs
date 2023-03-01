@@ -1,5 +1,7 @@
 using System.Linq;
 using UnityEngine;
+using static Faction;
+using static GameState;
 
 public  class CursorOnTile : ScriptableCursor
 {
@@ -19,7 +21,9 @@ public  class CursorOnTile : ScriptableCursor
         GameState turn = GameManager.Instance.State;
         
         //On start game scene do not check piece on tile to avoid error
-        if (turn == GameState.StartGame) return;
+        //Promotion scene player can't interaction with board
+        if (turn is  StartGame or Promotion) return;
+        
         var pieceOnTile = _tileOnPos.occupiedPiece;
         
         //Empty tile
@@ -44,11 +48,11 @@ public  class CursorOnTile : ScriptableCursor
         //Selected piece phase
         switch (pieceOnTile.faction, turn)
         {
-            case (Faction.BLACK, GameState.BlackTurn):
+            case (BLACK, BlackTurn):
                 cursorManager.OnAlliance();
                 break;
 
-            case (Faction.WHITE, GameState.WhiteTurn):
+            case (WHITE, WhiteTurn):
                 cursorManager.OnAlliance();
                 break;
             
@@ -58,15 +62,20 @@ public  class CursorOnTile : ScriptableCursor
         }
     }
 
-    //Piece that prepare to attack has Faction as same as Player turn
-    //etc. if this turn is white turn only white piece can attack to black piece
-    //     otherwise black piece only can attack to white piece
+
+    /// <summary>
+    ///Piece that prepare to attack has Faction as same as Player turn
+    ///etc. if this turn is white turn only white piece can attack to black piece
+    ///     otherwise black piece only can attack to white piece
+    /// </summary>
+    /// <param name="pieceOnTile"></param>
+    /// <returns></returns>
     private static bool CorrectPlayerTurn(Piece pieceOnTile)
     {
         return GameManager.Instance.State switch
         {
-            GameState.BlackTurn or GameState.CheckWhite when pieceOnTile.faction == Faction.WHITE => true,
-            GameState.WhiteTurn or GameState.CheckBlack when pieceOnTile.faction == Faction.BLACK => true,
+            BlackTurn or CheckWhite when pieceOnTile.faction is WHITE => true,
+            WhiteTurn or CheckBlack when pieceOnTile.faction is BLACK => true,
             _ => false
         };
     }

@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
                 case CheckWhite:
                     break;
 
+                case Promotion:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
