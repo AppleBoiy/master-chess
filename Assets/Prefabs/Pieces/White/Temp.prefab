@@ -99,6 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   occupiedTile: {fileID: 0}
   faction: 0
-  roll: 0
+  roll: 6
   isFirstMove: 0
   pos: {x: 0, y: 0}

@@ -58,10 +58,13 @@ public abstract class PawnPromotionManager : MonoBehaviour
 
         //Change game state to promotion
         GameManager.Instance.State = GameState.Promotion;
-        Debug.Log(GameManager.Instance.State);
+        
+        SpawnTempPieceOnTile(pawnToPromotion);
         
         pawnPromotionMenu.SetActive(true);
     }
+
+    public abstract void SpawnTempPieceOnTile(Piece pawn);
 
 
 }
