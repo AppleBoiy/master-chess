@@ -49,9 +49,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
     public void SpawnWhitePieces()
     {
-        
-        
-        var currentPos = IWhite.FirstPawn;
+        Vector2 currentPos = IWhite.FirstPawn;
 
         do
         {
@@ -59,7 +57,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
             currentPos = new Vector2(currentPos.x + 1, currentPos.y);
 
-        } while (currentPos != IWhite.LastPawn);
+        } while (currentPos.x <= IWhite.LastPawn.x);
 
         SpawnPiece(IWhite.King, whiteKing, whiteParentPrefabs);
         SpawnPiece(IWhite.Queen, whiteQueen, whiteParentPrefabs);
@@ -75,7 +73,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     
     public void SpawnBlackPieces()
     {
-        var currentPos = IBlack.FirstPawn;
+        Vector2 currentPos = IBlack.FirstPawn;
 
         do
         {
@@ -83,7 +81,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
             currentPos = new Vector2(currentPos.x + 1, currentPos.y);
 
-        } while (currentPos != IBlack.LastPawn);
+        } while (currentPos.x <= IBlack.LastPawn.x);
 
         SpawnPiece(IBlack.King, blackKing, blackParentPrefabs);
         SpawnPiece(IBlack.Queen, blackQueen, blackParentPrefabs);
@@ -116,8 +114,8 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
     public static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
     {
-        var spawnPiece = Instantiate(piece, parentPiece.transform, true);
-        var spawnAtTile = TileManager.Instance.GetTile(pos);
+        Piece spawnPiece = Instantiate(piece, parentPiece.transform, true);
+        Tile spawnAtTile = TileManager.Instance.GetTile(pos);
 
         spawnPiece.pos = spawnAtTile.GetPos();
         spawnPiece.isFirstMove = true;

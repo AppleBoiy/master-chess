@@ -23,23 +23,22 @@ internal interface IPiecesInGame
         
         Piece GetOccupiedPiece(KeyValuePair<Vector2, Tile> tilePos) => tilePos.Value.occupiedPiece;
         bool HasPieceOnTile(Piece occupiedPiece) => occupiedPiece;
+
+        //Get all pieces in game now
+        IEnumerable<Piece> piecesInGame = instanceDictTiles!.Select(GetOccupiedPiece).Where(HasPieceOnTile);
         
-        foreach (
-            var occupiedPiece 
-            in instanceDictTiles!.Select(GetOccupiedPiece).Where(HasPieceOnTile))
+        foreach (Piece piece in piecesInGame)
         {
-            switch (occupiedPiece.faction)
+            switch (piece.faction)
             {
                 case Faction.BLACK:
-                    BlackPieces.Add(occupiedPiece);
+                    BlackPieces.Add(piece);
                     break;
+                
                 
                 case Faction.WHITE:
-                    WhitePieces.Add(occupiedPiece);
+                    WhitePieces.Add(piece);
                     break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
         

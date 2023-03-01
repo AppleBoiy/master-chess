@@ -41,24 +41,22 @@ public abstract class Piece : MonoBehaviour
         float piecePosX =  piece.pos.x;
         float piecePosY =  piece.pos.y;
         Faction pFaction = piece.faction;
-        Vector2[] legalMove = {};
+        Vector2[] legalMove;
 
         //Legal move depends on piece roll
         switch (piece.roll)
         {
-            case Roll.King: 
-                legalMove = KingWalk(piecePosX, piecePosY, pFaction);
-                break;
-            
             case Roll.Queen:
                 //Queen move is  Rook and Bishop Legal move (Both of them)
-                var temp = new List<Vector2>();
-                temp.AddRange(RookWalk(piecePosX, piecePosY, pFaction));
-                temp.AddRange(BishopWalk(piecePosX, piecePosY, pFaction));
-                legalMove = temp.ToArray();
-                
+                Vector2[] bishopWalk = BishopWalk(piecePosX, piecePosY, pFaction);
+                Vector2[] rookWalk = RookWalk(piecePosX, piecePosY, pFaction);
+                legalMove = bishopWalk.Union(rookWalk).ToArray();
                 break;
             
+            case Roll.King:
+                legalMove = KingWalk(piecePosX, piecePosY, pFaction);
+                break;
+
             case Roll.Knight:
                 legalMove = KnightWalk(piecePosX, piecePosY, pFaction);
                 break;
@@ -76,6 +74,9 @@ public abstract class Piece : MonoBehaviour
                 break;
             
             case Roll.Piece:
+                
+                //Dummy for tester
+                legalMove = TileManager.Instance.DictTiles?.Keys.ToArray();
                 break;
 
             default:

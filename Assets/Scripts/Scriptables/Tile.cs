@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using static Faction;
 using static GameState;
@@ -8,7 +9,7 @@ using static PieceManager;
 using static UnityEngine.Debug;
 
 
-public class Tile : MonoBehaviour
+public sealed class Tile : MonoBehaviour
 {
     #region params
 
@@ -19,6 +20,7 @@ public class Tile : MonoBehaviour
     
     private Vector2 _pos;
 
+    [CanBeNull]
     public Piece occupiedPiece;
 
     #endregion
@@ -39,8 +41,8 @@ public class Tile : MonoBehaviour
 
     
     //Has any tile in position in  walkable pos list
-    protected virtual bool Walkable() => CurrentPieceMove.Any(OnWalkableTile); 
-    protected virtual bool OnWalkableTile(Vector2 pos) => _pos == pos;
+    private bool Walkable() => CurrentPieceMove.Any(OnWalkableTile);
+    private bool OnWalkableTile(Vector2 pos) => _pos == pos;
 
 
     public Vector2 GetPos() => _pos;

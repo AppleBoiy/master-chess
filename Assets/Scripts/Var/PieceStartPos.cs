@@ -5,7 +5,7 @@ public interface  IWhite
         
         
     public static readonly Vector2 FirstPawn = new(0, 1);
-    public static readonly Vector2 LastPawn = new(8, 1);
+    public static readonly Vector2 LastPawn = new(7, 1);
         
     public static readonly Vector2 Rook1 = new(0, 0);
     public static readonly Vector2 Rook2 = new(7, 0);
@@ -24,7 +24,7 @@ public interface  IWhite
 public interface IBlack 
 {
     public static readonly Vector2 FirstPawn = new(0, 6);
-    public static readonly Vector2 LastPawn = new(8, 6);
+    public static readonly Vector2 LastPawn = new(7, 6);
         
     public static readonly Vector2 Rook1 = new(0, 7);
     public static readonly Vector2 Rook2 = new(7, 7);
