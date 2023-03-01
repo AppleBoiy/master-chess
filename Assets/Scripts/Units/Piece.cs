@@ -137,19 +137,12 @@ public abstract class Piece : MonoBehaviour
     private static Vector2[] CurrentLegalMove(IEnumerable<Vector2> move, Faction faction)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
-        var legalMove = new List<Vector2>();
-        
-        foreach (var pos in from pos in move
-                 let tile = getTile(pos)
-                 where tile && (tile.occupiedPiece == null || tile.occupiedPiece.faction != faction)
-                 select pos)
-        {
-            LOG(pos);
-            legalMove.Add(pos);
-        }
-
-
-        return legalMove.ToArray();
+        return (
+            from pos in move 
+            let tile = getTile(pos) 
+            where tile && (tile.occupiedPiece is null || tile.occupiedPiece.faction != faction) 
+            select pos
+        ).ToArray();
     }
     
     /// <summary>

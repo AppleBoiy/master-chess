@@ -21,7 +21,7 @@ public class PawnPromotionManager : MonoBehaviour
         Instance = this;
     }
 
-    public void TimeToPromotion()
+    public void TimeToPromotion(Piece pawnToPromotion)
     {
         pawnPromotionMenu.SetActive(true);
     }
