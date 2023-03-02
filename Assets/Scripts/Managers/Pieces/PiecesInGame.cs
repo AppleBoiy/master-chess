@@ -48,5 +48,10 @@ internal interface IPiecesInGame
         MenuManager.Instance.ShowPieceLeft();
     }
     
+    internal static bool IsKing(Piece piece)
+    {
+        return piece.roll is Roll.King;
+    }
+    
 }
 

@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using static IPiecesInGame;
 
 public class BlackTeam : MonoBehaviour, IPiecesInGame
 {
@@ -16,11 +17,10 @@ public class BlackTeam : MonoBehaviour, IPiecesInGame
     //Find King position on board
     internal static void FindKing()
     {
-        //Introduce local method
-        bool IsKing(Piece piece) => piece.roll is Roll.King;
+        Piece[] king = IPiecesInGame.BlackPieces.Where(IsKing).ToArray();
 
-        Piece piece = IPiecesInGame.BlackPieces.Where(IsKing).ToArray()[0];
-
-        KingPos = piece.pos;
+        if (!king.Any()) return;
+        KingPos = king[0].pos;
     }
+    
 }
