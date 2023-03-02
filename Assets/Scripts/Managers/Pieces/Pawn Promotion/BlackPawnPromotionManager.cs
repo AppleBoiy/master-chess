@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BlackPawnPromotionManager : PawnPromotionManager
@@ -18,5 +16,7 @@ public class BlackPawnPromotionManager : PawnPromotionManager
     {
 
         Destroy(pawn.gameObject);
-        PieceManager.SpawnPiece(pawn.pos, tempPiece, PieceManager.Instance.whiteParentPrefabs);}
+        PieceManager.SpawnPiece(pawn.pos, tempPiece, PieceManager.Instance.whiteParentPrefabs);
+        
+    }
 }

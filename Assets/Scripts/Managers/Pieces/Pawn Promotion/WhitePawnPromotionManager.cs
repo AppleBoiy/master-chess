@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WhitePawnPromotionManager : PawnPromotionManager
@@ -20,4 +18,6 @@ public class WhitePawnPromotionManager : PawnPromotionManager
         
         PieceManager.SpawnPiece(pawn.pos, tempPiece, PieceManager.Instance.whiteParentPrefabs);
     }
+    
+    
 }

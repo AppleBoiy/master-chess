@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 121130581}
   - component: {fileID: 121130580}
   - component: {fileID: 121130579}
+  - component: {fileID: 121130582}
   m_Layer: 5
   m_Name: Select queen btn
   m_TagString: Untagged
@@ -727,19 +728,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 121130580}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PromotionPawnBtn, Assembly-CSharp
-        m_MethodName: OnMouseDown
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &121130580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,6 +767,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121130577}
   m_CullTransparentMesh: 1
+--- !u!114 &121130582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121130577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb1e22eca2a545c0a9aa55add8005aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceImg: {fileID: 21300000, guid: 0237a44d5faba49049a628bab85ebbbd, type: 3}
 --- !u!4 &124823770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1163341471010937462, guid: 1a32bb5aaf21df040a86121d1db770fb, type: 3}
@@ -795,6 +797,7 @@ GameObject:
   - component: {fileID: 207822317}
   - component: {fileID: 207822316}
   - component: {fileID: 207822315}
+  - component: {fileID: 207822318}
   m_Layer: 5
   m_Name: Select rook btn
   m_TagString: Untagged
@@ -904,6 +907,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207822313}
   m_CullTransparentMesh: 1
+--- !u!114 &207822318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207822313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb1e22eca2a545c0a9aa55add8005aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceImg: {fileID: 21300000, guid: 3d047290b868d4b219197432f08bbd75, type: 3}
 --- !u!1 &247912996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,6 +1930,7 @@ MonoBehaviour:
   rookPrefabs: {fileID: 0}
   bishopPrefab: {fileID: 0}
   knightPrefab: {fileID: 0}
+  promotionImageHolder: {fileID: 0}
   tempPiece: {fileID: -4349527344519267025, guid: d019ec19c52a04483b298073b5e3e038, type: 3}
 --- !u!1 &621135944
 GameObject:
@@ -3204,6 +3221,7 @@ GameObject:
   - component: {fileID: 857419307}
   - component: {fileID: 857419306}
   - component: {fileID: 857419305}
+  - component: {fileID: 857419308}
   m_Layer: 5
   m_Name: Select bishop btn
   m_TagString: Untagged
@@ -3313,6 +3331,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857419303}
   m_CullTransparentMesh: 1
+--- !u!114 &857419308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857419303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb1e22eca2a545c0a9aa55add8005aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceImg: {fileID: 21300000, guid: af0d461fd39e04e7581d6c759ca90fc2, type: 3}
 --- !u!1 &875314349
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,6 +3533,7 @@ MonoBehaviour:
   rookPrefabs: {fileID: 5643860893503859305, guid: 6b0d4fa0899094714bbec7a2578afb73, type: 3}
   bishopPrefab: {fileID: 4468048989683141795, guid: 0d9eb7b7cb17f49db865dc98396cb43b, type: 3}
   knightPrefab: {fileID: 8173437825713962924, guid: 810511136acb74b37b03068ddbce52c3, type: 3}
+  promotionImageHolder: {fileID: 1489960767}
   tempPiece: {fileID: -3613027617839990005, guid: 094a2093f70624855b7ded996d48c46f, type: 3}
 --- !u!1 &940349314
 GameObject:
@@ -5058,6 +5090,7 @@ GameObject:
   - component: {fileID: 1620160638}
   - component: {fileID: 1620160637}
   - component: {fileID: 1620160636}
+  - component: {fileID: 1620160639}
   m_Layer: 5
   m_Name: Select knight btn
   m_TagString: Untagged
@@ -5167,6 +5200,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620160634}
   m_CullTransparentMesh: 1
+--- !u!114 &1620160639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620160634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb1e22eca2a545c0a9aa55add8005aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceImg: {fileID: 21300000, guid: d73ad7dde54ee44dc9c36ef56a1286a9, type: 3}
 --- !u!1 &1650220122
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,9 @@ public abstract class PawnPromotionManager : MonoBehaviour
     [SerializeField] private Piece rookPrefabs;
     [SerializeField] private Piece bishopPrefab;
     [SerializeField] private Piece knightPrefab;
+    
+    [Header("Selected To Promotion Roll Info")] [SerializeField]
+    private GameObject promotionImageHolder;
     
     internal static GameState LastPlayer;
     internal static Piece PawnToPromotion;
@@ -66,5 +70,9 @@ public abstract class PawnPromotionManager : MonoBehaviour
 
     public abstract void SpawnTempPieceOnTile(Piece pawn);
 
-
+    public void SetSelectPromotionImg(Sprite newPiece)
+    {
+        promotionImageHolder.GetComponent<Image>().sprite = newPiece;
+    }
+   
 }
