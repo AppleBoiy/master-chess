@@ -3840,6 +3840,7 @@ MonoBehaviour:
   promotionImageHolder: {fileID: 0}
   promotedRoll: {fileID: 0}
   tempPiece: {fileID: -4349527344519267025, guid: d019ec19c52a04483b298073b5e3e038, type: 3}
+  promotionScene: {fileID: 0}
 --- !u!1 &617576378
 GameObject:
   m_ObjectHideFlags: 0
@@ -6822,6 +6823,7 @@ MonoBehaviour:
   promotionImageHolder: {fileID: 1489960767}
   promotedRoll: {fileID: 277916779}
   tempPiece: {fileID: -3613027617839990005, guid: 094a2093f70624855b7ded996d48c46f, type: 3}
+  promotionScene: {fileID: 2120214616}
 --- !u!1 &940349314
 GameObject:
   m_ObjectHideFlags: 0
