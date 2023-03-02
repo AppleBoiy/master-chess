@@ -3,7 +3,7 @@ using UnityEngine;
 using static Faction;
 using static GameState;
 
-public  class CursorOnTile : ScriptableCursor
+public class CursorOnTile : ScriptableCursor
 {
     private Tile _tileOnPos;
     

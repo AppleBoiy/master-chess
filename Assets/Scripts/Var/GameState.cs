@@ -7,6 +7,7 @@ public enum GameState
     WhiteTurn = 2,
     
     Promotion,
+    Setting,
     
     CheckBlack,
     CheckWhite,

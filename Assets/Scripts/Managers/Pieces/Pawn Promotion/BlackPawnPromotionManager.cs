@@ -11,8 +11,7 @@ public class BlackPawnPromotionManager : PawnPromotionManager
     {
         Instance = this;
     }
-    
-    
+
     /// <inheritdoc />
     protected override void SpawnTempPieceOnTile(Piece pawn)
     {

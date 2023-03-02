@@ -94,24 +94,8 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         SpawnPiece(IBlack.Knight2, blackKnight, blackParentPrefabs);
         
     }
-
-    #endregion
-
     
-    public static void SetSelectedPiece(Piece piece)
-    {
-        if (piece is null)
-        {
-            SelectedPiece = null;
-            MenuManager.Instance.ShowSelectedPiece(null);
-            return;
-        }
-        
-        SelectedPiece = piece;
-        MenuManager.Instance.ShowSelectedPiece(piece);
-
-    }
-
+    
     /// <summary>
     /// Spawn piece on tile
     /// </summary>
@@ -130,5 +114,21 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         
     }
     
+    #endregion
+
+    
+    public static void SetSelectedPiece(Piece piece)
+    {
+        if (piece is null)
+        {
+            SelectedPiece = null;
+            MenuManager.Instance.ShowSelectedPiece(null);
+            return;
+        }
+        
+        SelectedPiece = piece;
+        MenuManager.Instance.ShowSelectedPiece(piece);
+
+    }
 
 }

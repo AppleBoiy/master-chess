@@ -6,7 +6,6 @@ using static Faction;
 using static GameState;
 using static Piece;
 using static PieceManager;
-using static UnityEngine.Debug;
 
 
 public sealed class Tile : MonoBehaviour
@@ -54,7 +53,7 @@ public sealed class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         //Promotion scene player can't interaction with board
-        if (GameManager.Instance.State is Promotion) return;
+        if (GameManager.Instance.State is Promotion or Setting) return;
         
         highlight.SetActive(true);
         MenuManager.Instance.ShowTileInfo(this);

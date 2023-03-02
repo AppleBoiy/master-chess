@@ -27,12 +27,12 @@ public abstract class PawnPromotionManager : MonoBehaviour
     [SerializeField] private Piece bishopPrefab;
     [SerializeField] private Piece knightPrefab;
     
-    [Header("Selected To Promotion Roll Info")] [SerializeField]
-    private GameObject promotionImageHolder;
-    
-    internal static GameState LastPlayer;
-    internal static Piece PawnToPromotion;
-    
+    [Header("Selected To Promotion Roll Info")] 
+    [SerializeField] private GameObject promotionImageHolder;
+    [SerializeField] private TMP_Text promotedRoll;
+
+    private static GameState _lastPlayer;
+    private static Piece _pawnToPromotion;
     
     #endregion
     
@@ -45,20 +45,16 @@ public abstract class PawnPromotionManager : MonoBehaviour
         selectRookBtn?.onClick.AddListener(delegate { SelectedPromotion(rookPrefabs); });
     }
 
-
-    private static void SelectedPromotion(Piece promotionRoll)
-    {
-        Debug.Log(promotionRoll.roll);
-    }
+    #region Instance method
 
     public void TimeToPromotion(Piece pawnToPromotion)
     {
         //Store last game information (pawn to promotion, last game state)
-        PawnToPromotion = pawnToPromotion;
-        LastPlayer = GameManager.Instance.State;
+        _pawnToPromotion = pawnToPromotion;
+        _lastPlayer = GameManager.Instance.State;
         
         //Show pawn that promotion information
-        promotionPosInfo.text = PawnToPromotion.pos.ToString();
+        promotionPosInfo.text = _pawnToPromotion.pos.ToString();
 
         //Change game state to promotion
         GameManager.Instance.State = GameState.Promotion;
@@ -68,15 +64,25 @@ public abstract class PawnPromotionManager : MonoBehaviour
         pawnPromotionMenu.SetActive(true);
     }
 
+    public void SetSelectPromotionImg(Piece newPiece)
+    {
+        
+        promotionImageHolder.GetComponent<Image>().sprite = newPiece.GetComponent<SpriteRenderer>().sprite;
+        promotedRoll.text = newPiece.roll.ToString();
+
+    }
+    
+
+    #endregion
+    
     /// <summary>
     /// Spawn temporary piece on tile that prepare to spawn promoted pawn.
     /// </summary>
     /// <param name="pawn">Pawn that enter to promotion zone</param>
     protected abstract void SpawnTempPieceOnTile(Piece pawn);
 
-    public void SetSelectPromotionImg(Sprite newPiece)
+    private static void SelectedPromotion(Piece promotionRoll)
     {
-        promotionImageHolder.GetComponent<Image>().sprite = newPiece;
+        Debug.Log(promotionRoll.roll);
     }
-   
 }
