@@ -112,6 +112,12 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
 
     }
 
+    /// <summary>
+    /// Spawn piece on tile
+    /// </summary>
+    /// <param name="pos">Position of tile that piece lay on it.</param>
+    /// <param name="piece">Piece Prefabs</param>
+    /// <param name="parentPiece">Parent piece gameObject</param>
     public static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
     {
         Piece spawnPiece = Instantiate(piece, parentPiece.transform, true);

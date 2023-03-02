@@ -68,7 +68,11 @@ public abstract class PawnPromotionManager : MonoBehaviour
         pawnPromotionMenu.SetActive(true);
     }
 
-    public abstract void SpawnTempPieceOnTile(Piece pawn);
+    /// <summary>
+    /// Spawn temporary piece on tile that prepare to spawn promoted pawn.
+    /// </summary>
+    /// <param name="pawn">Pawn that enter to promotion zone</param>
+    protected abstract void SpawnTempPieceOnTile(Piece pawn);
 
     public void SetSelectPromotionImg(Sprite newPiece)
     {

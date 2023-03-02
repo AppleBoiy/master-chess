@@ -8,9 +8,7 @@ public class BlackPieces : Piece
     //Bottom last row on board
     private const float PromotionYPos = 0.0f;
     
-    /// <summary>
-    /// Check pawn moved to promotion zone yet? if already popout promotion scene
-    /// </summary>
+    /// <inheritdoc />
     public override void CheckPawnPromotion()
     {
         if (roll is not Roll.Pawn) return;
@@ -20,6 +18,7 @@ public class BlackPieces : Piece
         BlackPawnPromotionManager.Instance.TimeToPromotion(this);
     }
 
+    /// <inheritdoc />
     public override void PromotionPawn(Piece promotionToPiece)
     {
         PieceManager.SpawnPiece(pos, promotionToPiece, PieceManager.Instance.whiteParentPrefabs);

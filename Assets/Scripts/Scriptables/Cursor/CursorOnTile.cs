@@ -13,6 +13,9 @@ public  class CursorOnTile : ScriptableCursor
     }
 
     
+    /// <summary>
+    /// When mouse enter on tile change cursor to relate current game state.
+    /// </summary>
     private void OnMouseEnter()
     {
         SetTile();

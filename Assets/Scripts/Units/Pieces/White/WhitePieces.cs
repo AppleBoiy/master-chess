@@ -8,9 +8,7 @@ public class WhitePieces : Piece
     //Top first row on board
     private const float PromotionYPos = 7.0f;
 
-    /// <summary>
-    /// Check pawn moved to promotion zone yet? if already popout promotion scene
-    /// </summary>
+    /// <inheritdoc />
     public override void CheckPawnPromotion()
     {
         if (roll is not Roll.Pawn) return;
@@ -21,6 +19,7 @@ public class WhitePieces : Piece
 
     }
 
+    /// <inheritdoc />
     public override void PromotionPawn(Piece promotionToPiece)
     {
         

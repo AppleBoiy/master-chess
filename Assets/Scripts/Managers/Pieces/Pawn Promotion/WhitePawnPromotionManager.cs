@@ -12,7 +12,9 @@ public class WhitePawnPromotionManager : PawnPromotionManager
         Instance = this;
     }
 
-    public override void SpawnTempPieceOnTile(Piece pawn)
+
+    /// <inheritdoc />
+    protected override void SpawnTempPieceOnTile(Piece pawn)
     {
         Destroy(pawn.gameObject);
         
