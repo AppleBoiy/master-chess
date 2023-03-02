@@ -2,22 +2,40 @@ using UnityEngine;
 
 public class BlackPawnPromotionManager : PawnPromotionManager
 {
+    [SerializeField] private GameObject promotionScene;    
+    
     public static BlackPawnPromotionManager Instance;
 
-    [Space(3)] [Header("Temporary piece")]
-    [SerializeField] private Piece tempPiece;
-    
     private void Awake()
     {
         Instance = this;
     }
 
     /// <inheritdoc />
-    protected override void SpawnTempPieceOnTile(Piece pawn)
+    protected override void PromotionPieceOnTile(Piece newRoll)
     {
-
-        Destroy(pawn.gameObject);
-        PieceManager.SpawnPiece(pawn.pos, tempPiece, PieceManager.Instance.whiteParentPrefabs);
+        Destroy(TempPiece.gameObject);
+        PieceManager.SpawnPiece(PawnToPromotion.pos, newRoll, PieceManager.Instance.whiteParentPrefabs);
         
+        //Close promotion scene
+        promotionScene.SetActive(false);
+
+        //After promoted pawn update player turn
+        IPiecesInGame.ReloadPiecesLeftInGame();
+        PieceManager.SetSelectedPiece(null);
+        GameManager.Instance.UpdateGameState(LastPlayer);
+        GameManager.Instance.ChangeTurn();
     }
+
+
+    /// <inheritdoc />
+    protected override void SpawnTempPiece(Piece pawnToPromotion, Piece tempPiece)
+    {
+        Destroy(pawnToPromotion.gameObject);
+        PieceManager.SpawnPiece(PawnToPromotion.pos, tempPiece, PieceManager.Instance.blackParentPrefabs);
+        
+        Piece tempSpawnPiece = TileManager.Instance.GetTile(PawnToPromotion.pos).occupiedPiece;
+        TempPiece = tempSpawnPiece;
+    }
+    
 }

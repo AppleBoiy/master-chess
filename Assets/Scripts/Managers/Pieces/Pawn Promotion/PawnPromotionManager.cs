@@ -1,7 +1,7 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public abstract class PawnPromotionManager : MonoBehaviour
 {
@@ -30,19 +30,23 @@ public abstract class PawnPromotionManager : MonoBehaviour
     [Header("Selected To Promotion Roll Info")] 
     [SerializeField] private GameObject promotionImageHolder;
     [SerializeField] private TMP_Text promotedRoll;
-
-    private static GameState _lastPlayer;
-    private static Piece _pawnToPromotion;
+    
+    [Space(3)] [Header("Temporary piece")]
+    [SerializeField] private Piece tempPiece;
+    
+    internal static GameState LastPlayer;
+    internal static Piece PawnToPromotion;
+    internal static Piece TempPiece;
     
     #endregion
     
 
     private void Start()
     {
-        selectQueenBtn?.onClick.AddListener(delegate { SelectedPromotion(queenPrefab); });
-        selectKnightBtn?.onClick.AddListener(delegate { SelectedPromotion(knightPrefab); });
-        selectBishopBtn?.onClick.AddListener(delegate { SelectedPromotion(bishopPrefab); });
-        selectRookBtn?.onClick.AddListener(delegate { SelectedPromotion(rookPrefabs); });
+        selectQueenBtn?.onClick.AddListener(delegate { PromotionPieceOnTile(queenPrefab); });
+        selectKnightBtn?.onClick.AddListener(delegate { PromotionPieceOnTile(knightPrefab); });
+        selectBishopBtn?.onClick.AddListener(delegate { PromotionPieceOnTile(bishopPrefab); });
+        selectRookBtn?.onClick.AddListener(delegate { PromotionPieceOnTile(rookPrefabs); });
     }
 
     #region Instance method
@@ -50,16 +54,17 @@ public abstract class PawnPromotionManager : MonoBehaviour
     public void TimeToPromotion(Piece pawnToPromotion)
     {
         //Store last game information (pawn to promotion, last game state)
-        _pawnToPromotion = pawnToPromotion;
-        _lastPlayer = GameManager.Instance.State;
+        PawnToPromotion = pawnToPromotion;
+        LastPlayer = GameManager.Instance.State;
         
         //Show pawn that promotion information
-        promotionPosInfo.text = _pawnToPromotion.pos.ToString();
+        promotionPosInfo.text = PawnToPromotion.pos.ToString();
 
         //Change game state to promotion
         GameManager.Instance.State = GameState.Promotion;
         
-        SpawnTempPieceOnTile(pawnToPromotion);
+        //Destroy pawn and replace it with temporary piece before promotion
+        SpawnTempPiece(pawnToPromotion, tempPiece);
         
         pawnPromotionMenu.SetActive(true);
     }
@@ -74,15 +79,19 @@ public abstract class PawnPromotionManager : MonoBehaviour
     
 
     #endregion
-    
+
     /// <summary>
     /// Spawn temporary piece on tile that prepare to spawn promoted pawn.
     /// </summary>
     /// <param name="pawn">Pawn that enter to promotion zone</param>
-    protected abstract void SpawnTempPieceOnTile(Piece pawn);
+    /// <param name="tempPiece">Temporary piece replace on pawn before promotion pawn</param>
+    protected abstract void PromotionPieceOnTile(Piece pawn);
 
-    private static void SelectedPromotion(Piece promotionRoll)
-    {
-        Debug.Log(promotionRoll.roll);
-    }
+    /// <summary>
+    /// Spawn temporary piece and place in pawn that promoting.
+    /// </summary>
+    /// <param name="pawnToPromotion"></param>
+    /// <param name="tempPiece"></param>
+    protected abstract void SpawnTempPiece(Piece pawnToPromotion, Piece tempPiece);
+    
 }
