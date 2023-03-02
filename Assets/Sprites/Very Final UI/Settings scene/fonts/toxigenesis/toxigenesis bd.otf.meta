@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f449f0b6820114a8687ce982a46f2c05
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Toxigenesis
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 69be9c7687cb44802b1f9b090a1f4777, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
