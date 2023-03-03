@@ -24,10 +24,7 @@ public class WhitePawnPromotionManager : PawnPromotionManager
         promotionScene.SetActive(false);
         
         //After promoted pawn update player turn
-        IPiecesInGame.ReloadPiecesLeftInGame();
-        PieceManager.SetSelectedPiece(null);
-        GameManager.Instance.UpdateGameState(LastPlayer);
-        GameManager.Instance.ChangeTurn();
+        UpdateGameAfterPromotion();
     }
 
     /// <inheritdoc />

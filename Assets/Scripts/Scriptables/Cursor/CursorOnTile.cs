@@ -7,6 +7,9 @@ public class CursorOnTile : ScriptableCursor
 {
     private Tile _tileOnPos;
     
+    /// <summary>
+    /// It gets the tile that the player is currently on.
+    /// </summary>
     private void SetTile()
     {
         _tileOnPos = TileManager.Instance.GetTile(transform.position);
@@ -14,17 +17,23 @@ public class CursorOnTile : ScriptableCursor
 
     
     /// <summary>
-    /// When mouse enter on tile change cursor to relate current game state.
+    /// > If the tile is empty, set the cursor to the empty cursor. If the tile has a piece, check if
+    /// the piece is an enemy or an ally. If the piece is an ally, set the cursor to the ally cursor. If
+    /// the piece is an enemy, set the cursor to the enemy cursor. If the piece is an enemy and the
+    /// player is in attack mode, set the cursor to the attack cursor
     /// </summary>
+    /// <returns>
+    /// The return type is void.
+    /// </returns>
     private void OnMouseEnter()
     {
         SetTile();
         
         CursorManager cursorManager = CursorManager.Instance;
         GameState turn = GameManager.Instance.State;
-        
-        //On start game scene do not check piece on tile to avoid error
-        //Promotion scene player can't interaction with board
+
+        /* It checks if the game is in the start game scene or the promotion scene. If the game is in
+        the start game scene or the promotion scene, the player cannot interact with the board. */
         if (turn is  StartGame or Promotion) return;
         
         var pieceOnTile = _tileOnPos.occupiedPiece;
@@ -37,6 +46,8 @@ public class CursorOnTile : ScriptableCursor
         }
 
         //Attack phase
+        /* It checks if the piece is in attack mode and if the piece can attack the tile that the
+        player is currently on. */
         if (Piece.AttackMove != null)
         {
             bool CanAttack(Vector2 pos) => (Vector2)transform.position == pos;
@@ -48,7 +59,8 @@ public class CursorOnTile : ScriptableCursor
             }
         }
 
-        //Selected piece phase
+        /* It checks if the piece is an ally or an enemy. If the piece is an ally, set the cursor to
+        the ally cursor. If the piece is an enemy, set the cursor to the enemy cursor. */
         switch (pieceOnTile.faction, turn)
         {
             case (BLACK, BlackTurn):
@@ -65,14 +77,15 @@ public class CursorOnTile : ScriptableCursor
         }
     }
 
-
     /// <summary>
-    ///Piece that prepare to attack has Faction as same as Player turn
-    ///etc. if this turn is white turn only white piece can attack to black piece
-    ///     otherwise black piece only can attack to white piece
+    /// If the game state is either BlackTurn or CheckWhite and the piece on the tile is white, or if
+    /// the game state is either WhiteTurn or CheckBlack and the piece on the tile is black, then return
+    /// true. Otherwise, return false
     /// </summary>
-    /// <param name="pieceOnTile"></param>
-    /// <returns></returns>
+    /// <param name="Piece">The piece that is being moved.</param>
+    /// <returns>
+    /// A boolean value.
+    /// </returns>
     private static bool CorrectPlayerTurn(Piece pieceOnTile)
     {
         return GameManager.Instance.State switch

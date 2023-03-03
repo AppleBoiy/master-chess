@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Update game to next state
+    /// The UpdateGameState function is called when the game state changes. It takes in a new game state
+    /// and updates the game state accordingly
     /// </summary>
-    /// <param name="newState">Next game state</param>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <param name="GameState">This is the enum that contains all the possible states of the
+    /// game.</param>
     public void UpdateGameState(GameState newState)
     {
         Action generateTile = TileManager.Instance.GenerateTile;
@@ -80,9 +81,10 @@ public class GameManager : MonoBehaviour
         
     }
 
+   
     /// <summary>
-    /// Change game state from black player turn to white player turn
-    /// Or change from white player turn to black player turn
+    /// If the current state is BlackTurn, then change the state to WhiteTurn, otherwise change the
+    /// state to BlackTurn
     /// </summary>
     public void ChangeTurn()
     {

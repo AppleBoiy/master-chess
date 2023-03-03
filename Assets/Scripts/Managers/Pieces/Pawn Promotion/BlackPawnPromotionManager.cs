@@ -20,11 +20,9 @@ public class BlackPawnPromotionManager : PawnPromotionManager
         //Close promotion scene
         promotionScene.SetActive(false);
 
+        
         //After promoted pawn update player turn
-        IPiecesInGame.ReloadPiecesLeftInGame();
-        PieceManager.SetSelectedPiece(null);
-        GameManager.Instance.UpdateGameState(LastPlayer);
-        GameManager.Instance.ChangeTurn();
+        UpdateGameAfterPromotion();
     }
 
 

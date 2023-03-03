@@ -51,6 +51,13 @@ public abstract class PawnPromotionManager : MonoBehaviour
 
     #region Instance method
 
+   /// <summary>
+   /// > This function is called when a pawn reaches the end of the board and is ready to be promoted.
+   /// It stores the pawn to be promoted and the last game state, shows the pawn's position on the
+   /// promotion menu, changes the game state to promotion, and spawns a temporary piece in place of the
+   /// pawn
+   /// </summary>
+   /// <param name="Piece">pawnToPromotion - The pawn that is being promoted.</param>
     public void TimeToPromotion(Piece pawnToPromotion)
     {
         //Store last game information (pawn to promotion, last game state)
@@ -69,29 +76,47 @@ public abstract class PawnPromotionManager : MonoBehaviour
         pawnPromotionMenu.SetActive(true);
     }
 
+   
+    /// <summary>
+    /// This function is called when a player selects a piece to promote to. It sets the promotion image
+    /// holder to the sprite of the piece that was selected
+    /// </summary>
+    /// <param name="Piece">The piece that is being promoted to.</param>
     public void SetSelectPromotionImg(Piece newPiece)
     {
-        
         promotionImageHolder.GetComponent<Image>().sprite = newPiece.GetComponent<SpriteRenderer>().sprite;
         promotedRoll.text = newPiece.roll.ToString();
-
     }
     
 
     #endregion
 
+
+    
     /// <summary>
-    /// Spawn temporary piece on tile that prepare to spawn promoted pawn.
+    /// It updates the game after a promotion has occurred
     /// </summary>
-    /// <param name="pawn">Pawn that enter to promotion zone</param>
-    /// <param name="tempPiece">Temporary piece replace on pawn before promotion pawn</param>
-    protected abstract void PromotionPieceOnTile(Piece pawn);
+    internal static void UpdateGameAfterPromotion()
+    {
+        IPiecesInGame.ReloadPiecesLeftInGame();
+        PieceManager.SetSelectedPiece(null);
+        GameManager.Instance.UpdateGameState(LastPlayer);
+        GameManager.Instance.ChangeTurn();
+    }
 
     /// <summary>
-    /// Spawn temporary piece and place in pawn that promoting.
+    /// > This function is called when a pawn reaches the end of the board and needs to be promoted to a
+    /// different piece
     /// </summary>
-    /// <param name="pawnToPromotion"></param>
-    /// <param name="tempPiece"></param>
+    /// <param name="Piece">The piece that is being promoted.</param>
+    protected abstract void PromotionPieceOnTile(Piece pawn);
+
+   
+    /// <summary>
+    /// > Spawns a temporary piece to be used for promotion
+    /// </summary>
+    /// <param name="Piece">The piece that is being promoted.</param>
+    /// <param name="Piece">The piece that is being promoted.</param>
     protected abstract void SpawnTempPiece(Piece pawnToPromotion, Piece tempPiece);
     
 }

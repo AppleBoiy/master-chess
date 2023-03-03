@@ -15,16 +15,13 @@ internal interface IPiecesInGame
         WhitePieces = new List<Piece>();
         BlackPieces = new List<Piece>();
         
-        //Start game do not calculate piece left
+        /* Checking if the game is in the start state. If it is, then it will return. */
         if (GameManager.Instance.State is GameState.StartGame) return;
 
-        //Get tile dictionary
+        /* Getting the dictionary of tiles from the TileManager. */
         Dictionary<Vector2,Tile> instanceDictTiles = TileManager.Instance.DictTiles;
-        
-        Piece GetOccupiedPiece(KeyValuePair<Vector2, Tile> tilePos) => tilePos.Value.occupiedPiece;
-        bool HasPieceOnTile(Piece occupiedPiece) => occupiedPiece;
 
-        //Get all pieces in game now
+        /* Getting all the pieces that are in the game. */
         IEnumerable<Piece> piecesInGame = instanceDictTiles!.Select(GetOccupiedPiece).Where(HasPieceOnTile);
         
         foreach (Piece piece in piecesInGame)
@@ -47,11 +44,50 @@ internal interface IPiecesInGame
         
         MenuManager.Instance.ShowPieceLeft();
     }
+
+   
+    #region MyRegion
+
     
+    /// <summary>
+    /// > This function takes in a KeyValuePair<Vector2, Tile> and returns the occupiedPiece of the Tile
+    /// </summary>
+    /// <param name="tilePos">The tile position and tile object that we're checking.</param>
+    /// <returns>
+    /// The occupied piece on the tile.
+    /// </returns>
+    private static Piece GetOccupiedPiece(KeyValuePair<Vector2, Tile> tilePos)
+    {
+        return tilePos.Value.occupiedPiece;
+    }
+
+    
+    /// <summary>
+    /// If the piece is not null, then return true
+    /// </summary>
+    /// <param name="Piece">The piece that is being moved.</param>
+    /// <returns>
+    /// A boolean value.
+    /// </returns>
+    private static bool HasPieceOnTile(Piece occupiedPiece)
+    {
+        return occupiedPiece;
+    }
+
+    
+    /// <summary>
+    /// IsKing returns true if the piece's roll is a king.
+    /// </summary>
+    /// <param name="Piece">The piece you want to check</param>
+    /// <returns>
+    /// A boolean value.
+    /// </returns>
     internal static bool IsKing(Piece piece)
     {
         return piece.roll is Roll.King;
     }
+
+    #endregion
     
 }
 

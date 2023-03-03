@@ -49,6 +49,14 @@ public class MenuManager : MonoBehaviour
         _turnDialog.text = GameManager.Instance.State.ToString();
     }
 
+    /// <summary>
+    /// If the piece is null, hide the selected piece. Otherwise, set the text of the selected piece to
+    /// the roll of the piece and show the selected piece
+    /// </summary>
+    /// <param name="Piece">The piece that is selected.</param>
+    /// <returns>
+    /// The selected piece is being returned.
+    /// </returns>
     public void ShowSelectedPiece(Piece piece)
     {
         
@@ -62,10 +70,15 @@ public class MenuManager : MonoBehaviour
         selectedPiece.SetActive(true);
     }
 
+    
     /// <summary>
-    /// Show information of tile etc. this tile has occupied piece or not. this tile is empty tile or this position is not tile
+    /// If the tile is null, hide the tile info, piece on tile, and piece info. Otherwise, show the tile
+    /// info, piece on tile, and piece info
     /// </summary>
-    /// <param name="tile">Tile to get info</param>
+    /// <param name="Tile">The tile that the mouse is hovering over.</param>
+    /// <returns>
+    /// The tile that the mouse is hovering over.
+    /// </returns>
     public void ShowTileInfo(Tile tile)
     {
         
@@ -92,19 +105,28 @@ public class MenuManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// When the user clicks the "White" button, the game state is updated to "WhiteTurn" and the start
+    /// game holder is disabled
+    /// </summary>
     public void SelectWhitePlayer()
     {
         GameManager.Instance.UpdateGameState(GameState.WhiteTurn);
         startGameHolder.SetActive(false);
     }
 
+    /// <summary>
+    /// > This function is called when the user selects the black player
+    /// </summary>
     public void SelectBlackPlayer()
     {
         GameManager.Instance.UpdateGameState(GameState.BlackTurn);
         startGameHolder.SetActive(false);
     }
 
+    /// <summary>
+    /// This function loops through all the tiles in the game and sets the move indicator to false
+    /// </summary>
     public static void ResetMove()
     {
         foreach (var tile in TileManager.Instance.Tiles().Values)
@@ -113,6 +135,14 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// It updates the UI text to show the number of pieces left on the board and the position of the
+    /// kings
+    /// </summary>
+    /// <returns>
+    /// The method is returning the number of pieces left on the board.
+    /// </returns>
     public void ShowPieceLeft()
     {
         blackPieceLeftInfo.text = IPiecesInGame.BlackPieces.Count.ToString();
