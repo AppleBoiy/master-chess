@@ -77,7 +77,7 @@ public class TileManager : MonoBehaviour
     /// </returns>
     public Tile GetTile(Vector2 pos)
     {
-        return DictTiles!.TryGetValue(pos, value: out var getTile) ? getTile : null;
+        return DictTiles!.TryGetValue(pos, value: out Tile getTile) ? getTile : null;
     }
 
     /// <summary>
@@ -86,9 +86,5 @@ public class TileManager : MonoBehaviour
     /// <returns>
     /// A dictionary of tiles.
     /// </returns>
-    public Dictionary<Vector2, Tile> Tiles()
-    {
-        return DictTiles;
-    }
-
+    internal Dictionary<Vector2, Tile> Tiles() => DictTiles;
 }

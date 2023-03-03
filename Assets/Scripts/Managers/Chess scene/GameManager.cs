@@ -45,34 +45,10 @@ public class GameManager : MonoBehaviour
         
         
         //Game state handler
-        switch (state)
-            {
-                case StartGame:
-                    generateTile();
-                    pieceManager.SpawnWhitePieces();
-                    pieceManager.SpawnBlackPieces();
-                    break;
-                
-                case BlackTurn:
-                    break;
-                    
-                case WhiteTurn:
-                    break;
-
-                case End:
-                    break;
-
-                case CheckBlack:
-                    break;
-                
-                case CheckWhite:
-                    break;
-
-                case Promotion:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        if (state is not StartGame) return;
+        generateTile();
+        pieceManager.SpawnWhitePieces();
+        pieceManager.SpawnBlackPieces();
     }
 
     /// <summary>
@@ -81,7 +57,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ChangeTurn()
     {
-        state = (state == BlackTurn)
+        state = (state is BlackTurn)
             ? WhiteTurn 
             : BlackTurn;
         

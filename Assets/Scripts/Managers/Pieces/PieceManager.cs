@@ -44,11 +44,6 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         Instance = this;
     }
     
-
-    /// <summary>
-    /// It spawns a piece at a given position, and sets the piece's position to the position of the tile
-    /// it's spawned on
-    /// </summary>
     #region Spawn Pieces
 
     /// <summary>
@@ -110,9 +105,9 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     /// This function spawns a piece at a given position, and sets the piece's position to the position
     /// of the tile it's spawned on
     /// </summary>
-    /// <param name="Vector2">The position of the tile you want to spawn the piece at.</param>
-    /// <param name="Piece">The piece you want to spawn</param>
-    /// <param name="GameObject">The prefab of the piece you want to spawn.</param>
+    /// <param name="pos">The position of the tile you want to spawn the piece at.</param>
+    /// <param name="piece">The piece you want to spawn</param>
+    /// <param name="parentPiece">The prefab of the piece you want to spawn.</param>
     public static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
     {
         Piece spawnPiece = Instantiate(piece, parentPiece.transform, true);
@@ -132,7 +127,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     /// If the piece is null, set the selected piece to null and show the selected piece menu.
     /// Otherwise, set the selected piece to the piece and show the selected piece menu
     /// </summary>
-    /// <param name="Piece">The piece that is selected.</param>
+    /// <param name="piece">The piece that is selected.</param>
     /// <returns>
     /// The piece that is being selected.
     /// </returns>

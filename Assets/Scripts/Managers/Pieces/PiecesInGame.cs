@@ -50,7 +50,7 @@ internal interface IPiecesInGame
 
     
     /// <summary>
-    /// > This function takes in a KeyValuePair<Vector2, Tile> and returns the occupiedPiece of the Tile
+    /// > This function takes in a tilePos and returns the occupiedPiece of the Tile
     /// </summary>
     /// <param name="tilePos">The tile position and tile object that we're checking.</param>
     /// <returns>
@@ -65,7 +65,7 @@ internal interface IPiecesInGame
     /// <summary>
     /// If the piece is not null, then return true
     /// </summary>
-    /// <param name="Piece">The piece that is being moved.</param>
+    /// <param name="occupiedPiece">The piece that is being moved.</param>
     /// <returns>
     /// A boolean value.
     /// </returns>
@@ -78,7 +78,7 @@ internal interface IPiecesInGame
     /// <summary>
     /// IsKing returns true if the piece's roll is a king.
     /// </summary>
-    /// <param name="Piece">The piece you want to check</param>
+    /// <param name="piece">The piece you want to check</param>
     /// <returns>
     /// A boolean value.
     /// </returns>
