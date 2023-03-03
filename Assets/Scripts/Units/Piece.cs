@@ -372,27 +372,27 @@ public abstract class Piece : MonoBehaviour
         /* Checking the position of the piece and adding the possible moves to the list. */
         switch (piece.faction, piece.isFirstMove)
         {
-            case (Faction.WHITE, true):
+            case (Faction.White, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 2));
                 break;
             
-            case (Faction.WHITE, _):
+            case (Faction.White, _):
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 break;
             
-            case (Faction.BLACK, true):
+            case (Faction.Black, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 2));
                 break;
             
-            case (Faction.BLACK, _):
+            case (Faction.Black, _):
                 move.Add(new Vector2(piecePosX, piecePosY - 1));
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));

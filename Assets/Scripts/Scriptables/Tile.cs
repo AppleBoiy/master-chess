@@ -73,7 +73,7 @@ public sealed class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         //Promotion scene player can't interaction with board
-        if (GameManager.Instance.State is Promotion or Setting) return;
+        if (GameManager.Instance.state is Promotion or Setting) return;
         
         highlight.SetActive(true);
         MenuManager.Instance.ShowTileInfo(this);
@@ -105,7 +105,7 @@ public sealed class Tile : MonoBehaviour
         
         Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
-        var instanceState = GameManager.Instance.State;
+        var instanceState = GameManager.Instance.state;
         
         /* The above code is a switch statement that is checking the state of the game and the piece
         that is on the tile. */
@@ -117,7 +117,7 @@ public sealed class Tile : MonoBehaviour
                 
                 /* This is checking if the piece on the tile is a black piece. If it is, then the piece
                 is selected and its legal moves are calculated. */
-                if (occupiedPiece.faction is BLACK)
+                if (occupiedPiece.faction is Black)
                 {  
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
@@ -142,7 +142,7 @@ public sealed class Tile : MonoBehaviour
 
                     //Check this pawn is ready to promotion or not
                     SelectedPiece.CheckPawnPromotion();
-                    if (GameManager.Instance.State is Promotion) return;
+                    if (GameManager.Instance.state is Promotion) return;
                     
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
@@ -173,7 +173,7 @@ public sealed class Tile : MonoBehaviour
 
                 //Check this pawn is ready to promotion or not
                 SelectedPiece.CheckPawnPromotion();
-                if (GameManager.Instance.State is Promotion) return;
+                if (GameManager.Instance.state is Promotion) return;
                 
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
@@ -192,7 +192,7 @@ public sealed class Tile : MonoBehaviour
             {
                 /* This is checking if the piece on the tile is a white piece. If it is, then the piece
                     is selected and its legal moves are calculated. */
-                if (occupiedPiece.faction is WHITE)
+                if (occupiedPiece.faction is White)
                 {
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
@@ -219,7 +219,7 @@ public sealed class Tile : MonoBehaviour
 
                     //Check this pawn is ready to promotion or not
                     SelectedPiece.CheckPawnPromotion();
-                    if (GameManager.Instance.State is Promotion) return;
+                    if (GameManager.Instance.state is Promotion) return;
                     
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
@@ -248,7 +248,7 @@ public sealed class Tile : MonoBehaviour
                 
                 //Check this pawn is ready to promotion or not
                 SelectedPiece.CheckPawnPromotion();
-                if (GameManager.Instance.State is Promotion) return;
+                if (GameManager.Instance.state is Promotion) return;
                 
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);

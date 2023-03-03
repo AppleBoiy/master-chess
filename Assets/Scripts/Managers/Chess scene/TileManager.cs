@@ -71,7 +71,7 @@ public class TileManager : MonoBehaviour
     /// 
     /// The above function is used in the following function:
     /// </summary>
-    /// <param name="Vector2">The position of the tile.</param>
+    /// <param name="pos">The position of the tile.</param>
     /// <returns>
     /// The tile at the position.
     /// </returns>
