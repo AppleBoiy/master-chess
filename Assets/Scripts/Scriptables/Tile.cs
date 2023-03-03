@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -120,67 +121,32 @@ public sealed class Tile : MonoBehaviour
                 {  
                     SetSelectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
+                    
+                    IPiecesInGame.ReloadPiecesLeftInGame();
+                    
                 }
                 
                 /* when the player clicks on a tile that has a piece on it. */
                 else
                 {
-                    /* This is checking if the selected piece is null or if the tile is not walkable.
-                    If either of these
-                    conditions are true, then the function returns. */
-                    if (SelectedPiece is null || !Walkable()) return;
-                    
-                    /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
-                    variable is set to false. */
-                    if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    if (UnreachableTile()) return;
                     
                     //Attack (Destroy enemy game object)
                     var whitePiece = (WhitePieces) occupiedPiece;
                     Destroy(whitePiece.gameObject);
-                    SetPiece(SelectedPiece);
-
-                    //Check this pawn is ready to promotion or not
-                    SelectedPiece.CheckPawnPromotion();
-                    if (GameManager.Instance.state is Promotion) return;
                     
-                    //Calculate next possible movement of selected move to check that piece is checkmate or not.
-                    CalculateLegalMove(SelectedPiece);
-                    
-                    SetSelectedPiece(null);
-
-                    IPiecesInGame.ReloadPiecesLeftInGame();
-                    
+                    if (MovePiece()) return;
                     changeTurn();
                 }
-
                 break;
             
-            
             //Click to empty tile
+            case (BlackTurn, _) when UnreachableTile():
+                return;
+            case (BlackTurn, _) when MovePiece():
+                return;
             case (BlackTurn, _):
             {
-                /* This is checking if the selected piece is null or if the tile is not walkable. If
-                either of these
-                conditions are true, then the function returns. */
-                if (SelectedPiece is null || !Walkable()) return;
-                
-                /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
-                variable is set to false. */
-                if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
-                
-                SetPiece(SelectedPiece);
-
-                //Check this pawn is ready to promotion or not
-                SelectedPiece.CheckPawnPromotion();
-                if (GameManager.Instance.state is Promotion) return;
-                
-                //Calculate next possible movement of selected move to check that piece is checkmate or not.
-                CalculateLegalMove(SelectedPiece);
-                
-                SetSelectedPiece(null);
-                
-                IPiecesInGame.ReloadPiecesLeftInGame();
-                
                 changeTurn();
                 break;
             }
@@ -202,30 +168,13 @@ public sealed class Tile : MonoBehaviour
                 //Attack phase
                 else
                 {
-                    /* This is checking if the selected piece is null or if the tile is not walkable.
-                    If either of these
-                    conditions are true, then the function returns. */
-                    if (SelectedPiece is null || !Walkable()) return;
-                    
-                    /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
-                    variable is set to false. */
-                    if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+                    if (UnreachableTile()) return;
 
                     //Attack (Destroy enemy game object) 
                     var blackPiece = (BlackPieces) occupiedPiece;
                     Destroy(blackPiece.gameObject);
-                    SetPiece(SelectedPiece);
-
-                    //Check this pawn is ready to promotion or not
-                    SelectedPiece.CheckPawnPromotion();
-                    if (GameManager.Instance.state is Promotion) return;
                     
-                    //Calculate next possible movement of selected move to check that piece is checkmate or not.
-                    CalculateLegalMove(SelectedPiece);
-                    
-                    SetSelectedPiece(null);
-                    
-                    IPiecesInGame.ReloadPiecesLeftInGame();
+                    if (MovePiece()) return;
                     
                     changeTurn();
                 }
@@ -235,24 +184,12 @@ public sealed class Tile : MonoBehaviour
             
             /* This is checking if the piece on the tile is a white piece. If it is, then the piece
                         is selected and its legal moves are calculated. */
+            case (WhiteTurn, _) when UnreachableTile():
+                return;
+            case (WhiteTurn, _) when MovePiece():
+                return;
             case (WhiteTurn, _):
             {
-                /* This is checking if the selected piece is null or if the tile is not walkable. If
-                either of these conditions are true, then the function returns. */
-                if (SelectedPiece is null || !Walkable()) return;
-                
-                if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
-                
-                SetPiece(SelectedPiece);
-                
-                //Check this pawn is ready to promotion or not
-                SelectedPiece.CheckPawnPromotion();
-                if (GameManager.Instance.state is Promotion) return;
-                
-                //Calculate next possible movement of selected move to check that piece is checkmate or not.
-                CalculateLegalMove(SelectedPiece);
-
-                SetSelectedPiece(null);
                 changeTurn();
                 break;
             }
@@ -261,6 +198,36 @@ public sealed class Tile : MonoBehaviour
         IPiecesInGame.ReloadPiecesLeftInGame();
     }
 
+    private bool UnreachableTile()
+    {
+        /* This is checking if the selected piece is null or if the tile is not walkable.
+                    If either of these
+                    conditions are true, then the function returns. */
+        if (SelectedPiece is null || !Walkable()) return true;
+
+        /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
+                    variable is set to false. */
+        if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+        return false;
+    }
+
+    private bool MovePiece()
+    {
+        SetPiece(SelectedPiece);
+
+        //Check this pawn is ready to promotion or not
+        SelectedPiece.CheckPawnPromotion();
+        if (GameManager.Instance.state is Promotion) return true;
+
+        //Calculate next possible movement of selected move to check that piece is checkmate or not.
+        CalculateLegalMove(SelectedPiece);
+        AttackMove = new List<Vector2>();
+
+        SetSelectedPiece(null);
+        
+        IPiecesInGame.ReloadPiecesLeftInGame();
+        return false;
+    }
 
     #endregion
 
