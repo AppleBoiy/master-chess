@@ -290,10 +290,4 @@ public sealed class Tile : MonoBehaviour
         
     }
 
-    public void RemovePiece()
-    {
-        occupiedPiece = null;
-    }
-
-    
 }
