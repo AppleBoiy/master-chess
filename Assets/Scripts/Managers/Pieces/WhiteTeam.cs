@@ -14,11 +14,17 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
     }
     
     
-    //Find King position on board
-    internal static void FindKing()
+    internal/// <summary>
+    /// > Find the king's position by finding the first black piece that is a king
+    /// </summary>
+    /// <returns>
+    /// The position of the king.
+    /// </returns>
+     static void FindKing()
     {
         Piece[] king = IPiecesInGame.BlackPieces.Where(IsKing).ToArray();
 
+        /* If there is no king, return. */
         if (!king.Any()) return;
         KingPos = king[0].pos;
     }

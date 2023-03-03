@@ -33,6 +33,9 @@ public class TileManager : MonoBehaviour
     }
     
 
+    /// <summary>
+    /// For each column and row, instantiate a tile, set its parent, and add it to the dictionary
+    /// </summary>
     public void GenerateTile()
     {
         
@@ -55,16 +58,34 @@ public class TileManager : MonoBehaviour
             }
         }
         
+        /* Setting the camera position to the center of the board. */
         camera.transform.position = new Vector3((float)Width / 2 - 0.5f,(float)Height/2 - 0.5f, -10 );
         
     }
     
     
+    /// <summary>
+    /// If the dictionary has a key of the position, then return the value of that key. 
+    /// 
+    /// If the dictionary does not have a key of the position, then return null. 
+    /// 
+    /// The above function is used in the following function:
+    /// </summary>
+    /// <param name="Vector2">The position of the tile.</param>
+    /// <returns>
+    /// The tile at the position.
+    /// </returns>
     public Tile GetTile(Vector2 pos)
     {
         return DictTiles!.TryGetValue(pos, value: out var getTile) ? getTile : null;
     }
 
+    /// <summary>
+    /// It returns a dictionary of all the tiles in the map
+    /// </summary>
+    /// <returns>
+    /// A dictionary of tiles.
+    /// </returns>
     public Dictionary<Vector2, Tile> Tiles()
     {
         return DictTiles;

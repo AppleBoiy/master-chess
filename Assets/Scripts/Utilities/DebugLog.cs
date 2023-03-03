@@ -17,6 +17,12 @@ public class DebugLog : MonoBehaviour
         Application.logMessageReceived -= HandleLog;
     }
 
+    /// <summary>
+    /// > It takes the log string, stack trace, and log type, and adds them to a queue
+    /// </summary>
+    /// <param name="logString">The string you want to log.</param>
+    /// <param name="stackTrace">The stack trace of the log message.</param>
+    /// <param name="LogType">The type of log message.</param>
     private void HandleLog(string logString, string stackTrace, LogType type) {
         _myLogQueue.Enqueue("[" + type + "] : " + logString);
         if (type == LogType.Exception)
