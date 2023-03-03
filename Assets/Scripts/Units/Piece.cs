@@ -5,6 +5,8 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using static GameState;
+using static Roll;
 
 public abstract class Piece : MonoBehaviour
 {
@@ -44,30 +46,30 @@ public abstract class Piece : MonoBehaviour
              moves. */
         switch (piece.roll)
         {
-            case Roll.Queen:
+            case Queen:
                 //Queen move is  Rook and Bishop Legal move (Both of them)
                 Vector2[] bishopWalk = BishopWalk(piecePosX, piecePosY, pFaction);
                 Vector2[] rookWalk = RookWalk(piecePosX, piecePosY, pFaction);
                 legalMove = bishopWalk.Union(rookWalk).ToArray();
                 break;
             
-            case Roll.King:
+            case King:
                 legalMove = KingWalk(piecePosX, piecePosY, pFaction);
                 break;
 
-            case Roll.Knight:
+            case Knight:
                 legalMove = KnightWalk(piecePosX, piecePosY, pFaction);
                 break;
             
-            case Roll.Rook:
+            case Rook:
                 legalMove = RookWalk(piecePosX, piecePosY, pFaction);
                 break;
             
-            case Roll.Bishop:
+            case Bishop:
                 legalMove = BishopWalk(piecePosX, piecePosY, pFaction);
                 break;
             
-            case Roll.Pawn:
+            case Pawn:
                 legalMove = PawnWalk(piece);
                 break;
             
@@ -431,9 +433,17 @@ public abstract class Piece : MonoBehaviour
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         
         Transform highlight = getTile(move).transform.GetChild(2);
-                
-        highlight.GameObject().SetActive(true);
-        highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+
+        if (getTile(move).occupiedPiece?.roll is King)
+        {
+            highlight.GameObject().SetActive(true);
+            highlight.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
+        }
+        else
+        {
+            highlight.GameObject().SetActive(true);
+            highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+        }
 
         return move;
     }
@@ -465,4 +475,13 @@ public abstract class Piece : MonoBehaviour
     /// </summary>
     /// <param name="promotionToPiece">The piece that is being promoted.</param>
     public abstract void PromotionPawn(Piece promotionToPiece);
+
+    private void OnDestroy()
+    {
+        if (roll is Roll.Piece) return;
+        if (GameManager.Instance.state is StartGame or Promotion) return;
+        
+        PieceSfx.Instance.DestroyPieceSfx();
+        
+    }
 }
