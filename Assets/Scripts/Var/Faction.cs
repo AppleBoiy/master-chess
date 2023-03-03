@@ -1,5 +1,5 @@
 public enum Faction
 {
-    WHITE,
-    BLACK
+    White,
+    Black
 }

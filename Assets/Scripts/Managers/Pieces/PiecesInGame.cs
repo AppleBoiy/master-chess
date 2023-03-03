@@ -16,7 +16,7 @@ internal interface IPiecesInGame
         BlackPieces = new List<Piece>();
         
         /* Checking if the game is in the start state. If it is, then it will return. */
-        if (GameManager.Instance.State is GameState.StartGame) return;
+        if (GameManager.Instance.state is GameState.StartGame) return;
 
         /* Getting the dictionary of tiles from the TileManager. */
         Dictionary<Vector2,Tile> instanceDictTiles = TileManager.Instance.DictTiles;
@@ -28,12 +28,12 @@ internal interface IPiecesInGame
         {
             switch (piece.faction)
             {
-                case Faction.BLACK:
+                case Faction.Black:
                     BlackPieces.Add(piece);
                     break;
                 
                 
-                case Faction.WHITE:
+                case Faction.White:
                     WhitePieces.Add(piece);
                     break;
             }

@@ -46,14 +46,14 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        _turnDialog.text = GameManager.Instance.State.ToString();
+        _turnDialog.text = GameManager.Instance.state.ToString();
     }
 
     /// <summary>
     /// If the piece is null, hide the selected piece. Otherwise, set the text of the selected piece to
     /// the roll of the piece and show the selected piece
     /// </summary>
-    /// <param name="Piece">The piece that is selected.</param>
+    /// <param name="piece">The piece that is selected.</param>
     /// <returns>
     /// The selected piece is being returned.
     /// </returns>
@@ -75,7 +75,7 @@ public class MenuManager : MonoBehaviour
     /// If the tile is null, hide the tile info, piece on tile, and piece info. Otherwise, show the tile
     /// info, piece on tile, and piece info
     /// </summary>
-    /// <param name="Tile">The tile that the mouse is hovering over.</param>
+    /// <param name="tile">The tile that the mouse is hovering over.</param>
     /// <returns>
     /// The tile that the mouse is hovering over.
     /// </returns>
@@ -148,7 +148,7 @@ public class MenuManager : MonoBehaviour
         blackPieceLeftInfo.text = IPiecesInGame.BlackPieces.Count.ToString();
         whitePieceLeftInfo.text = IPiecesInGame.WhitePieces.Count.ToString();
 
-        if (GameManager.Instance.State is GameState.StartGame) return;
+        if (GameManager.Instance.state is GameState.StartGame) return;
         
         blackKingPosInfo.text = BlackTeam.KingPos.ToString();
         whiteKingPosInfo.text = WhiteTeam.KingPos.ToString();

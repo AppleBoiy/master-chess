@@ -30,7 +30,7 @@ public class CursorOnTile : ScriptableCursor
         SetTile();
         
         CursorManager cursorManager = CursorManager.Instance;
-        GameState turn = GameManager.Instance.State;
+        GameState turn = GameManager.Instance.state;
 
         /* It checks if the game is in the start game scene or the promotion scene. If the game is in
         the start game scene or the promotion scene, the player cannot interact with the board. */
@@ -63,11 +63,11 @@ public class CursorOnTile : ScriptableCursor
         the ally cursor. If the piece is an enemy, set the cursor to the enemy cursor. */
         switch (pieceOnTile.faction, turn)
         {
-            case (BLACK, BlackTurn):
+            case (Black, BlackTurn):
                 cursorManager.OnAlliance();
                 break;
 
-            case (WHITE, WhiteTurn):
+            case (White, WhiteTurn):
                 cursorManager.OnAlliance();
                 break;
             
@@ -82,16 +82,16 @@ public class CursorOnTile : ScriptableCursor
     /// the game state is either WhiteTurn or CheckBlack and the piece on the tile is black, then return
     /// true. Otherwise, return false
     /// </summary>
-    /// <param name="Piece">The piece that is being moved.</param>
+    /// <param name="pieceOnTile">The piece that is being moved.</param>
     /// <returns>
     /// A boolean value.
     /// </returns>
     private static bool CorrectPlayerTurn(Piece pieceOnTile)
     {
-        return GameManager.Instance.State switch
+        return GameManager.Instance.state switch
         {
-            BlackTurn or CheckWhite when pieceOnTile.faction is WHITE => true,
-            WhiteTurn or CheckBlack when pieceOnTile.faction is BLACK => true,
+            BlackTurn or CheckWhite when pieceOnTile.faction is White => true,
+            WhiteTurn or CheckBlack when pieceOnTile.faction is Black => true,
             _ => false
         };
     }
