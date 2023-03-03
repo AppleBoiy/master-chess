@@ -86,6 +86,7 @@ public abstract class Piece : MonoBehaviour
 
         //Show highlight on tile
         ShowLegalMove(legalMove);
+        
         //Find only attack move (Move to enemy piece)
         CalculateAttackMove(legalMove, pFaction);
     }
@@ -114,7 +115,7 @@ public abstract class Piece : MonoBehaviour
             
             // in front of selected piece is not empty tile
             if (tile.occupiedPiece != null && tile.GetPos().x - piece.pos.x == 0)
-                continue;
+                break;
             
             // front straight tile is empty tile
             if (tile.occupiedPiece == null && tile.GetPos().x - piece.pos.x == 0)
@@ -196,7 +197,7 @@ public abstract class Piece : MonoBehaviour
     private static void CalculateAttackMove(IEnumerable<Vector2> legalMove, Faction faction)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
-
+        
         List<Vector2> attackMove = new List<Vector2>();
 
         /* Checking if the tile is occupied by a piece of the same faction. If it is, it will continue.
@@ -380,13 +381,13 @@ public abstract class Piece : MonoBehaviour
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 2));
                 break;
-            
+
             case (Faction.White, _):
-                move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
+                move.Add(new Vector2(piecePosX, piecePosY + 1));
                 break;
-            
+
             case (Faction.Black, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
@@ -395,9 +396,9 @@ public abstract class Piece : MonoBehaviour
                 break;
             
             case (Faction.Black, _):
-                move.Add(new Vector2(piecePosX, piecePosY - 1));
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
+                move.Add(new Vector2(piecePosX, piecePosY - 1));
                 break;
             
             default:

@@ -85,6 +85,12 @@
 Chess simulation. Click on the piece to move, and the location to move it to. If the action is legal, it will be taken. The game is done once a King enters checkmate, or once there is a draw.
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Select Player][Select-Player]]()
+[![in-game Screen Shot 1][product-in-game1]]()
+[![in-game Screen Shot 2][product-in-game2]]()
+[![Promotion scene white][promotion-white]]()
+[![Promotion scene black][promotion-black]]()
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -195,6 +201,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [license-url]: https://github.com/OOPProject-to-the-moon/2D-Chess-game-OOP-Project/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: Var/Screenshot/Screenshot%202566-02-25%20at%2015.30.59.png
+[product-screenshot]: Var/Screenshot/Main.png
 [Unity]: https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white
 [Unity-url]: https://unity.com/
+
+[Select-Player]: Var/Screenshot/SelectColor.png
+[product-in-game1]: Var/Screenshot/ingame1.png
+[product-in-game2]: Var/Screenshot/ingame2.png
+[promotion-white]: Var/Screenshot/promotion.png
+[promotion-black]: Var/Screenshot/Screenshot%202566-02-25%20at%2015.30.59.png
+

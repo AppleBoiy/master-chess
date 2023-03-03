@@ -4,8 +4,7 @@ using static IPiecesInGame;
 
 public class WhiteTeam : MonoBehaviour, IPiecesInGame
 {
-    
-    public static WhiteTeam Instance;
+    private static WhiteTeam Instance;
     public static Vector2 KingPos;
     
     private void Awake()

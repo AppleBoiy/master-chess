@@ -103,7 +103,6 @@ public sealed class Tile : MonoBehaviour
     {
         MenuManager.ResetMove();
         
-        Action<Piece> selectedPiece = SetSelectedPiece;
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.state;
         
@@ -119,7 +118,7 @@ public sealed class Tile : MonoBehaviour
                 is selected and its legal moves are calculated. */
                 if (occupiedPiece.faction is Black)
                 {  
-                    selectedPiece(occupiedPiece);
+                    SetSelectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
                 }
                 
@@ -147,7 +146,7 @@ public sealed class Tile : MonoBehaviour
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
                     
-                    selectedPiece(null);
+                    SetSelectedPiece(null);
 
                     IPiecesInGame.ReloadPiecesLeftInGame();
                     
@@ -178,7 +177,7 @@ public sealed class Tile : MonoBehaviour
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
                 
-                selectedPiece(null);
+                SetSelectedPiece(null);
                 
                 IPiecesInGame.ReloadPiecesLeftInGame();
                 
@@ -194,7 +193,7 @@ public sealed class Tile : MonoBehaviour
                     is selected and its legal moves are calculated. */
                 if (occupiedPiece.faction is White)
                 {
-                    selectedPiece(occupiedPiece);
+                    SetSelectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
                     
                     IPiecesInGame.ReloadPiecesLeftInGame();
@@ -224,7 +223,7 @@ public sealed class Tile : MonoBehaviour
                     //Calculate next possible movement of selected move to check that piece is checkmate or not.
                     CalculateLegalMove(SelectedPiece);
                     
-                    selectedPiece(null);
+                    SetSelectedPiece(null);
                     
                     IPiecesInGame.ReloadPiecesLeftInGame();
                     
@@ -253,7 +252,7 @@ public sealed class Tile : MonoBehaviour
                 //Calculate next possible movement of selected move to check that piece is checkmate or not.
                 CalculateLegalMove(SelectedPiece);
 
-                selectedPiece(null);
+                SetSelectedPiece(null);
                 changeTurn();
                 break;
             }
@@ -291,10 +290,4 @@ public sealed class Tile : MonoBehaviour
         
     }
 
-    public void RemovePiece()
-    {
-        occupiedPiece = null;
-    }
-
-    
 }

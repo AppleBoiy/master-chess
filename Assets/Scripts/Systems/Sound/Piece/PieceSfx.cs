@@ -19,6 +19,7 @@ public class PieceSfx : MonoBehaviour
 
     public void DestroyPieceSfx()
     {
-        audioSource?.PlayOneShot(destroyPiece);
+        if (!audioSource) return;
+        audioSource.PlayOneShot(destroyPiece);
     }
 }
