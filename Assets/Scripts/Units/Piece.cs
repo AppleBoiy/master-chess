@@ -20,8 +20,6 @@ public abstract class Piece : MonoBehaviour
     public Roll roll;
     public bool isFirstMove;
     
-    private static readonly Action<object> LOG = Debug.Log;
-
     public static List<Vector2> CurrentPieceMove;
     public static List<Vector2> AttackMove;
 
@@ -34,7 +32,7 @@ public abstract class Piece : MonoBehaviour
     /// <summary>
     /// CalculateLegalMove() is a function that calculates legal move for a piece
     /// </summary>
-    /// <param name="Piece">The piece that we want to calculate the legal move for.</param>
+    /// <param name="piece">The piece that we want to calculate the legal move for.</param>
     public static void CalculateLegalMove(Piece piece)
     {
         float piecePosX =  piece.pos.x;
@@ -95,7 +93,7 @@ public abstract class Piece : MonoBehaviour
     /// > This function is used to get the current legal move of the selected piece
     /// </summary>
     /// <param name="move">The list of possible moves for the piece.</param>
-    /// <param name="Piece">The piece that is currently selected.</param>
+    /// <param name="piece">The piece that is currently selected.</param>
     /// <returns>
     /// an array of Vector2.
     /// </returns>
@@ -109,7 +107,7 @@ public abstract class Piece : MonoBehaviour
         {
             var tile = getTile(pos);
 
-=            //At this pos doesn't have tile on it
+            //At this pos doesn't have tile on it
             if (!tile) continue;
             
             // in front of selected piece is not empty tile
@@ -154,7 +152,7 @@ public abstract class Piece : MonoBehaviour
     /// > This function takes in a list of possible moves and returns a list of legal moves
     /// </summary>
     /// <param name="move">The list of vectors that the piece can move to.</param>
-    /// <param name="Faction">The faction of the piece that is moving.</param>
+    /// <param name="faction">The faction of the piece that is moving.</param>
     /// <returns>
     /// A Vector2 array of the current legal moves for the piece.
     /// </returns>
@@ -192,7 +190,7 @@ public abstract class Piece : MonoBehaviour
     /// is moving, then add the tile to the list of attack moves
     /// </summary>
     /// <param name="legalMove">The list of legal moves that the piece can make.</param>
-    /// <param name="Faction">The faction of the piece that is currently selected.</param>
+    /// <param name="faction">The faction of the piece that is currently selected.</param>
     private static void CalculateAttackMove(IEnumerable<Vector2> legalMove, Faction faction)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
@@ -226,7 +224,7 @@ public abstract class Piece : MonoBehaviour
     /// </summary>
     /// <param name="x">The x position of the piece</param>
     /// <param name="y">The y position of the piece</param>
-    /// <param name="Faction">The faction of the piece.</param>
+    /// <param name="faction">The faction of the piece.</param>
     /// <returns>
     /// The legal moves for the bishop.
     /// </returns>
@@ -264,7 +262,7 @@ public abstract class Piece : MonoBehaviour
     /// </summary>
     /// <param name="x">The x position of the piece</param>
     /// <param name="y">The y position of the piece</param>
-    /// <param name="Faction">The faction of the piece.</param>
+    /// <param name="faction">The faction of the piece.</param>
     /// <returns>
     /// The legal moves for the rook.
     /// </returns>
@@ -424,7 +422,7 @@ public abstract class Piece : MonoBehaviour
     /// <summary>
     /// > ShowHighlight takes a Vector2 and returns a Vector2
     /// </summary>
-    /// <param name="Vector2">The position of the tile you want to highlight.</param>
+    /// <param name="move">The position of the tile you want to highlight.</param>
     /// <returns>
     /// The move that was passed in.
     /// </returns>
@@ -465,6 +463,6 @@ public abstract class Piece : MonoBehaviour
     /// PromotionPawn is called when a pawn reaches the other side of the board and is promoted to a new
     /// piece
     /// </summary>
-    /// <param name="Piece">The piece that is being promoted.</param>
+    /// <param name="promotionToPiece">The piece that is being promoted.</param>
     public abstract void PromotionPawn(Piece promotionToPiece);
 }

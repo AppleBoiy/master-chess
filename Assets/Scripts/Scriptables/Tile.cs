@@ -31,7 +31,7 @@ public sealed class Tile : MonoBehaviour
     /// </summary>
     /// <param name="isOffset">This is a boolean that determines whether the tile is an offset tile or
     /// not.</param>
-    /// <param name="Vector2">The position of the tile.</param>
+    /// <param name="pos">The position of the tile.</param>
     public void Init(bool isOffset, Vector2 pos)
     {
         Transform child = transform.GetChild(1);
@@ -53,7 +53,7 @@ public sealed class Tile : MonoBehaviour
     /// <summary>
     /// If the position of the player is the same as the position of the tile, then return true
     /// </summary>
-    /// <param name="Vector2">The position of the tile.</param>
+    /// <param name="pos">The position of the tile.</param>
     private bool OnWalkableTile(Vector2 pos) => _pos == pos;
 
 
@@ -234,7 +234,7 @@ public sealed class Tile : MonoBehaviour
                 break;
             }
             
-\            /* This is checking if the piece on the tile is a white piece. If it is, then the piece
+            /* This is checking if the piece on the tile is a white piece. If it is, then the piece
                         is selected and its legal moves are calculated. */
             case (WhiteTurn, _):
             {
@@ -269,7 +269,7 @@ public sealed class Tile : MonoBehaviour
     /// <summary>
     /// It sets the piece to the tile's position and sets the tile's occupied piece to the piece
     /// </summary>
-    /// <param name="Piece">The piece that is being set on the tile.</param>
+    /// <param name="piece">The piece that is being set on the tile.</param>
     public void SetPiece(Piece piece)
     {
         
