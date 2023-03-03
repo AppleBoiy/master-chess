@@ -480,7 +480,7 @@ public abstract class Piece : MonoBehaviour
     private void OnDestroy()
     {
         if (roll is Roll.Piece) return;
-        if (GameManager.Instance.state is StartGame or Promotion) return;
+        if (GameManager.Instance?.state is StartGame or Promotion) return;
         
         PieceSfx.Instance.DestroyPieceSfx();
         
