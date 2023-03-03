@@ -10,7 +10,7 @@ public class MainMenuSceneManager : MonoBehaviour
 {   
     [Header("Volume Setting")]
     [SerializeField] private TMP_Text volumeScale;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] public Slider volumeSlider;
     
     [Header("Confirmation")]
     [SerializeField] private GameObject confirmationPrompt;
@@ -22,9 +22,9 @@ public class MainMenuSceneManager : MonoBehaviour
     }
 
     public void SetVolume(float volume)
-    {
+    {   
         AudioListener.volume = volume;
-        volumeScale.text = volume.ToString("0.0");
+        volumeScale.text = volume.ToString("0");
     }
 
     public void VolumeApply()
