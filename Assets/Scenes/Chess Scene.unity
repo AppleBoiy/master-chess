@@ -6966,7 +6966,7 @@ MonoBehaviour:
   queenPrefab: {fileID: 2240998707600444529, guid: 44b76609bd4674bc3978419930cd5c84, type: 3}
   rookPrefabs: {fileID: 5643860893503859305, guid: 6b0d4fa0899094714bbec7a2578afb73, type: 3}
   bishopPrefab: {fileID: 4468048989683141795, guid: 0d9eb7b7cb17f49db865dc98396cb43b, type: 3}
-  knightPrefab: {fileID: 8173437825713962924, guid: 810511136acb74b37b03068ddbce52c3, type: 3}
+  knightPrefab: {fileID: 9062843870496511482, guid: 84bae34fd26dd46e4bf8fcbd2e941ca4, type: 3}
   promotionImageHolder: {fileID: 1489960767}
   promotedRoll: {fileID: 277916779}
   tempPiece: {fileID: -3613027617839990005, guid: 094a2093f70624855b7ded996d48c46f, type: 3}

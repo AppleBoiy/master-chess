@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using static GameState;
+using static Roll;
 
 public class PieceManager : MonoBehaviour, IWhite, IBlack 
 {
@@ -137,6 +138,10 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         {
             SelectedPiece = null;
             MenuManager.Instance.ShowSelectedPiece(null);
+            return;
+        }
+        if (piece.roll is not King && GameManager.Instance.state is CheckBlack or CheckWhite)
+        {
             return;
         }
         
