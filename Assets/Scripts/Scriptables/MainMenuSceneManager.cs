@@ -45,6 +45,10 @@ public class MainMenuSceneManager : MonoBehaviour
         _isFullScreen = isFullScreen;
     }
 
+    /// <summary>
+    /// If the user wants to apply the full screen setting, then set the masterFullScreen player pref to
+    /// 1 (true) or 0 (false) and then set the screen to full screen or not full screen
+    /// </summary>
     public void FullScreenApply()
     {
         PlayerPrefs.SetInt("masterFullScreen", (_isFullScreen ? 1 : 0));

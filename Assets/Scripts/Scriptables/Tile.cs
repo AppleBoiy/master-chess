@@ -25,7 +25,13 @@ public sealed class Tile : MonoBehaviour
     #endregion
     
     
-    //Initialize Tile attribute
+    /// <summary>
+    /// > This function sets the sprite of the tile to either the base tile or the offset tile,
+    /// depending on the value of the isOffset parameter
+    /// </summary>
+    /// <param name="isOffset">This is a boolean that determines whether the tile is an offset tile or
+    /// not.</param>
+    /// <param name="Vector2">The position of the tile.</param>
     public void Init(bool isOffset, Vector2 pos)
     {
         Transform child = transform.GetChild(1);
@@ -39,8 +45,15 @@ public sealed class Tile : MonoBehaviour
     #region Getter
 
     
-    //Has any tile in position in  walkable pos list
+    /// <summary>
+    /// > If any of the tiles in the current piece's move are walkable, return true
+    /// </summary>
     private bool Walkable() => CurrentPieceMove.Any(OnWalkableTile);
+
+    /// <summary>
+    /// If the position of the player is the same as the position of the tile, then return true
+    /// </summary>
+    /// <param name="Vector2">The position of the tile.</param>
     private bool OnWalkableTile(Vector2 pos) => _pos == pos;
 
 
@@ -50,6 +63,13 @@ public sealed class Tile : MonoBehaviour
     
     #region Mouse action
 
+    /// <summary>
+    /// When the mouse enters the tile, the tile's highlight is set to active and the tile's information
+    /// is shown in the menu
+    /// </summary>
+    /// <returns>
+    /// The return type is void, so nothing is being returned.
+    /// </returns>
     private void OnMouseEnter()
     {
         //Promotion scene player can't interaction with board
@@ -65,7 +85,20 @@ public sealed class Tile : MonoBehaviour
         MenuManager.Instance.ShowTileInfo(null);
     }
 
-    //When mouse click on tile
+    
+    /// <summary>
+    /// This function is checking the state of the game and the piece that is on the tile. If the tile
+    /// has a piece on it, then the function is checking if the piece on the tile is a black piece. If
+    /// it is, then the piece is selected and its legal moves are calculated. If the piece on the tile
+    /// is a white piece, then the piece is selected and its legal moves are calculated. If the tile is
+    /// empty, then the function is checking if the selected piece is null or if the tile is not
+    /// walkable. If either of these conditions are true, then the function returns. If the selected
+    /// piece is a pawn, then the isFirstMove variable is set to false. The piece is then set on the
+    /// tile and the turn is changed
+    /// </summary>
+    /// <returns>
+    /// the legal moves of the piece.
+    /// </returns>
     private void OnMouseDown()
     {
         MenuManager.ResetMove();
@@ -74,25 +107,32 @@ public sealed class Tile : MonoBehaviour
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.State;
         
+        /* The above code is a switch statement that is checking the state of the game and the piece
+        that is on the tile. */
         switch (instanceState, occupiedPiece)
         {
 
             //tile has a piece on it
             case (BlackTurn, not null) :
                 
-                //Select piece phase
+                /* This is checking if the piece on the tile is a black piece. If it is, then the piece
+                is selected and its legal moves are calculated. */
                 if (occupiedPiece.faction is BLACK)
                 {  
                     selectedPiece(occupiedPiece);
                     CalculateLegalMove(occupiedPiece);
                 }
                 
-                //Attack phase
+                /* when the player clicks on a tile that has a piece on it. */
                 else
                 {
+                    /* This is checking if the selected piece is null or if the tile is not walkable.
+                    If either of these
+                    conditions are true, then the function returns. */
                     if (SelectedPiece is null || !Walkable()) return;
                     
-                    //Click on enemy
+                    /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
+                    variable is set to false. */
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                     
                     //Attack (Destroy enemy game object)
@@ -116,11 +156,17 @@ public sealed class Tile : MonoBehaviour
 
                 break;
             
+            
             //Click to empty tile
             case (BlackTurn, _):
             {
+                /* This is checking if the selected piece is null or if the tile is not walkable. If
+                either of these
+                conditions are true, then the function returns. */
                 if (SelectedPiece is null || !Walkable()) return;
                 
+                /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
+                variable is set to false. */
                 if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
                 
                 SetPiece(SelectedPiece);
@@ -140,9 +186,12 @@ public sealed class Tile : MonoBehaviour
                 break;
             }
             
-            //tile has a piece on it
+            /* This is checking if the piece on the tile is a white piece. If it is, then the piece
+            is selected and its legal moves are calculated. */
             case (WhiteTurn, not null):
             {
+                /* This is checking if the piece on the tile is a white piece. If it is, then the piece
+                    is selected and its legal moves are calculated. */
                 if (occupiedPiece.faction is WHITE)
                 {
                     selectedPiece(occupiedPiece);
@@ -154,9 +203,13 @@ public sealed class Tile : MonoBehaviour
                 //Attack phase
                 else
                 {
+                    /* This is checking if the selected piece is null or if the tile is not walkable.
+                    If either of these
+                    conditions are true, then the function returns. */
                     if (SelectedPiece is null || !Walkable()) return;
                     
-                    //Click on enemy
+                    /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
+                    variable is set to false. */
                     if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
 
                     //Attack (Destroy enemy game object) 
@@ -181,9 +234,12 @@ public sealed class Tile : MonoBehaviour
                 break;
             }
             
-            //click on empty tile
+\            /* This is checking if the piece on the tile is a white piece. If it is, then the piece
+                        is selected and its legal moves are calculated. */
             case (WhiteTurn, _):
             {
+                /* This is checking if the selected piece is null or if the tile is not walkable. If
+                either of these conditions are true, then the function returns. */
                 if (SelectedPiece is null || !Walkable()) return;
                 
                 if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
@@ -209,10 +265,11 @@ public sealed class Tile : MonoBehaviour
 
     #endregion
 
+    
     /// <summary>
-    /// Set piece to this tile
+    /// It sets the piece to the tile's position and sets the tile's occupied piece to the piece
     /// </summary>
-    /// <param name="piece">Piece to set to occupied piece</param>
+    /// <param name="Piece">The piece that is being set on the tile.</param>
     public void SetPiece(Piece piece)
     {
         
@@ -224,6 +281,7 @@ public sealed class Tile : MonoBehaviour
 
         Vector2 newPos = transform.position;
         
+        /* It sets the piece to the tile's position and sets the tile's occupied piece to the piece */
         piece.transform.position = newPos;
         piece.pos = newPos;
         occupiedPiece = piece;

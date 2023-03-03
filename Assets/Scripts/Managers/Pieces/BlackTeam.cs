@@ -14,11 +14,17 @@ public class BlackTeam : MonoBehaviour, IPiecesInGame
     }
     
     
-    //Find King position on board
+    /// <summary>
+    /// > Find the king's position
+    /// </summary>
+    /// <returns>
+    /// The position of the king.
+    /// </returns>
     internal static void FindKing()
     {
         Piece[] king = IPiecesInGame.BlackPieces.Where(IsKing).ToArray();
 
+        /* If there is no king, then return. */
         if (!king.Any()) return;
         KingPos = king[0].pos;
     }

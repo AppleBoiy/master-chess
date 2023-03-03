@@ -24,6 +24,12 @@ public class CursorManager : MonoBehaviour
     }
 
     
+    /// <summary>
+    /// > SetCursor(Texture2D texture, Vector2 hotspot, CursorMode cursorMode)
+    /// 
+    /// The first parameter is the texture you want to use as the cursor. The second parameter is the
+    /// hotspot of the cursor. The third parameter is the cursor mode
+    /// </summary>
     #region Set in game player cursor
 
     public void ResetCursor()
