@@ -17,6 +17,10 @@ public sealed class Tile : MonoBehaviour
     [SerializeField] private Sprite baseTile;
     [SerializeField] private Sprite offsetTile;
     [SerializeField] private GameObject highlight;
+
+    [Space(3)] [Header("Piece info frame")] 
+    [SerializeField] private GameObject whiteFrame;
+    [SerializeField] private GameObject blackFrame;
     
     private Vector2 _pos;
 
@@ -75,6 +79,16 @@ public sealed class Tile : MonoBehaviour
     {
         //Promotion scene player can't interaction with board
         if (GameManager.Instance.state is Promotion or Setting) return;
+
+        switch (occupiedPiece?.faction)
+        {
+            case Black:
+                blackFrame.SetActive(true);
+                break;
+            case White:
+                whiteFrame.SetActive(true);
+                break;
+        }
         
         highlight.SetActive(true);
         MenuManager.Instance.ShowTileInfo(this);
@@ -84,6 +98,10 @@ public sealed class Tile : MonoBehaviour
     {
         highlight.SetActive(false);
         MenuManager.Instance.ShowTileInfo(null);
+        
+        blackFrame.SetActive(false);
+        whiteFrame.SetActive(false);
+
     }
 
     
