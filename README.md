@@ -37,7 +37,7 @@
 <h3 align="center">Chess game</h3>
 
   <p align="center">
-    Chess game by java
+    Chess game by Unity
     <br />
     <a href="https://github.com/OOPProject-to-the-moon/2D-Chess-game-OOP-Project"><strong>Explore the docs »</strong></a>
     <br />
