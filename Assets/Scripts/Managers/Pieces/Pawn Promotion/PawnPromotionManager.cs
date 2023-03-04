@@ -102,6 +102,8 @@ public abstract class PawnPromotionManager : MonoBehaviour
         PieceManager.SetSelectedPiece(null);
         GameManager.Instance.UpdateGameState(LastPlayer);
         GameManager.Instance.ChangeTurn();
+        
+        PieceManager.SetSelectedPiece(null);
     }
 
     /// <summary>
@@ -118,5 +120,9 @@ public abstract class PawnPromotionManager : MonoBehaviour
     /// <param name="pawnToPromotion">The piece that is being promoted.</param>
     /// <param name="tempPiece"></param>
     protected abstract void SpawnTempPiece(Piece pawnToPromotion, Piece tempPiece);
-    
+
+    internal void ClosePromotionScene()
+    {
+        pawnPromotionMenu.SetActive(false);
+    }
 }
