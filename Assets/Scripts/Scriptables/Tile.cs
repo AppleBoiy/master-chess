@@ -218,11 +218,9 @@ public sealed class Tile : MonoBehaviour
         //Check this pawn is ready to promotion or not
         SelectedPiece.CheckPawnPromotion();
         if (GameManager.Instance.state is Promotion) return true;
-
-        Vector2 enemyKing = (faction is White )? BlackTeam.KingPos: WhiteTeam.KingPos;
         
         //Calculate next possible movement of selected move to check that piece is checkmate or not.
-        CalculateCheckKing(SelectedPiece, enemyKing);
+        CalculateCheckKing(SelectedPiece, faction);
         AttackMove = new List<Vector2>();
 
         SetSelectedPiece(null);

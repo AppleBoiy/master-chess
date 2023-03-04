@@ -23,7 +23,6 @@ public abstract class Piece : MonoBehaviour
     public bool isFirstMove;
     
     public static List<Vector2> CurrentPieceMove;
-    public static List<Vector2> CheckKingMove;
     public static List<Vector2> AttackMove;
 
     public Vector2 pos;
@@ -98,11 +97,12 @@ public abstract class Piece : MonoBehaviour
         CalculateAttackMove(legalMove, piece.faction);
     }
     
-    public static void CalculateCheckKing(Piece piece, Vector2 kingPos)
+    public static void CalculateCheckKing(Piece piece, Faction attackTeam)
     {
+        Vector2 enemyKingPos = (attackTeam is Faction.Black) ? WhiteTeam.KingPos : BlackTeam.KingPos; 
         foreach (Vector2 move in  CalculateLegalMove(piece))
         {
-            if (move != kingPos) continue;
+            if (move != enemyKingPos) continue;
             ShowCheck(move);
             return;
         }

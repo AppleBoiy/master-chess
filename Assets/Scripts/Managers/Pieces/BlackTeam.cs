@@ -4,14 +4,7 @@ using static IPiecesInGame;
 
 public class BlackTeam : MonoBehaviour, IPiecesInGame
 {
-    public static BlackTeam Instance;
     public static Vector2 KingPos;
-    
-    
-    private void Awake()
-    {
-        Instance = this;
-    }
     
     
     /// <summary>

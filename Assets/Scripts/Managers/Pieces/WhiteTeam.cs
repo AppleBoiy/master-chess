@@ -4,15 +4,8 @@ using static IPiecesInGame;
 
 public class WhiteTeam : MonoBehaviour, IPiecesInGame
 {
-    private static WhiteTeam Instance;
     public static Vector2 KingPos;
-    
-    private void Awake()
-    {
-        Instance = this;
-    }
-    
-    
+
     /// <summary>
     /// > Find the king's position by finding the first black piece that is a king
     /// </summary>
@@ -21,7 +14,7 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
     /// </returns>
     internal static void FindKing()
     {
-        Piece[] king = IPiecesInGame.BlackPieces.Where(IsKing).ToArray();
+        Piece[] king = IPiecesInGame.WhitePieces.Where(IsKing).ToArray();
 
         /* If there is no king, return. */
         if (!king.Any()) return;
