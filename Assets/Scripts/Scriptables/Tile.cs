@@ -120,7 +120,7 @@ public sealed class Tile : MonoBehaviour
                 if (occupiedPiece.faction is Black)
                 {  
                     SetSelectedPiece(occupiedPiece);
-                    CalculateLegalMove(occupiedPiece);
+                    ShowNormalMove(occupiedPiece);
                     
                     IPiecesInGame.ReloadPiecesLeftInGame();
                     
@@ -135,7 +135,7 @@ public sealed class Tile : MonoBehaviour
                     var whitePiece = (WhitePieces) occupiedPiece;
                     Destroy(whitePiece.gameObject);
                     
-                    if (MovePiece()) return;
+                    if (MovePiece(Black)) return;
                     changeTurn();
                 }
                 break;
@@ -143,7 +143,7 @@ public sealed class Tile : MonoBehaviour
             //Click to empty tile
             case (BlackTurn, _) when UnreachableTile():
                 return;
-            case (BlackTurn, _) when MovePiece():
+            case (BlackTurn, _) when MovePiece(Black):
                 return;
             case (BlackTurn, _):
             {
@@ -160,7 +160,7 @@ public sealed class Tile : MonoBehaviour
                 if (occupiedPiece.faction is White)
                 {
                     SetSelectedPiece(occupiedPiece);
-                    CalculateLegalMove(occupiedPiece);
+                    ShowNormalMove(occupiedPiece);
                     
                     IPiecesInGame.ReloadPiecesLeftInGame();
                 }
@@ -174,7 +174,7 @@ public sealed class Tile : MonoBehaviour
                     var blackPiece = (BlackPieces) occupiedPiece;
                     Destroy(blackPiece.gameObject);
                     
-                    if (MovePiece()) return;
+                    if (MovePiece(White)) return;
                     
                     changeTurn();
                 }
@@ -186,7 +186,7 @@ public sealed class Tile : MonoBehaviour
                         is selected and its legal moves are calculated. */
             case (WhiteTurn, _) when UnreachableTile():
                 return;
-            case (WhiteTurn, _) when MovePiece():
+            case (WhiteTurn, _) when MovePiece(White):
                 return;
             case (WhiteTurn, _):
             {
@@ -211,7 +211,7 @@ public sealed class Tile : MonoBehaviour
         return false;
     }
 
-    private bool MovePiece()
+    private bool MovePiece(Faction faction)
     {
         SetPiece(SelectedPiece);
 
@@ -219,8 +219,10 @@ public sealed class Tile : MonoBehaviour
         SelectedPiece.CheckPawnPromotion();
         if (GameManager.Instance.state is Promotion) return true;
 
+        Vector2 enemyKing = (faction is White )? BlackTeam.KingPos: WhiteTeam.KingPos;
+        
         //Calculate next possible movement of selected move to check that piece is checkmate or not.
-        CalculateLegalMove(SelectedPiece);
+        CalculateCheckKing(SelectedPiece, enemyKing);
         AttackMove = new List<Vector2>();
 
         SetSelectedPiece(null);

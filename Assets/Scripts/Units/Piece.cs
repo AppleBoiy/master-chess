@@ -23,6 +23,7 @@ public abstract class Piece : MonoBehaviour
     public bool isFirstMove;
     
     public static List<Vector2> CurrentPieceMove;
+    public static List<Vector2> CheckKingMove;
     public static List<Vector2> AttackMove;
 
     public Vector2 pos;
@@ -35,7 +36,7 @@ public abstract class Piece : MonoBehaviour
     /// CalculateLegalMove() is a function that calculates legal move for a piece
     /// </summary>
     /// <param name="piece">The piece that we want to calculate the legal move for.</param>
-    public static void CalculateLegalMove(Piece piece)
+    public static Vector2[] CalculateLegalMove(Piece piece)
     {
         float piecePosX =  piece.pos.x;
         float piecePosY =  piece.pos.y;
@@ -83,14 +84,29 @@ public abstract class Piece : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
 
+        return legalMove;
+    }
 
+    public static void ShowNormalMove(Piece piece)
+    {
+        Vector2[] legalMove = CalculateLegalMove(piece);
+        
         //Show highlight on tile
         ShowLegalMove(legalMove);
         
         //Find only attack move (Move to enemy piece)
-        CalculateAttackMove(legalMove, pFaction);
+        CalculateAttackMove(legalMove, piece.faction);
     }
     
+    public static void CalculateCheckKing(Piece piece, Vector2 kingPos)
+    {
+        foreach (Vector2 move in  CalculateLegalMove(piece))
+        {
+            if (move != kingPos) continue;
+            ShowCheck(move);
+            return;
+        }
+    }
    
     /// <summary>
     /// > This function is used to get the current legal move of the selected piece
@@ -215,6 +231,8 @@ public abstract class Piece : MonoBehaviour
 
         AttackMove = attackMove;
     }
+
+   
 
     #endregion
     
@@ -412,6 +430,7 @@ public abstract class Piece : MonoBehaviour
 
     #region Show walkable tile
     
+    
     /// <summary>
     /// Map highlight function to List of legal movement 
     /// </summary>
@@ -420,8 +439,8 @@ public abstract class Piece : MonoBehaviour
     {
         CurrentPieceMove = new List<Vector2>(legalMove.Select(ShowHighlight));
     }
-    
-    
+
+  
     /// <summary>
     /// > ShowHighlight takes a Vector2 and returns a Vector2
     /// </summary>
@@ -434,34 +453,23 @@ public abstract class Piece : MonoBehaviour
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         
         Transform highlight = getTile(move).transform.GetChild(2);
-
-        if (getTile(move).occupiedPiece?.roll is King)
-        {
-            highlight.GameObject().SetActive(true);
-            highlight.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
-        }
-        else
-        {
-            highlight.GameObject().SetActive(true);
-            highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
-        }
-
+        
+        highlight.GameObject().SetActive(true);
+        highlight.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+        
         return move;
     }
     
-    #endregion
-
-    public static bool IsCheck()
+    private static void ShowCheck(Vector2 move)
     {
+        Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
         
+        Transform highlight = getTile(move).transform.GetChild(2);
         
-        foreach (Vector2 move in AttackMove)
-        {
-            
-        }
-
-        return true;
+        highlight.GameObject().SetActive(true);
+        highlight.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
     }
+    #endregion
 
     
     /// <summary>
