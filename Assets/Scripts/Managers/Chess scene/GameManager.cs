@@ -38,14 +38,14 @@ public class GameManager : MonoBehaviour
     /// game.</param>
     public void UpdateGameState(GameState newState)
     {
-        Action generateTile = TileManager.Instance.GenerateTile;
-        var pieceManager = PieceManager.Instance;
-        
         state = newState;
-        
         
         //Game state handler
         if (state is not StartGame) return;
+
+        Action generateTile = TileManager.Instance.GenerateTile;
+        var pieceManager = PieceManager.Instance;
+
         generateTile();
         pieceManager.SpawnWhitePieces();
         pieceManager.SpawnBlackPieces();

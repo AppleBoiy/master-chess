@@ -5,6 +5,8 @@ using JetBrains.Annotations;
 using UnityEngine;
 using static Faction;
 using static GameState;
+using static IPiecesInGame;
+using static MenuManager;
 using static Piece;
 using static PieceManager;
 
@@ -120,7 +122,9 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private void OnMouseDown()
     {
-        MenuManager.ResetMove();
+        if (GameManager.Instance.state is Setting or Promotion) return;
+            
+        ResetMove();
         
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.state;
@@ -140,7 +144,7 @@ public sealed class Tile : MonoBehaviour
                     SetSelectedPiece(occupiedPiece);
                     ShowNormalMove(occupiedPiece);
                     
-                    IPiecesInGame.ReloadPiecesLeftInGame();
+                    ReloadPiecesLeftInGame();
                     
                 }
                 
@@ -180,7 +184,7 @@ public sealed class Tile : MonoBehaviour
                     SetSelectedPiece(occupiedPiece);
                     ShowNormalMove(occupiedPiece);
                     
-                    IPiecesInGame.ReloadPiecesLeftInGame();
+                    ReloadPiecesLeftInGame();
                 }
                 
                 //Attack phase
@@ -213,7 +217,7 @@ public sealed class Tile : MonoBehaviour
             }
         }
         
-        IPiecesInGame.ReloadPiecesLeftInGame();
+        ReloadPiecesLeftInGame();
     }
 
     private bool UnreachableTile()
@@ -243,7 +247,7 @@ public sealed class Tile : MonoBehaviour
 
         SetSelectedPiece(null);
         
-        IPiecesInGame.ReloadPiecesLeftInGame();
+        ReloadPiecesLeftInGame();
         return false;
     }
 

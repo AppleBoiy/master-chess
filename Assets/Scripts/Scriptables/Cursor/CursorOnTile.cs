@@ -34,7 +34,7 @@ public class CursorOnTile : ScriptableCursor
 
         /* It checks if the game is in the start game scene or the promotion scene. If the game is in
         the start game scene or the promotion scene, the player cannot interact with the board. */
-        if (turn is  StartGame or Promotion) return;
+        if (turn is  StartGame or Promotion or Setting) return;
         
         var pieceOnTile = _tileOnPos.occupiedPiece;
         

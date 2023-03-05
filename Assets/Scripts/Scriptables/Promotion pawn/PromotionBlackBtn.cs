@@ -16,6 +16,6 @@ public class PromotionBlackBtn: ScriptableSelectPromotion
     /// <inheritdoc />
     public override void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log(name);
+        // Debug.Log(name);
     }
 }
