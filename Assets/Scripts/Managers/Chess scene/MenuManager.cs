@@ -50,6 +50,7 @@ public class MenuManager : MonoBehaviour
         _turnDialog.text = GameManager.Instance.state.ToString();
     }
 
+    
     /// <summary>
     /// If the piece is null, hide the selected piece. Otherwise, set the text of the selected piece to
     /// the roll of the piece and show the selected piece
@@ -61,7 +62,7 @@ public class MenuManager : MonoBehaviour
     public void ShowSelectedPiece(Piece piece)
     {
         
-        if (piece == null)
+        if (piece is null)
         {
             selectedPiece.SetActive(false);
             return;
@@ -72,13 +73,14 @@ public class MenuManager : MonoBehaviour
     }
 
     
+    
     /// <summary>
     /// If the tile is null, hide the tile info, piece on tile, and piece info. Otherwise, show the tile
     /// info, piece on tile, and piece info
     /// </summary>
     /// <param name="tile">The tile that the mouse is hovering over.</param>
     /// <returns>
-    /// The tile that the mouse is hovering over.
+    /// The tile that is being clicked on.
     /// </returns>
     public void ShowTileInfo(Tile tile)
     {
@@ -137,9 +139,10 @@ public class MenuManager : MonoBehaviour
     }
 
 
+   
     /// <summary>
-    /// It updates the UI text to show the number of pieces left on the board and the position of the
-    /// kings
+    /// It updates the text on the UI to show the number of pieces left on the board and the position of
+    /// the kings
     /// </summary>
     /// <returns>
     /// The method is returning the number of pieces left on the board.

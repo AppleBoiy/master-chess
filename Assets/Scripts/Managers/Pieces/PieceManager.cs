@@ -73,8 +73,9 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
         SpawnPiece(IWhite.Knight2, whiteKnight, whiteParentPrefabs);
     }
     
+    
     /// <summary>
-    /// It spawns the black pieces.
+    /// It spawns all the black pieces on the board
     /// </summary>
     public void SpawnBlackPieces()
     {
@@ -101,13 +102,12 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     }
     
     
-    
     /// <summary>
     /// This function spawns a piece at a given position, and sets the piece's position to the position
     /// of the tile it's spawned on
     /// </summary>
     /// <param name="pos">The position of the tile you want to spawn the piece at.</param>
-    /// <param name="piece">The piece you want to spawn</param>
+    /// <param name="piece">The piece you want to spawn.</param>
     /// <param name="parentPiece">The prefab of the piece you want to spawn.</param>
     public static void SpawnPiece(Vector2 pos, Piece piece, GameObject parentPiece)
     {
@@ -123,10 +123,11 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
     
     #endregion
 
-    
+   
     /// <summary>
-    /// If the piece is null, set the selected piece to null and show the selected piece menu.
-    /// Otherwise, set the selected piece to the piece and show the selected piece menu
+    /// If the piece is null, set the selected piece to null and show the selected piece as null. If the
+    /// piece is not a king and the game state is check black or check white, return. Otherwise, set the
+    /// selected piece to the piece and show the selected piece as the piece
     /// </summary>
     /// <param name="piece">The piece that is selected.</param>
     /// <returns>

@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class BlackPieces : Piece
 {
@@ -16,12 +15,6 @@ public class BlackPieces : Piece
         
         BlackPawnPromotionManager.Instance.TimeToPromotion(this);
     }
-
-    /// <inheritdoc />
-    public override void PromotionPawn(Piece promotionToPiece)
-    {
-        PieceManager.SpawnPiece(pos, promotionToPiece, PieceManager.Instance.whiteParentPrefabs);
-    }
-
+    
     #endregion
 }

@@ -31,11 +31,15 @@ public abstract class Piece : MonoBehaviour
     
     #region Calculate Move
 
+    
     /// <summary>
-    /// CalculateLegalMove() is a function that calculates legal move for a piece
+    /// It takes a piece and returns an array of Vector2s which are the legal moves for that piece
     /// </summary>
-    /// <param name="piece">The piece that we want to calculate the legal move for.</param>
-    public static Vector2[] CalculateLegalMove(Piece piece)
+    /// <param name="piece">The piece for which we want to calculate the legal moves.</param>
+    /// <returns>
+    /// The legal moves of the piece.
+    /// </returns>
+    private static Vector2[] CalculateLegalMove(Piece piece)
     {
         float piecePosX =  piece.pos.x;
         float piecePosY =  piece.pos.y;
@@ -86,6 +90,11 @@ public abstract class Piece : MonoBehaviour
         return legalMove;
     }
 
+   /// <summary>
+   /// It takes a piece as a parameter, calculates all the legal moves for that piece, highlights the
+   /// tiles that the piece can move to, and then finds all the tiles that the piece can attack
+   /// </summary>
+   /// <param name="piece">The piece that you want to show the legal move for.</param>
     public static void ShowNormalMove(Piece piece)
     {
         Vector2[] legalMove = CalculateLegalMove(piece);
@@ -97,6 +106,14 @@ public abstract class Piece : MonoBehaviour
         CalculateAttackMove(legalMove, piece.faction);
     }
     
+   /// <summary>
+   /// If the enemy king is in the list of legal moves for the piece, then show the check
+   /// </summary>
+   /// <param name="piece">The piece that is being checked for check</param>
+   /// <param name="attackTeam">The team that is attacking</param>
+   /// <returns>
+   /// A list of legal moves for the piece.
+   /// </returns>
     public static void CalculateCheckKing(Piece piece, Faction attackTeam)
     {
         Vector2 enemyKingPos = (attackTeam is Faction.Black) ? WhiteTeam.KingPos : BlackTeam.KingPos; 
@@ -460,6 +477,11 @@ public abstract class Piece : MonoBehaviour
         return move;
     }
     
+    /// <summary>
+    /// > This function takes a Vector2 and gets the tile at that position, then gets the third child of
+    /// that tile (the highlight) and sets it to active, then sets the color of the highlight to magenta
+    /// </summary>
+    /// <param name="move">The position of the tile you want to highlight.</param>
     private static void ShowCheck(Vector2 move)
     {
         Func<Vector2,Tile> getTile = TileManager.Instance.GetTile;
@@ -476,15 +498,15 @@ public abstract class Piece : MonoBehaviour
     /// If the pawn is at the end of the board, it is promoted
     /// </summary>
     public abstract void CheckPawnPromotion();
-
     
-    /// <summary>
-    /// PromotionPawn is called when a pawn reaches the other side of the board and is promoted to a new
-    /// piece
-    /// </summary>
-    /// <param name="promotionToPiece">The piece that is being promoted.</param>
-    public abstract void PromotionPawn(Piece promotionToPiece);
 
+    /// <summary>
+    /// If the piece is a pawn, and the game is not in the start or promotion state, then play the pawn
+    /// destruction sound effect
+    /// </summary>
+    /// <returns>
+    /// The return value is the value of the last expression in the function.
+    /// </returns>
     private void OnDestroy()
     {
         if (roll is Roll.Piece) return;

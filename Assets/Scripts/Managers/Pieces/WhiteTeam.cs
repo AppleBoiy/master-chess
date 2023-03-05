@@ -7,7 +7,7 @@ public class WhiteTeam : MonoBehaviour, IPiecesInGame
     public static Vector2 KingPos;
 
     /// <summary>
-    /// > Find the king's position by finding the first black piece that is a king
+    /// Find the king's position
     /// </summary>
     /// <returns>
     /// The position of the king.

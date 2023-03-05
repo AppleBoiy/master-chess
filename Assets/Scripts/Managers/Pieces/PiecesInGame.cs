@@ -1,17 +1,24 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Faction;
 
 internal interface IPiecesInGame
 {
     public static List<Piece> WhitePieces;
     public static List<Piece> BlackPieces;
     
-    //Reload Piece Left everytime piece is move out to another tile.
+    
+   /// <summary>
+   /// It gets all the pieces that are in the game and adds them to the list of pieces that are left in
+   /// the game
+   /// </summary>
+   /// <returns>
+   /// The piece that is on the tile.
+   /// </returns>
     public static void ReloadPiecesLeftInGame()
     {
-        //Reset list to empty list
+        /* Resetting the list to an empty list. */
         WhitePieces = new List<Piece>();
         BlackPieces = new List<Piece>();
         
@@ -28,12 +35,12 @@ internal interface IPiecesInGame
         {
             switch (piece.faction)
             {
-                case Faction.Black:
+                case Black:
                     BlackPieces.Add(piece);
                     break;
                 
                 
-                case Faction.White:
+                case White:
                     WhitePieces.Add(piece);
                     break;
             }
@@ -48,14 +55,14 @@ internal interface IPiecesInGame
    
     #region MyRegion
 
-    
-    /// <summary>
-    /// > This function takes in a tilePos and returns the occupiedPiece of the Tile
-    /// </summary>
-    /// <param name="tilePos">The tile position and tile object that we're checking.</param>
-    /// <returns>
-    /// The occupied piece on the tile.
-    /// </returns>
+   
+   /// <summary>
+   /// It takes a KeyValuePai as a parameter, and returns the occupiedPiece of the Tile
+   /// </summary>
+   /// <param name="tilePos">The tile position and tile object.</param>
+   /// <returns>
+   /// The occupied piece on the tile.
+   /// </returns>
     private static Piece GetOccupiedPiece(KeyValuePair<Vector2, Tile> tilePos)
     {
         return tilePos.Value.occupiedPiece;

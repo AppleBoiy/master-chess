@@ -30,12 +30,15 @@ public class GameManager : MonoBehaviour
         UpdateGameState(StartGame);
     }
 
+  
     /// <summary>
-    /// The UpdateGameState function is called when the game state changes. It takes in a new game state
-    /// and updates the game state accordingly
+    /// > This function updates the game state and calls the appropriate functions to generate the board
+    /// and spawn the pieces
     /// </summary>
-    /// <param name="newState">This is the enum that contains all the possible states of the
-    /// game.</param>
+    /// <param name="newState">The new state to be updated to.</param>
+    /// <returns>
+    /// The return type is void.
+    /// </returns>
     public void UpdateGameState(GameState newState)
     {
         state = newState;

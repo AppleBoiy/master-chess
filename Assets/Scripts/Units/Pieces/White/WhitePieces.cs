@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class WhitePieces : Piece
 {
@@ -16,12 +15,6 @@ public class WhitePieces : Piece
 
         WhitePawnPromotionManager.Instance.TimeToPromotion(this);
 
-    }
-
-    /// <inheritdoc />
-    public override void PromotionPawn(Piece promotionToPiece)
-    {
-        
     }
 
     #endregion

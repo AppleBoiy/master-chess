@@ -1,5 +1,4 @@
-using UnityEngine;
-using UnityEngine.Serialization;
+using static PieceManager;
 
 public class WhitePawnPromotionManager : PawnPromotionManager
 {
@@ -16,7 +15,7 @@ public class WhitePawnPromotionManager : PawnPromotionManager
     protected override void PromotionPieceOnTile(Piece newRoll)
     {
         Destroy(TempPiece.gameObject);
-        PieceManager.SpawnPiece(PawnToPromotion.pos, newRoll, PieceManager.Instance.whiteParentPrefabs);
+        SpawnPiece(PawnToPromotion.pos, newRoll, PieceManager.Instance.whiteParentPrefabs);
         
         //Close promotion scene
         ClosePromotionScene();
@@ -29,7 +28,7 @@ public class WhitePawnPromotionManager : PawnPromotionManager
     protected override void SpawnTempPiece(Piece pawnToPromotion, Piece tempPiece)
     {
         Destroy(pawnToPromotion.gameObject);
-        PieceManager.SpawnPiece(PawnToPromotion.pos, tempPiece, PieceManager.Instance.blackParentPrefabs);
+        SpawnPiece(PawnToPromotion.pos, tempPiece, PieceManager.Instance.blackParentPrefabs);
         
         Piece tempSpawnPiece = TileManager.Instance.GetTile(PawnToPromotion.pos).occupiedPiece;
         TempPiece = tempSpawnPiece;

@@ -33,12 +33,15 @@ public class TileManager : MonoBehaviour
     }
     
 
+    
     /// <summary>
-    /// For each column and row, instantiate a tile, set its parent, and add it to the dictionary
+    /// > This function generates a grid of tiles, and sets the camera position to the center of the
+    /// board
     /// </summary>
     public void GenerateTile()
     {
         
+        /* Creating a grid of tiles. */
         for (var column = 0; column < Width; column++)
         {
             for (var row = 0; row < Height; row++)
@@ -64,8 +67,9 @@ public class TileManager : MonoBehaviour
     }
     
     
+    
     /// <summary>
-    /// If the dictionary has a key of the position, then return the value of that key. 
+    /// If the dictionary has a key of the position, then return the value of the key. 
     /// 
     /// If the dictionary does not have a key of the position, then return null. 
     /// 
@@ -80,11 +84,9 @@ public class TileManager : MonoBehaviour
         return DictTiles!.TryGetValue(pos, value: out Tile getTile) ? getTile : null;
     }
 
+    
     /// <summary>
-    /// It returns a dictionary of all the tiles in the map
+    /// > This function returns a dictionary of all the tiles in the game
     /// </summary>
-    /// <returns>
-    /// A dictionary of tiles.
-    /// </returns>
     internal Dictionary<Vector2, Tile> Tiles() => DictTiles;
 }

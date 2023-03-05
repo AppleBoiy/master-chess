@@ -8,7 +8,7 @@ public class BlackTeam : MonoBehaviour, IPiecesInGame
     
     
     /// <summary>
-    /// > Find the king's position
+    /// Find the king's position
     /// </summary>
     /// <returns>
     /// The position of the king.

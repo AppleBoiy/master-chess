@@ -33,8 +33,8 @@ public sealed class Tile : MonoBehaviour
     
     
     /// <summary>
-    /// > This function sets the sprite of the tile to either the base tile or the offset tile,
-    /// depending on the value of the isOffset parameter
+    /// It sets the sprite of the tile to either the base tile or the offset tile, depending on the
+    /// value of the isOffset parameter
     /// </summary>
     /// <param name="isOffset">This is a boolean that determines whether the tile is an offset tile or
     /// not.</param>
@@ -70,12 +70,13 @@ public sealed class Tile : MonoBehaviour
     
     #region Mouse action
 
+    
     /// <summary>
-    /// When the mouse enters the tile, the tile's highlight is set to active and the tile's information
-    /// is shown in the menu
+    /// When the mouse enters the tile, the tile's highlight is activated and the tile's information is
+    /// displayed in the menu
     /// </summary>
     /// <returns>
-    /// The return type is void, so nothing is being returned.
+    /// The return value is the value of the last expression evaluated in the function.
     /// </returns>
     private void OnMouseEnter()
     {
@@ -96,6 +97,10 @@ public sealed class Tile : MonoBehaviour
         MenuManager.Instance.ShowTileInfo(this);
     }
 
+    /// <summary>
+    /// When the mouse exits the tile, the highlight is turned off, the tile info is hidden, and the
+    /// black and white frames are turned off
+    /// </summary>
     private void OnMouseExit()
     {
         highlight.SetActive(false);
@@ -107,18 +112,14 @@ public sealed class Tile : MonoBehaviour
     }
 
     
+    
     /// <summary>
-    /// This function is checking the state of the game and the piece that is on the tile. If the tile
-    /// has a piece on it, then the function is checking if the piece on the tile is a black piece. If
-    /// it is, then the piece is selected and its legal moves are calculated. If the piece on the tile
-    /// is a white piece, then the piece is selected and its legal moves are calculated. If the tile is
-    /// empty, then the function is checking if the selected piece is null or if the tile is not
-    /// walkable. If either of these conditions are true, then the function returns. If the selected
-    /// piece is a pawn, then the isFirstMove variable is set to false. The piece is then set on the
-    /// tile and the turn is changed
+    /// The function checks if the tile is occupied by a piece and if the piece is a black piece. If it
+    /// is, then the piece is selected and its legal moves are calculated. If the piece is not a black
+    /// piece, then the piece is destroyed and the turn is changed
     /// </summary>
     /// <returns>
-    /// the legal moves of the piece.
+    /// a boolean value.
     /// </returns>
     private void OnMouseDown()
     {
@@ -129,16 +130,19 @@ public sealed class Tile : MonoBehaviour
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.state;
         
-        /* The above code is a switch statement that is checking the state of the game and the piece
-        that is on the tile. */
+        
+        /* Checking the state of the game and the piece that is on the tile. */
         switch (instanceState, occupiedPiece)
         {
 
-            //tile has a piece on it
+            /* Checking if the tile is occupied by a piece and if the piece is a black piece. If it is,
+            then the piece is selected and its legal moves are calculated. If the piece is not a
+            black piece, then the piece is destroyed and the turn is changed. */
             case (BlackTurn, not null) :
                 
-                /* This is checking if the piece on the tile is a black piece. If it is, then the piece
-                is selected and its legal moves are calculated. */
+                
+                /* Checking if the piece on the tile is a black piece. If it is, then the piece
+                                                is selected and its legal moves are calculated. */
                 if (occupiedPiece.faction is Black)
                 {  
                     SetSelectedPiece(occupiedPiece);
@@ -148,7 +152,8 @@ public sealed class Tile : MonoBehaviour
                     
                 }
                 
-                /* when the player clicks on a tile that has a piece on it. */
+                /* Checking if the piece on the tile is a black piece. If it is, then the piece
+                                is selected and its legal moves are calculated. */
                 else
                 {
                     if (UnreachableTile()) return;
@@ -162,7 +167,8 @@ public sealed class Tile : MonoBehaviour
                 }
                 break;
             
-            //Click to empty tile
+            /* Checking if the tile is unreachable or if the piece is moved. If either of these
+            conditions are true, then the function returns. */
             case (BlackTurn, _) when UnreachableTile():
                 return;
             case (BlackTurn, _) when MovePiece(Black):
@@ -173,8 +179,10 @@ public sealed class Tile : MonoBehaviour
                 break;
             }
             
-            /* This is checking if the piece on the tile is a white piece. If it is, then the piece
-            is selected and its legal moves are calculated. */
+            
+            /* Checking if the tile is occupied by a piece and if the piece is a white piece. If it is,
+            then the piece is selected and its legal moves are calculated. If the piece is not a
+            white piece, then the piece is destroyed and the turn is changed. */
             case (WhiteTurn, not null):
             {
                 /* This is checking if the piece on the tile is a white piece. If it is, then the piece
@@ -220,6 +228,13 @@ public sealed class Tile : MonoBehaviour
         ReloadPiecesLeftInGame();
     }
 
+    /// <summary>
+    /// If the selected piece is null or the tile is not walkable, then the function returns true.
+    /// Otherwise, if the selected piece is a pawn, then the isFirstMove variable is set to false
+    /// </summary>
+    /// <returns>
+    /// a boolean value.
+    /// </returns>
     private bool UnreachableTile()
     {
         /* This is checking if the selected piece is null or if the tile is not walkable.
@@ -233,6 +248,13 @@ public sealed class Tile : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// This function is used to move the selected piece to the selected tile
+    /// </summary>
+    /// <param name="faction">The faction of the player who is currently playing.</param>
+    /// <returns>
+    /// a boolean value.
+    /// </returns>
     private bool MovePiece(Faction faction)
     {
         SetPiece(SelectedPiece);
@@ -257,7 +279,7 @@ public sealed class Tile : MonoBehaviour
     /// <summary>
     /// It sets the piece to the tile's position and sets the tile's occupied piece to the piece
     /// </summary>
-    /// <param name="piece">The piece that is being set on the tile.</param>
+    /// <param name="piece">The piece that is being set to the tile</param>
     public void SetPiece(Piece piece)
     {
         
