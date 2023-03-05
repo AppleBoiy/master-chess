@@ -82,7 +82,7 @@ public sealed class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         //Promotion scene player can't interaction with board
-        if (GameManager.Instance.state is Promotion or Setting) return;
+        if (GameManager.Instance.state is Promotion or Setting or End) return;
 
         switch (occupiedPiece?.faction)
         {
@@ -257,9 +257,8 @@ public sealed class Tile : MonoBehaviour
     {
         GameState gameState = GameManager.Instance.state;
         
-        if (gameState is End) return true;
-        
         SetPiece(SelectedPiece);
+        if (gameState is End) return true;
 
         //Check this pawn is ready to promotion or not
         SelectedPiece.CheckPawnPromotion();
