@@ -4,11 +4,7 @@ using System.Collections;
 public class DebugLog : MonoBehaviour
 {
     private readonly Queue _myLogQueue = new();
-
-    private void Start() {
-        Debug.Log("Started up logging.");
-    }
-
+    
     private void OnEnable() {
         Application.logMessageReceived += HandleLog;
     }
