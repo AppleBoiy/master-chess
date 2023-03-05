@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
-
+using UnityEngine.UI;
 using static GameState;
 
 
@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     [Header("Win Scene")] 
     [SerializeField] private GameObject blackWinScene;
     [SerializeField] private GameObject whiteWinScene;
+
+    [SerializeField] private GameObject mvpHolder;
+    [SerializeField] private Image mvp;
     
     public static GameManager Instance;
     
@@ -71,7 +74,27 @@ public class GameManager : MonoBehaviour
         UpdateGameState(state);
     }
 
-    public void BlackWin() => blackWinScene?.SetActive(true);
+    public void BlackWin()
+    {
+        blackWinScene?.SetActive(true);
+        Piece attacker = TileManager.Instance?.GetTile(WhiteTeam.KingPos).occupiedPiece;
 
-    public void WhiteWin() => whiteWinScene?.SetActive(true);
+        ShowMvp(attacker);
+    }
+
+    public void WhiteWin()
+    {
+        whiteWinScene?.SetActive(true);
+        Piece attacker = TileManager.Instance?.GetTile(BlackTeam.KingPos).occupiedPiece;
+     
+        ShowMvp(attacker);
+
+    }
+
+    private void ShowMvp(Piece attacker)
+    {
+        mvpHolder.SetActive(true);
+        
+        mvp.GetComponent<Image>().sprite = attacker?.GetComponent<SpriteRenderer>().sprite;
+    }
 }
