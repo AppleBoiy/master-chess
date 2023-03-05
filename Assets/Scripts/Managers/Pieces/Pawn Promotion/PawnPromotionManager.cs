@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,9 +66,11 @@ public abstract class PawnPromotionManager : MonoBehaviour
     /// <param name="pawnToPromotion">pawnToPromotion - The pawn that is being promoted.</param>
     public void TimeToPromotion(Piece pawnToPromotion)
     {
+        
         //Store last game information (pawn to promotion, last game state)
         PawnToPromotion = pawnToPromotion;
         LastPlayer = GameManager.Instance.state;
+        
         
         //Show pawn that promotion information
         promotionPosInfo.text = PawnToPromotion.pos.ToString();
@@ -104,12 +107,15 @@ public abstract class PawnPromotionManager : MonoBehaviour
     /// </summary>
     internal static void UpdateGameAfterPromotion()
     {
+        //Reset attack move
+        Piece.AttackMove = new List<Vector2>();
+        
         ReloadPiecesLeftInGame();
         SetSelectedPiece(null);
         GameManager.Instance.UpdateGameState(LastPlayer);
         GameManager.Instance.ChangeTurn();
+
         
-        SetSelectedPiece(null);
     }
 
    

@@ -4,7 +4,9 @@ using System.Linq;
 
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SearchService;
 using UnityEngine.Serialization;
+using static Faction;
 using static GameState;
 using static Roll;
 
@@ -116,7 +118,7 @@ public abstract class Piece : MonoBehaviour
    /// </returns>
     public static void CalculateCheckKing(Piece piece, Faction attackTeam)
     {
-        Vector2 enemyKingPos = (attackTeam is Faction.Black) ? WhiteTeam.KingPos : BlackTeam.KingPos; 
+        Vector2 enemyKingPos = (attackTeam is Black) ? WhiteTeam.KingPos : BlackTeam.KingPos; 
         foreach (Vector2 move in  CalculateLegalMove(piece))
         {
             if (move != enemyKingPos) continue;
@@ -410,27 +412,27 @@ public abstract class Piece : MonoBehaviour
         /* Checking the position of the piece and adding the possible moves to the list. */
         switch (piece.faction, piece.isFirstMove)
         {
-            case (Faction.White, true):
+            case (White, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 2));
                 break;
 
-            case (Faction.White, _):
+            case (White, _):
                 move.Add(new Vector2(piecePosX - 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY + 1));
                 move.Add(new Vector2(piecePosX, piecePosY + 1));
                 break;
 
-            case (Faction.Black, true):
+            case (Black, true):
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 2));
                 break;
             
-            case (Faction.Black, _):
+            case (Black, _):
                 move.Add(new Vector2(piecePosX - 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX + 1, piecePosY - 1));
                 move.Add(new Vector2(piecePosX, piecePosY - 1));
@@ -510,9 +512,23 @@ public abstract class Piece : MonoBehaviour
     private void OnDestroy()
     {
         if (roll is Roll.Piece) return;
-        if (GameManager.Instance?.state is StartGame or Promotion) return;
+        
+        GameManager gameManager = GameManager.Instance;
+
+        if (gameManager?.state is StartGame or Promotion) return;
         
         PieceSfx.Instance.DestroyPieceSfx();
         
+       
+        switch (faction, gameManager)
+        {
+            case (Black, not  null) when roll is King:
+                gameManager.WhiteWin();
+                break;
+            
+            case (White, not null) when roll is King:
+                gameManager.BlackWin();
+                break;
+        }
     }
 }

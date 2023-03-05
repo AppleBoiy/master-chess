@@ -9,6 +9,7 @@ using static IPiecesInGame;
 using static MenuManager;
 using static Piece;
 using static PieceManager;
+using static Roll;
 
 
 public sealed class Tile : MonoBehaviour
@@ -130,7 +131,6 @@ public sealed class Tile : MonoBehaviour
         Action changeTurn = GameManager.Instance.ChangeTurn;
         var instanceState = GameManager.Instance.state;
         
-        
         /* Checking the state of the game and the piece that is on the tile. */
         switch (instanceState, occupiedPiece)
         {
@@ -139,8 +139,7 @@ public sealed class Tile : MonoBehaviour
             then the piece is selected and its legal moves are calculated. If the piece is not a
             black piece, then the piece is destroyed and the turn is changed. */
             case (BlackTurn, not null) :
-                
-                
+
                 /* Checking if the piece on the tile is a black piece. If it is, then the piece
                                                 is selected and its legal moves are calculated. */
                 if (occupiedPiece.faction is Black)
@@ -149,7 +148,6 @@ public sealed class Tile : MonoBehaviour
                     ShowNormalMove(occupiedPiece);
                     
                     ReloadPiecesLeftInGame();
-                    
                 }
                 
                 /* Checking if the piece on the tile is a black piece. If it is, then the piece
@@ -157,11 +155,10 @@ public sealed class Tile : MonoBehaviour
                 else
                 {
                     if (UnreachableTile()) return;
-                    
                     //Attack (Destroy enemy game object)
                     var whitePiece = (WhitePieces) occupiedPiece;
+                    if (whitePiece.roll is King) GameManager.Instance.UpdateGameState(End);
                     Destroy(whitePiece.gameObject);
-                    
                     if (MovePiece(Black)) return;
                     changeTurn();
                 }
@@ -202,10 +199,11 @@ public sealed class Tile : MonoBehaviour
 
                     //Attack (Destroy enemy game object) 
                     var blackPiece = (BlackPieces) occupiedPiece;
+                    if (blackPiece.roll is King) GameManager.Instance.UpdateGameState(End);
                     Destroy(blackPiece.gameObject);
                     
                     if (MovePiece(White)) return;
-                    
+
                     changeTurn();
                 }
 
@@ -244,7 +242,7 @@ public sealed class Tile : MonoBehaviour
 
         /* This is checking if the selected piece is a pawn. If it is, then the isFirstMove
                     variable is set to false. */
-        if (SelectedPiece.roll is Roll.Pawn) SelectedPiece.isFirstMove = false;
+        if (SelectedPiece.roll is Pawn) SelectedPiece.isFirstMove = false;
         return false;
     }
 
@@ -257,11 +255,15 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private bool MovePiece(Faction faction)
     {
+        GameState gameState = GameManager.Instance.state;
+        
+        if (gameState is End) return true;
+        
         SetPiece(SelectedPiece);
 
         //Check this pawn is ready to promotion or not
         SelectedPiece.CheckPawnPromotion();
-        if (GameManager.Instance.state is Promotion) return true;
+        if (gameState is Promotion) return true;
         
         //Calculate next possible movement of selected move to check that piece is checkmate or not.
         CalculateCheckKing(SelectedPiece, faction);

@@ -9,6 +9,10 @@ using static GameState;
 public class GameManager : MonoBehaviour
 {
     #region params
+
+    [Header("Win Scene")] 
+    [SerializeField] private GameObject blackWinScene;
+    [SerializeField] private GameObject whiteWinScene;
     
     public static GameManager Instance;
     
@@ -67,5 +71,7 @@ public class GameManager : MonoBehaviour
         UpdateGameState(state);
     }
 
+    public void BlackWin() => blackWinScene?.SetActive(true);
 
+    public void WhiteWin() => whiteWinScene?.SetActive(true);
 }
