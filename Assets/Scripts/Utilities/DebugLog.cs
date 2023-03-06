@@ -1,16 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using static UnityEngine.Application;
 
 public class DebugLog : MonoBehaviour
 {
     private readonly Queue _myLogQueue = new();
     
     private void OnEnable() {
-        Application.logMessageReceived += HandleLog;
+        logMessageReceived += HandleLog;
     }
 
     private void OnDisable() {
-        Application.logMessageReceived -= HandleLog;
+        logMessageReceived -= HandleLog;
     }
 
     /// <summary>

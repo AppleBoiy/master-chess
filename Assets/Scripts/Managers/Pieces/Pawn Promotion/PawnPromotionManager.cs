@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameManager;
 using static IPiecesInGame;
+using static Piece;
 using static PieceManager;
 
 
@@ -69,7 +71,7 @@ public abstract class PawnPromotionManager : MonoBehaviour
         
         //Store last game information (pawn to promotion, last game state)
         PawnToPromotion = pawnToPromotion;
-        LastPlayer = GameManager.Instance.state;
+        LastPlayer = State;
         
         
         //Show pawn that promotion information
@@ -105,12 +107,12 @@ public abstract class PawnPromotionManager : MonoBehaviour
     internal static void UpdateGameAfterPromotion()
     {
         //Reset attack move
-        Piece.AttackMove = new List<Vector2>();
+        AttackMove = new List<Vector2>();
         
         ReloadPiecesLeftInGame();
         SetSelectedPiece(null);
-        GameManager.Instance.UpdateGameState(LastPlayer);
-        GameManager.Instance.ChangeTurn();
+        UpdateGameState(LastPlayer);
+        ChangeTurn();
 
         
     }

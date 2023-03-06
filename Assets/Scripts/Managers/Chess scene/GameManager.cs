@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     
     public static GameManager Instance;
     
-    public GameState state;
+    public static GameState State;
     
     private List<Piece> _blackPieces, _whitePieces;
     private bool _isEnd;
@@ -46,12 +46,12 @@ public class GameManager : MonoBehaviour
     /// <returns>
     /// The return type is void.
     /// </returns>
-    public void UpdateGameState(GameState newState)
+    public static void UpdateGameState(GameState newState)
     {
-        state = newState;
+        State = newState;
         
         //Game state handler
-        if (state is not StartGame) return;
+        if (State is not StartGame) return;
 
         Action generateTile = TileManager.Instance.GenerateTile;
         var pieceManager = PieceManager.Instance;
@@ -65,13 +65,12 @@ public class GameManager : MonoBehaviour
     /// If the current state is BlackTurn, then change the state to WhiteTurn, otherwise change the
     /// state to BlackTurn
     /// </summary>
-    public void ChangeTurn()
+    public static void ChangeTurn()
     {
-        state = (state is BlackTurn)
+        State = (State is BlackTurn)
             ? WhiteTurn 
             : BlackTurn;
         
-        UpdateGameState(state);
     }
 
     public void BlackWin()

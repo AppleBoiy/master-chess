@@ -1,4 +1,4 @@
-using System;
+using static System.Math;
 
 public class BlackPieces : Piece
 {
@@ -11,7 +11,7 @@ public class BlackPieces : Piece
     public override bool CheckPawnPromotion()
     {
         if (roll is not Roll.Pawn) return false;
-        if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return false;
+        if (!(Abs(pos.y - PromotionYPos) < 0.01f)) return false;
         
         BlackPawnPromotionManager.Instance.TimeToPromotion(this);
         return true;

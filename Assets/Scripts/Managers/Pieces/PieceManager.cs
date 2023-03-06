@@ -141,7 +141,7 @@ public class PieceManager : MonoBehaviour, IWhite, IBlack
             MenuManager.Instance.ShowSelectedPiece(null);
             return;
         }
-        if (piece.roll is not King && GameManager.Instance.state is CheckBlack or CheckWhite)
+        if (piece.roll is not King && GameManager.State is CheckBlack or CheckWhite)
         {
             return;
         }
