@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject blackWinScene;
     [SerializeField] private GameObject whiteWinScene;
 
+    [SerializeField] private GameObject optionBtn;
+    [SerializeField] private GameObject backToMenuBtn;
+    
     [SerializeField] private GameObject mvpHolder;
     [SerializeField] private Image mvp;
     
@@ -75,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     public void BlackWin()
     {
+        if (!blackWinScene) return;
+        
         blackWinScene?.SetActive(true);
         Piece attacker = TileManager.Instance?.GetTile(WhiteTeam.KingPos).occupiedPiece;
 
@@ -83,6 +88,8 @@ public class GameManager : MonoBehaviour
 
     public void WhiteWin()
     {
+        if (!whiteWinScene) return;
+        
         whiteWinScene?.SetActive(true);
         Piece attacker = TileManager.Instance?.GetTile(BlackTeam.KingPos).occupiedPiece;
      
@@ -90,9 +97,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void ShowMvp(Piece attacker)
+    private void ShowMvp(Component attacker)
     {
         mvpHolder.SetActive(true);
+        
+        optionBtn.SetActive(false);
+        backToMenuBtn.SetActive(true);
         
         mvp.GetComponent<Image>().sprite = attacker?.GetComponent<SpriteRenderer>().sprite;
     }

@@ -69,8 +69,8 @@ public class MenuManager : MonoBehaviour
             return;
         }
         
-        selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
-        selectedPiece.SetActive(true);
+        // selectedPiece.GetComponentInChildren<TMP_Text>().text = piece.roll.ToString() ;
+        // selectedPiece.selectedPieceSetActive(true);
     }
 
     
@@ -95,9 +95,9 @@ public class MenuManager : MonoBehaviour
             return;
         }
         
-        //Show tile name (Position)
-        tileInfo.GetComponentInChildren<TMP_Text>().text = tile.name;
-        tileInfo.SetActive(true);
+        // //Show tile name (Position)
+        // tileInfo.GetComponentInChildren<TMP_Text>().text = tile.name;
+        // tileInfo.SetActive(true);
         
         //Show occupied piece on it
         if (!tile.occupiedPiece) return;

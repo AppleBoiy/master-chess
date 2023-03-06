@@ -20,7 +20,6 @@ public class MainMenuSceneManager : MonoBehaviour
     [SerializeField] private GameObject confirmationPrompt;
 
     private bool _isFullScreen;
-    public AudioClip newClip;
     
     
     public void StartGameSinglePlayer()
