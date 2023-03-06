@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class WhitePieces : Piece
 {
@@ -13,6 +14,7 @@ public class WhitePieces : Piece
         if (roll is not Roll.Pawn) return;
         if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return;
 
+        Debug.Log($"<color=white>Pawn {faction} can promotion now!</color>");
         WhitePawnPromotionManager.Instance.TimeToPromotion(this);
 
     }

@@ -23,7 +23,6 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {   
-        AudioListener.volume = volume;
         volumeScale.text = volume.ToString("0");
     }
 
@@ -56,6 +55,11 @@ public class MainMenuSceneManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Main Scene");
     }
 }
 

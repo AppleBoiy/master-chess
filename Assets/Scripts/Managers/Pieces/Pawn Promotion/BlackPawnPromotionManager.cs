@@ -1,7 +1,10 @@
+using UnityEngine;
 using static PieceManager;
 
 public class BlackPawnPromotionManager : PawnPromotionManager
 {
+    [SerializeField] private GameObject promotionScene;    
+    
     public static BlackPawnPromotionManager Instance;
 
     private void Awake()
@@ -16,7 +19,8 @@ public class BlackPawnPromotionManager : PawnPromotionManager
         SpawnPiece(PawnToPromotion.pos, newRoll, PieceManager.Instance.whiteParentPrefabs);
         
         //Close promotion scene
-        ClosePromotionScene();
+        promotionScene.SetActive(false);
+
         
         //After promoted pawn update player turn
         UpdateGameAfterPromotion();
