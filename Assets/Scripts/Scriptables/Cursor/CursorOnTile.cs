@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using static Faction;
+using static GameManager;
 using static GameState;
 
 public class CursorOnTile : ScriptableCursor
@@ -30,7 +31,7 @@ public class CursorOnTile : ScriptableCursor
         SetTile();
         
         CursorManager cursorManager = CursorManager.Instance;
-        GameState turn = GameManager.Instance.state;
+        GameState turn = State;
 
         /* It checks if the game is in the start game scene or the promotion scene. If the game is in
         the start game scene or the promotion scene, the player cannot interact with the board. */
@@ -88,7 +89,7 @@ public class CursorOnTile : ScriptableCursor
     /// </returns>
     private static bool CorrectPlayerTurn(Piece pieceOnTile)
     {
-        return GameManager.Instance.state switch
+        return State switch
         {
             BlackTurn or CheckWhite when pieceOnTile.faction is White => true,
             WhiteTurn or CheckBlack when pieceOnTile.faction is Black => true,

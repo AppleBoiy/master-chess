@@ -1,5 +1,4 @@
-using System;
-using UnityEngine;
+using static System.Math;
 
 public class WhitePieces : Piece
 {
@@ -9,14 +8,13 @@ public class WhitePieces : Piece
     private const float PromotionYPos = 7.0f;
 
     /// <inheritdoc />
-    public override void CheckPawnPromotion()
+    public override bool CheckPawnPromotion()
     {
-        if (roll is not Roll.Pawn) return;
-        if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return;
+        if (roll is not Roll.Pawn) return false;
+        if (!(Abs(pos.y - PromotionYPos) < 0.01f)) return false;
 
-        Debug.Log($"<color=white>Pawn {faction} can promotion now!</color>");
         WhitePawnPromotionManager.Instance.TimeToPromotion(this);
-
+        return true;
     }
 
     #endregion

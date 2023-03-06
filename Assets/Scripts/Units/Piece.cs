@@ -4,7 +4,7 @@ using System.Linq;
 
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SearchService;
+
 using UnityEngine.Serialization;
 using static Faction;
 using static GameState;
@@ -499,7 +499,7 @@ public abstract class Piece : MonoBehaviour
     /// <summary>
     /// If the pawn is at the end of the board, it is promoted
     /// </summary>
-    public abstract void CheckPawnPromotion();
+    public abstract bool CheckPawnPromotion();
     
 
     /// <summary>
@@ -514,12 +514,19 @@ public abstract class Piece : MonoBehaviour
         if (roll is Roll.Piece) return;
         
         GameManager gameManager = GameManager.Instance;
-
-        if (gameManager?.state is StartGame or Promotion) return;
+        PieceSfx pieceSfx = PieceSfx.Instance;
         
-        PieceSfx.Instance.DestroyPieceSfx();
+        switch (GameManager.State)
+        {
+            case StartGame: return;
+            case Promotion:
+                pieceSfx.PromotionPieceSfx();
+                return;
+        }
         
-       
+        pieceSfx.DestroyPieceSfx();
+        
+        //When king is attacked.
         switch (faction, gameManager)
         {
             case (Black, not  null) when roll is King:

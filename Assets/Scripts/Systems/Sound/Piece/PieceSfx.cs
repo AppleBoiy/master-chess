@@ -10,6 +10,7 @@ public class PieceSfx : MonoBehaviour
     
     [Header("Sound effect")] 
     [SerializeField] private AudioClip destroyPiece;
+    [SerializeField] private AudioClip promotionPiece;
 
     private void Awake()
     {
@@ -20,5 +21,11 @@ public class PieceSfx : MonoBehaviour
     {
         if (!audioSource) return;
         audioSource.PlayOneShot(destroyPiece);
+    }
+
+    public void PromotionPieceSfx()
+    {
+        if (!audioSource) return;
+        audioSource.PlayOneShot(promotionPiece);
     }
 }

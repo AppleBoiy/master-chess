@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+
 using static Faction;
+using static GameManager;
 using static GameState;
 using static IPiecesInGame;
 using static MenuManager;
@@ -82,14 +84,14 @@ public sealed class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         //Promotion scene player can't interaction with board
-        if (GameManager.Instance.state is Promotion or Setting or End) return;
+        if (State is Promotion or Setting or End) return;
 
-        switch (occupiedPiece?.faction)
+        switch (occupiedPiece)
         {
-            case Black:
+            case { faction: Black }:
                 blackFrame.SetActive(true);
                 break;
-            case White:
+            case { faction: White }:
                 whiteFrame.SetActive(true);
                 break;
         }
@@ -112,8 +114,6 @@ public sealed class Tile : MonoBehaviour
 
     }
 
-    
-    
     /// <summary>
     /// The function checks if the tile is occupied by a piece and if the piece is a black piece. If it
     /// is, then the piece is selected and its legal moves are calculated. If the piece is not a black
@@ -124,106 +124,127 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private void OnMouseDown()
     {
-        if (GameManager.Instance.state is Setting or Promotion) return;
+        if (State is Setting or Promotion) return;
             
         ResetMove();
-        
-        Action changeTurn = GameManager.Instance.ChangeTurn;
-        var instanceState = GameManager.Instance.state;
+
+        Action changeTurn = ChangeTurn;
+        var instanceState = State;
         
         /* Checking the state of the game and the piece that is on the tile. */
         switch (instanceState, occupiedPiece)
         {
-
             /* Checking if the tile is occupied by a piece and if the piece is a black piece. If it is,
             then the piece is selected and its legal moves are calculated. If the piece is not a
             black piece, then the piece is destroyed and the turn is changed. */
-            case (BlackTurn, not null) :
-
-                /* Checking if the piece on the tile is a black piece. If it is, then the piece
-                                                is selected and its legal moves are calculated. */
-                if (occupiedPiece.faction is Black)
-                {  
-                    SetSelectedPiece(occupiedPiece);
-                    ShowNormalMove(occupiedPiece);
-                    
-                    ReloadPiecesLeftInGame();
-                }
-                
-                /* Checking if the piece on the tile is a black piece. If it is, then the piece
-                                is selected and its legal moves are calculated. */
-                else
-                {
-                    if (UnreachableTile()) return;
-                    //Attack (Destroy enemy game object)
-                    var whitePiece = (WhitePieces) occupiedPiece;
-                    if (whitePiece.roll is King) GameManager.Instance.UpdateGameState(End);
-                    Destroy(whitePiece.gameObject);
-                    if (MovePiece(Black)) return;
-                    changeTurn();
-                }
-                break;
+            case (BlackTurn, not null) : if (BlackMoveOccupiedTile(changeTurn)) return; break;
             
             /* Checking if the tile is unreachable or if the piece is moved. If either of these
             conditions are true, then the function returns. */
-            case (BlackTurn, _) when UnreachableTile():
-                return;
-            case (BlackTurn, _) when MovePiece(Black):
-                return;
-            case (BlackTurn, _):
-            {
-                changeTurn();
-                break;
-            }
-            
+            case (BlackTurn, _) when UnreachableTile(): return;
+            case (BlackTurn, _) when MovePiece(Black): return;
+            case (BlackTurn, _): changeTurn(); break;
             
             /* Checking if the tile is occupied by a piece and if the piece is a white piece. If it is,
             then the piece is selected and its legal moves are calculated. If the piece is not a
             white piece, then the piece is destroyed and the turn is changed. */
-            case (WhiteTurn, not null):
-            {
-                /* This is checking if the piece on the tile is a white piece. If it is, then the piece
-                    is selected and its legal moves are calculated. */
-                if (occupiedPiece.faction is White)
-                {
-                    SetSelectedPiece(occupiedPiece);
-                    ShowNormalMove(occupiedPiece);
-                    
-                    ReloadPiecesLeftInGame();
-                }
-                
-                //Attack phase
-                else
-                {
-                    if (UnreachableTile()) return;
-
-                    //Attack (Destroy enemy game object) 
-                    var blackPiece = (BlackPieces) occupiedPiece;
-                    if (blackPiece.roll is King) GameManager.Instance.UpdateGameState(End);
-                    Destroy(blackPiece.gameObject);
-                    
-                    if (MovePiece(White)) return;
-
-                    changeTurn();
-                }
-
-                break;
-            }
+            case (WhiteTurn, not null): if (WhiteMoveOccupiedTile(changeTurn)) return; break;
+            
             
             /* This is checking if the piece on the tile is a white piece. If it is, then the piece
-                        is selected and its legal moves are calculated. */
-            case (WhiteTurn, _) when UnreachableTile():
-                return;
-            case (WhiteTurn, _) when MovePiece(White):
-                return;
-            case (WhiteTurn, _):
+            is selected and its legal moves are calculated. */
+            case (WhiteTurn, _) when UnreachableTile(): return;
+            case (WhiteTurn, _) when MovePiece(White): return;
+            case (WhiteTurn, _): changeTurn(); break;
+            
+        }
+        
+        ReloadPiecesLeftInGame();
+    }
+
+    #endregion
+
+    #region Move piece on tile
+
+    /// <summary>
+    /// If the tile is occupied by a white piece, then select it and show its legal moves. If the tile
+    /// is occupied by a black piece, then attack it and move the white piece to the tile
+    /// </summary>
+    /// <param name="changeTurn">A delegate type that represents a method that takes no parameters and
+    /// returns void.</param>
+    /// <returns>
+    /// The return type is a bool. The return value is true if the tile is unreachable.
+    /// </returns>
+    private bool WhiteMoveOccupiedTile(Action changeTurn)
+    {
+        switch (occupiedPiece)
+        {
+            /* This is checking if the piece on the tile is a white piece. If it is, then the piece
+                    is selected and its legal moves are calculated. */
+            case { faction: White }:
+                SetSelectedPiece(occupiedPiece);
+                ShowNormalMove(occupiedPiece);
+
+                ReloadPiecesLeftInGame();
+                break;
+
+            //Attack phase
+            case { faction: Black }:
             {
+                if (UnreachableTile()) return true;
+
+                //Attack (Destroy enemy game object) 
+                var blackPiece = (BlackPieces)occupiedPiece;
+                if (blackPiece.roll is King) UpdateGameState(End);
+                Destroy(blackPiece.gameObject);
+
+                if (MovePiece(White)) return true;
+
                 changeTurn();
                 break;
             }
         }
-        
-        ReloadPiecesLeftInGame();
+
+        return false;
+    }
+
+    /// <summary>
+    /// If the tile is occupied by a black piece, then select it and show its legal moves. If the tile
+    /// is occupied by a white piece, then attack it
+    /// </summary>
+    /// <param name="changeTurn">A delegate type that represents a method that takes no parameters and
+    /// returns void.</param>
+    /// <returns>
+    /// A boolean value.
+    /// </returns>
+    private bool BlackMoveOccupiedTile(Action changeTurn)
+    {
+        switch (occupiedPiece)
+        {
+            /* Checking if the piece on the tile is a black piece. If it is, then the piece
+                                                is selected and its legal moves are calculated. */
+            case { faction: Black }:
+                SetSelectedPiece(occupiedPiece);
+                ShowNormalMove(occupiedPiece);
+
+                ReloadPiecesLeftInGame();
+                break;
+            /* Checking if the piece on the tile is a black piece. If it is, then the piece
+                                is selected and its legal moves are calculated. */
+            case { faction: White }:
+            {
+                if (UnreachableTile()) return true;
+                //Attack (Destroy enemy game object)
+                var whitePiece = (WhitePieces)occupiedPiece;
+                if (whitePiece.roll is King) UpdateGameState(End);
+                Destroy(whitePiece.gameObject);
+                if (MovePiece(Black)) return true;
+                changeTurn();
+                break;
+            }
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -255,14 +276,13 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private bool MovePiece(Faction faction)
     {
-        GameState gameState = GameManager.Instance.state;
-        
         SetPiece(SelectedPiece);
-        if (gameState is End) return true;
+        if (State is End) return true;
 
         //Check this pawn is ready to promotion or not
-        SelectedPiece.CheckPawnPromotion();
-        if (gameState is Promotion) return true;
+        if (SelectedPiece.CheckPawnPromotion()) UpdateGameState(Promotion);
+     
+        if (State is Promotion) return true;
         
         //Calculate next possible movement of selected move to check that piece is checkmate or not.
         CalculateCheckKing(SelectedPiece, faction);
@@ -275,6 +295,8 @@ public sealed class Tile : MonoBehaviour
     }
 
     #endregion
+
+
 
     
     /// <summary>
