@@ -499,7 +499,7 @@ public abstract class Piece : MonoBehaviour
     /// <summary>
     /// If the pawn is at the end of the board, it is promoted
     /// </summary>
-    public abstract void CheckPawnPromotion();
+    public abstract bool CheckPawnPromotion();
     
 
     /// <summary>
@@ -515,8 +515,6 @@ public abstract class Piece : MonoBehaviour
         
         GameManager gameManager = GameManager.Instance;
         PieceSfx pieceSfx = PieceSfx.Instance;
-        
-        Debug.Log(gameManager.state);
         
         switch (gameManager)
         {

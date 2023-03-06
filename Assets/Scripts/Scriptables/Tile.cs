@@ -274,14 +274,13 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private bool MovePiece(Faction faction)
     {
-        GameState gameState = GameManager.Instance.state;
-        
         SetPiece(SelectedPiece);
-        if (gameState is End) return true;
+        if (GameManager.Instance.state is End) return true;
 
         //Check this pawn is ready to promotion or not
-        SelectedPiece.CheckPawnPromotion();
-        if (gameState is Promotion) return true;
+        if (SelectedPiece.CheckPawnPromotion()) GameManager.Instance.UpdateGameState(Promotion);
+     
+        if (GameManager.Instance.state is Promotion) return true;
         
         //Calculate next possible movement of selected move to check that piece is checkmate or not.
         CalculateCheckKing(SelectedPiece, faction);

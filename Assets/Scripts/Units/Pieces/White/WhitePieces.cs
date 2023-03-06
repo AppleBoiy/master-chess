@@ -8,13 +8,13 @@ public class WhitePieces : Piece
     private const float PromotionYPos = 7.0f;
 
     /// <inheritdoc />
-    public override void CheckPawnPromotion()
+    public override bool CheckPawnPromotion()
     {
-        if (roll is not Roll.Pawn) return;
-        if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return;
+        if (roll is not Roll.Pawn) return false;
+        if (!(Math.Abs(pos.y - PromotionYPos) < 0.01f)) return false;
 
         WhitePawnPromotionManager.Instance.TimeToPromotion(this);
-
+        return true;
     }
 
     #endregion

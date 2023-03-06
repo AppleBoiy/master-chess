@@ -75,9 +75,6 @@ public abstract class PawnPromotionManager : MonoBehaviour
         //Show pawn that promotion information
         promotionPosInfo.text = PawnToPromotion.pos.ToString();
 
-        //Change game state to promotion
-        GameManager.Instance.state = GameState.Promotion;
-        
         //Destroy pawn and replace it with temporary piece before promotion
         SpawnTempPiece(pawnToPromotion, tempPiece);
         
