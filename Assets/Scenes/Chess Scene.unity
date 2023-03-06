@@ -4057,6 +4057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2102800652}
   destroyPiece: {fileID: 8300000, guid: 5b709a2ef190d45ae8d3ebd0705a403b, type: 3}
+  promotionPiece: {fileID: 8300000, guid: 66d4f35ef56184b4f9602bef0a4b8cca, type: 3}
 --- !u!1 &534077824
 GameObject:
   m_ObjectHideFlags: 0
@@ -6093,7 +6094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &656553653
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8029,6 +8030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 838137958}
+  - component: {fileID: 838137959}
   m_Layer: 0
   m_Name: Promotion Manager
   m_TagString: Untagged
@@ -8053,6 +8055,18 @@ Transform:
   m_Father: {fileID: 1182088842}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &838137959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838137957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78947eddb8602495ba974f9ac0831205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &845013222
 GameObject:
   m_ObjectHideFlags: 0
@@ -9009,7 +9023,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -17375,6 +17389,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1461370446, guid: 1a32bb5aaf21df040a86121d1db770fb, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1163341471010937456, guid: 1a32bb5aaf21df040a86121d1db770fb, type: 3}
       propertyPath: m_Name
       value: Systems
