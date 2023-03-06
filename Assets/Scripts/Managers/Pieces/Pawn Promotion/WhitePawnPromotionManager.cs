@@ -1,7 +1,10 @@
+using UnityEngine;
 using static PieceManager;
 
 public class WhitePawnPromotionManager : PawnPromotionManager
 {
+    [SerializeField] private GameObject promotionScene;
+
     public static WhitePawnPromotionManager Instance;
     
    
@@ -18,7 +21,7 @@ public class WhitePawnPromotionManager : PawnPromotionManager
         SpawnPiece(PawnToPromotion.pos, newRoll, PieceManager.Instance.whiteParentPrefabs);
         
         //Close promotion scene
-        ClosePromotionScene();
+        promotionScene.SetActive(false);
         
         //After promoted pawn update player turn
         UpdateGameAfterPromotion();

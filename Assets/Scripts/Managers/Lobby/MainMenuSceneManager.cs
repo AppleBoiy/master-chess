@@ -19,6 +19,7 @@ public class MainMenuSceneManager : MonoBehaviour
     [SerializeField] private GameObject confirmationPrompt;
 
     private bool _isFullScreen;
+    public AudioClip newClip;
     public void StartGameSinglePlayer()
     {
         LoadScene("Chess Scene");
@@ -26,7 +27,6 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {   
-        AudioListener.volume = volume;
         volumeScale.text = volume.ToString("0");
     }
 
@@ -60,5 +60,29 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Main Scene");
+    }
+
+
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = newClip;
+            audioSource.Play();
+        }
+    }
 }
+
 
