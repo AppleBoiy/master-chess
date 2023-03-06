@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+
 using static Faction;
+using static GameManager;
 using static GameState;
 using static IPiecesInGame;
 using static MenuManager;
@@ -82,7 +84,7 @@ public sealed class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         //Promotion scene player can't interaction with board
-        if (GameManager.Instance.state is Promotion or Setting or End) return;
+        if (State is Promotion or Setting or End) return;
 
         switch (occupiedPiece)
         {
@@ -122,12 +124,12 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private void OnMouseDown()
     {
-        if (GameManager.Instance.state is Setting or Promotion) return;
+        if (State is Setting or Promotion) return;
             
         ResetMove();
 
-        Action changeTurn = GameManager.Instance.ChangeTurn;
-        var instanceState = GameManager.Instance.state;
+        Action changeTurn = ChangeTurn;
+        var instanceState = State;
         
         /* Checking the state of the game and the piece that is on the tile. */
         switch (instanceState, occupiedPiece)
@@ -193,7 +195,7 @@ public sealed class Tile : MonoBehaviour
 
                 //Attack (Destroy enemy game object) 
                 var blackPiece = (BlackPieces)occupiedPiece;
-                if (blackPiece.roll is King) GameManager.Instance.UpdateGameState(End);
+                if (blackPiece.roll is King) UpdateGameState(End);
                 Destroy(blackPiece.gameObject);
 
                 if (MovePiece(White)) return true;
@@ -234,7 +236,7 @@ public sealed class Tile : MonoBehaviour
                 if (UnreachableTile()) return true;
                 //Attack (Destroy enemy game object)
                 var whitePiece = (WhitePieces)occupiedPiece;
-                if (whitePiece.roll is King) GameManager.Instance.UpdateGameState(End);
+                if (whitePiece.roll is King) UpdateGameState(End);
                 Destroy(whitePiece.gameObject);
                 if (MovePiece(Black)) return true;
                 changeTurn();
@@ -274,14 +276,13 @@ public sealed class Tile : MonoBehaviour
     /// </returns>
     private bool MovePiece(Faction faction)
     {
-        GameState gameState = GameManager.Instance.state;
-        
         SetPiece(SelectedPiece);
-        if (gameState is End) return true;
+        if (State is End) return true;
 
         //Check this pawn is ready to promotion or not
-        SelectedPiece.CheckPawnPromotion();
-        if (gameState is Promotion) return true;
+        if (SelectedPiece.CheckPawnPromotion()) UpdateGameState(Promotion);
+     
+        if (State is Promotion) return true;
         
         //Calculate next possible movement of selected move to check that piece is checkmate or not.
         CalculateCheckKing(SelectedPiece, faction);

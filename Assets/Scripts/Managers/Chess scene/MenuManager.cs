@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Unity.VisualScripting;
+using static GameManager;
 using static GameState;
 
 public class MenuManager : MonoBehaviour
@@ -47,7 +48,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        _turnDialog.text = GameManager.Instance.state.ToString();
+        _turnDialog.text = GameManager.State.ToString();
     }
 
     
@@ -114,7 +115,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void SelectWhitePlayer()
     {
-        GameManager.Instance.UpdateGameState(WhiteTurn);
+        UpdateGameState(WhiteTurn);
         startGameHolder.SetActive(false);
     }
 
@@ -123,7 +124,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void SelectBlackPlayer()
     {
-        GameManager.Instance.UpdateGameState(BlackTurn);
+        UpdateGameState(BlackTurn);
         startGameHolder.SetActive(false);
     }
 
@@ -152,7 +153,7 @@ public class MenuManager : MonoBehaviour
         blackPieceLeftInfo.text = IPiecesInGame.BlackPieces.Count.ToString();
         whitePieceLeftInfo.text = IPiecesInGame.WhitePieces.Count.ToString();
 
-        if (GameManager.Instance.state is StartGame) return;
+        if (GameManager.State is StartGame) return;
         
         blackKingPosInfo.text = BlackTeam.KingPos.ToString();
         whiteKingPosInfo.text = WhiteTeam.KingPos.ToString();

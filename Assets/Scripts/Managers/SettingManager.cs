@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static GameManager;
 using static GameState;
 
 public class SettingManager : MonoBehaviour
@@ -16,13 +17,13 @@ public class SettingManager : MonoBehaviour
 
     private static void OpenSetting()
     {
-        _currentPlayer = GameManager.Instance.state;
+        _currentPlayer = State;
         
-        GameManager.Instance.UpdateGameState(Setting);
+        UpdateGameState(Setting);
     }
 
     private static void CloseSetting()
     {
-        GameManager.Instance.UpdateGameState(_currentPlayer);
+        UpdateGameState(_currentPlayer);
     }
 }

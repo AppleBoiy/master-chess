@@ -23,7 +23,7 @@ internal interface IPiecesInGame
         BlackPieces = new List<Piece>();
         
         /* Checking if the game is in the start state. If it is, then it will return. */
-        if (GameManager.Instance.state is GameState.StartGame) return;
+        if (GameManager.State is GameState.StartGame) return;
 
         /* Getting the dictionary of tiles from the TileManager. */
         Dictionary<Vector2,Tile> instanceDictTiles = TileManager.Instance.DictTiles;

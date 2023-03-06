@@ -4,7 +4,10 @@ using TMPro;
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using static UnityEngine.AudioListener;
+using static UnityEngine.PlayerPrefs;
+using static UnityEngine.SceneManagement.SceneManager;
+using static UnityEngine.Screen;
 
 public class MainMenuSceneManager : MonoBehaviour
 {   
@@ -18,7 +21,7 @@ public class MainMenuSceneManager : MonoBehaviour
     private bool _isFullScreen;
     public void StartGameSinglePlayer()
     {
-        SceneManager.LoadScene("Chess Scene");
+        LoadScene("Chess Scene");
     }
 
     public void SetVolume(float volume)
@@ -29,7 +32,7 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void VolumeApply()
     {
-        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        SetFloat("masterVolume", volume);
         StartCoroutine(ConfirmationBox());
     }
 
@@ -48,8 +51,8 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void FullScreenApply()
     {
-        PlayerPrefs.SetInt("masterFullScreen", (_isFullScreen ? 1 : 0));
-        Screen.fullScreen = _isFullScreen;
+        SetInt("masterFullScreen", (_isFullScreen ? 1 : 0));
+        fullScreen = _isFullScreen;
         StartCoroutine(ConfirmationBox());
     }
 
