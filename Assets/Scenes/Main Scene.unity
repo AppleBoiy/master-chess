@@ -1018,7 +1018,7 @@ MonoBehaviour:
   volumeScale: {fileID: 0}
   volumeSlider: {fileID: 0}
   confirmationPrompt: {fileID: 0}
-  newClip: {fileID: 8300000, guid: a0830dd748969407abc55daaea3d60f3, type: 3}
+  newClip: {fileID: 0}
 --- !u!1 &379587126
 GameObject:
   m_ObjectHideFlags: 0
