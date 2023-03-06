@@ -6093,7 +6093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &656553653
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9009,7 +9009,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 114
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
