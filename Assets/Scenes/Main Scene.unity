@@ -1018,7 +1018,7 @@ MonoBehaviour:
   volumeScale: {fileID: 0}
   volumeSlider: {fileID: 0}
   confirmationPrompt: {fileID: 0}
-  newClip: {fileID: 8300000, guid: a0830dd748969407abc55daaea3d60f3, type: 3}
+  newClip: {fileID: 0}
 --- !u!1 &379587126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &431535556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2759,8 +2759,8 @@ RectTransform:
   m_Father: {fileID: 500137622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.1, y: 0}
+  m_AnchorMax: {x: 0.1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4002,7 +4002,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.1, y: 1}
   m_AnchoredPosition: {x: 1.147644, y: 0}
   m_SizeDelta: {x: -0.2619, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
