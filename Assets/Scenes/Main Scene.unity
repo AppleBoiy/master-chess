@@ -1019,7 +1019,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeScale: {fileID: 0}
   confirmationPrompt: {fileID: 0}
-  newClip: {fileID: 0}
 --- !u!1 &322001988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,7 +1867,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeScale: {fileID: 1143468013}
   confirmationPrompt: {fileID: 0}
-  newClip: {fileID: 0}
 --- !u!4 &616169698
 Transform:
   m_ObjectHideFlags: 0
@@ -2409,7 +2407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &864677108
 RectTransform:
   m_ObjectHideFlags: 0
