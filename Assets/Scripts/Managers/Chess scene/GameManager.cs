@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
     {
         mvpHolder.SetActive(true);
         
-        mvp.sprite = attacker?.GetComponent<SpriteRenderer>().sprite;
-        
+        mvp.GetComponent<Image>().sprite = attacker?.GetComponent<SpriteRenderer>().sprite;
     }
 }
