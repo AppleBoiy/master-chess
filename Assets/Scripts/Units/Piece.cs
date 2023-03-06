@@ -514,12 +514,22 @@ public abstract class Piece : MonoBehaviour
         if (roll is Roll.Piece) return;
         
         GameManager gameManager = GameManager.Instance;
-
-        if (gameManager?.state is StartGame or Promotion) return;
+        PieceSfx pieceSfx = PieceSfx.Instance;
         
-        PieceSfx.Instance.DestroyPieceSfx();
+        Debug.Log(gameManager.state);
         
-       
+        switch (gameManager)
+        {
+            case {state: StartGame}: return;
+            case {state: Promotion}: 
+                Debug.Log("Play evo sound");
+                pieceSfx.PromotionPieceSfx();
+                return;
+        }
+        
+        pieceSfx.DestroyPieceSfx();
+        
+        //When king is attacked.
         switch (faction, gameManager)
         {
             case (Black, not  null) when roll is King:

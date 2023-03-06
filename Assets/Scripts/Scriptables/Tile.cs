@@ -132,49 +132,29 @@ public sealed class Tile : MonoBehaviour
         /* Checking the state of the game and the piece that is on the tile. */
         switch (instanceState, occupiedPiece)
         {
-
             /* Checking if the tile is occupied by a piece and if the piece is a black piece. If it is,
             then the piece is selected and its legal moves are calculated. If the piece is not a
             black piece, then the piece is destroyed and the turn is changed. */
-            case (BlackTurn, not null) :
-
-                if (BlackMoveOccupiedTile(changeTurn)) return;
-                break;
+            case (BlackTurn, not null) : if (BlackMoveOccupiedTile(changeTurn)) return; break;
             
             /* Checking if the tile is unreachable or if the piece is moved. If either of these
             conditions are true, then the function returns. */
-            case (BlackTurn, _) when UnreachableTile():
-                break;
-            case (BlackTurn, _) when MovePiece(Black):
-                break;
-            case (BlackTurn, _):
-            {
-                changeTurn();
-                break;
-            }
-            
+            case (BlackTurn, _) when UnreachableTile(): return;
+            case (BlackTurn, _) when MovePiece(Black): return;
+            case (BlackTurn, _): changeTurn(); break;
             
             /* Checking if the tile is occupied by a piece and if the piece is a white piece. If it is,
             then the piece is selected and its legal moves are calculated. If the piece is not a
             white piece, then the piece is destroyed and the turn is changed. */
-            case (WhiteTurn, not null):
-            {
-                if (WhiteMoveOccupiedTile(changeTurn)) return;
-
-                break;
-            }
+            case (WhiteTurn, not null): if (WhiteMoveOccupiedTile(changeTurn)) return; break;
+            
             
             /* This is checking if the piece on the tile is a white piece. If it is, then the piece
-                        is selected and its legal moves are calculated. */
-            case (WhiteTurn, _) when UnreachableTile():
-                return;
-            case (WhiteTurn, _) when MovePiece(White):
-                return;
-            case (WhiteTurn, _):
-            {
-                changeTurn();
-                break;
-            }
+            is selected and its legal moves are calculated. */
+            case (WhiteTurn, _) when UnreachableTile(): return;
+            case (WhiteTurn, _) when MovePiece(White): return;
+            case (WhiteTurn, _): changeTurn(); break;
+            
         }
         
         ReloadPiecesLeftInGame();
