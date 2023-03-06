@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 
 using TMPro;
 
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 using static UnityEngine.AudioListener;
 using static UnityEngine.PlayerPrefs;
 using static UnityEngine.SceneManagement.SceneManager;
@@ -13,13 +15,14 @@ public class MainMenuSceneManager : MonoBehaviour
 {   
     [Header("Volume Setting")]
     [SerializeField] private TMP_Text volumeScale;
-    [SerializeField] public Slider volumeSlider;
     
     [Header("Confirmation")]
     [SerializeField] private GameObject confirmationPrompt;
 
     private bool _isFullScreen;
     public AudioClip newClip;
+    
+    
     public void StartGameSinglePlayer()
     {
         LoadScene("Chess Scene");
@@ -63,26 +66,11 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("Main Scene");
+        LoadScene("Main Scene");
     }
 
 
-    void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        AudioSource audioSource = GetComponent<AudioSource>();
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            audioSource.clip = newClip;
-            audioSource.Play();
-        }
-    }
+    
 }
 
 
