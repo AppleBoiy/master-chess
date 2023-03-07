@@ -85,12 +85,14 @@
 Chess simulation. Click on the piece to move, and the location to move it to. If the action is legal, it will be taken. The game is done once a King enters checkmate, or once there is a draw.
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Main scene][main]]()
 [![Select Player][Select-Player]]()
 [![in-game Screen Shot 1][product-in-game1]]()
 [![in-game Screen Shot 2][product-in-game2]]()
 [![Promotion scene white][promotion-white]]()
 [![Promotion scene black][promotion-black]]()
-
+[![Black win][black win]]()
+[![White win][white win]]()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -205,9 +207,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [Unity]: https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white
 [Unity-url]: https://unity.com/
 
+[main]: Var/Screenshot/main.png
 [Select-Player]: Var/Screenshot/SelectColor.png
 [product-in-game1]: Var/Screenshot/ingame1.png
 [product-in-game2]: Var/Screenshot/ingame2.png
-[promotion-white]: Var/Screenshot/promotion.png
-[promotion-black]: Var/Screenshot/Screenshot%202566-02-25%20at%2015.30.59.png
-
+[promotion-white]: Var/Screenshot/white%20promotion.png
+[promotion-black]: Var/Screenshot/black%20promotion.png
+[black win]: Var/Screenshot/black%20win.png
+[white win]: Var/Screenshot/white%20win.png
