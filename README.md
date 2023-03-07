@@ -206,7 +206,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [Unity]: https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white
 [Unity-url]: https://unity.com/
 
-[main]: Var/Screenshot/main.png
+[main]: Var/Screenshot/Main.png
 [Select-Player]: Var/Screenshot/SelectColor.png
 [product-in-game1]: Var/Screenshot/ingame1.png
 [product-in-game2]: Var/Screenshot/ingame2.png
