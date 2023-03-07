@@ -84,7 +84,6 @@
 ## About The Project
 Chess simulation. Click on the piece to move, and the location to move it to. If the action is legal, it will be taken. The game is done once a King enters checkmate, or once there is a draw.
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 [![Main scene][main]]()
 [![Select Player][Select-Player]]()
 [![in-game Screen Shot 1][product-in-game1]]()
@@ -203,7 +202,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [license-url]: https://github.com/OOPProject-to-the-moon/2D-Chess-game-OOP-Project/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: Var/Screenshot/Main.png
+
 [Unity]: https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white
 [Unity-url]: https://unity.com/
 
